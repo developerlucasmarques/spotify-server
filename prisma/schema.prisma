@@ -10,8 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ManagerAdmin {
+model Admin {
   id String @unique @default(uuid())
 
-  name String
+  name    String  @db.VarChar(50)
+  cpf     BigInt  @unique
+  manager Boolean @unique @default(false)
+  admin   Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
