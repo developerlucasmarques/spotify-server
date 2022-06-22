@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -32,15 +32,42 @@ export class UserService {
     return this.prisma.user.findMany({ select: this.userSelect });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findById(id: string): Promise<User> {
+    const record = await this.prisma.user.findUnique({
+      where: { id },
+      select: this.userSelect,
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Record with Id '${id}' not found!`);
+    }
+
+    return record;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  findOne(id: string): Promise<User> {
+    return this.findById(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async update(id: string, dto: UpdateUserDto) {
+    await this.findById(id);
+
+    const data: Partial<User> = { ...dto };
+
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
+
+    return this.prisma.user.update({
+      where: { id },
+      data,
+      select: this.userSelect,
+    });
+  }
+
+  async delete(id: string) {
+    await this.findById(id);
+
+    await this.prisma.user.delete({ where: { id } });
   }
 }
