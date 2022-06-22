@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
@@ -13,7 +22,7 @@ export class AdminController {
   @ApiOperation({
     summary: 'Criar um novo Admin - (apenas "Manager" pode executar essa rota)',
   })
-  create(@Body() dto: CreateAdminDto): Promise<Admin> {
+  create(@Body() dto: CreateAdminDto) {
     return this.adminService.create(dto);
   }
 
