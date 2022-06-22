@@ -7,8 +7,14 @@ import { Admin } from './entities/admin.entity';
 export class AdminService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateAdminDto) {
+  async create(dto: CreateAdminDto): Promise<Admin> {
     const data: Admin = { ...dto };
     return await this.prisma.admin.create({ data });
   }
+
+  async findAll(): Promise<Admin[]> {
+    return await this.prisma.admin.findMany();
+  }
+
+  
 }
