@@ -1,7 +1,7 @@
 export class Admin {
   id?: string;
   name: string;
-  cpf: number;
+  cpf: string;
   password: string;
   manager?: boolean;
   admin?: boolean;

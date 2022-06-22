@@ -14,7 +14,7 @@ model Admin {
   id String @unique @default(uuid())
 
   name     String  @db.VarChar(50)
-  cpf      Int     @unique
+  cpf      String     @unique
   password String
   manager  Boolean @default(false)
   admin    Boolean @default(true)
