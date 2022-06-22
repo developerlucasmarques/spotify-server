@@ -16,5 +16,7 @@ export class AdminService {
     return await this.prisma.admin.findMany();
   }
 
-  
+  async findOne(id: string): Promise<Admin> {
+    return await this.prisma.admin.findUnique({ where: { id } });
+  }
 }

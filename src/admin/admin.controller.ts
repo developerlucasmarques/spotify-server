@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
@@ -11,7 +11,7 @@ export class AdminController {
 
   @Post()
   @ApiOperation({
-    summary: 'Criar um novo Admin. (apenas manager pode criar um no admin)',
+    summary: 'Criar um novo Admin (apenas manager pode criar um no admin)',
   })
   create(@Body() dto: CreateAdminDto): Promise<Admin> {
     return this.adminService.create(dto);
@@ -19,9 +19,17 @@ export class AdminController {
 
   @Get()
   @ApiOperation({
-    summary: 'Buscar todos os Admins. (apenas manager pode criar um no admin)',
+    summary: 'Buscar todos os Admins (apenas manager pode criar um no admin)',
   })
   findAll(): Promise<Admin[]> {
     return this.adminService.findAll();
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Buscar um Admin pelo ID (apenas manager pode criar um no admin)',
+  })
+  findOne(@Param('id') id: string): Promise<Admin> {
+    return this.adminService.findOne(id);
   }
 }
