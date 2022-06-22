@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString, Length } from 'class-validator';
 
-export class AdminDto {
+export class CreateAdminDto {
   @IsString()
   @Length(3, 50)
   @ApiProperty({
@@ -14,7 +14,7 @@ export class AdminDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'CPF do Admin',
-    example: '123.123.123-12',
+    example: 12312312312,
   })
   cpf: number;
 }
