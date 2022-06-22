@@ -7,6 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admin {
+  id String @unique @default(uuid())
+
+  name     String  @db.VarChar(50)
+  cpf      String     @unique
+  password String
+  manager  Boolean @default(false)
+  admin    Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model User {
   id       String @id @default(uuid())
   name     String @db.VarChar(50)
