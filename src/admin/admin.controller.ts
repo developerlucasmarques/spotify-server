@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -31,7 +32,7 @@ export class AdminController {
     summary:
       'Buscar todos os Admins - (apenas "Manager" pode executar essa rota)',
   })
-  findAll(): Promise<Admin[]> {
+  findAll() {
     return this.adminService.findAll();
   }
 
@@ -40,9 +41,18 @@ export class AdminController {
     summary:
       'Buscar um Admin pelo ID - (apenas "Manager" pode executar essa rota)',
   })
-  findOne(@Param('id') id: string): Promise<Admin> {
+  findOne(@Param('id') id: string) {
     return this.adminService.findOne(id);
   }
+
+  // @Patch(':id')
+  // @ApiOperation({
+  //   summary:
+  //     'Editar a senha do Admin pelo ID',
+  // })
+  // update(@Param('id') id: string) {
+  //   return this.adminService.update();
+  // }
 
   @Delete(':id')
   @ApiOperation({
