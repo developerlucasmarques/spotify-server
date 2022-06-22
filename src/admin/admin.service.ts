@@ -25,12 +25,15 @@ export class AdminService {
     return await this.prisma.admin.create({ data, select: this.adminSelect });
   }
 
-  async findAll(): Promise<Admin[]> {
-    return await this.prisma.admin.findMany();
+  async findAll() {
+    return await this.prisma.admin.findMany({ select: this.adminSelect });
   }
 
-  async findOne(id: string): Promise<Admin> {
-    return await this.prisma.admin.findUnique({ where: { id } });
+  async findOne(id: string) {
+    return await this.prisma.admin.findUnique({
+      where: { id },
+      select: this.adminSelect,
+    });
   }
 
   async delete(id: string) {
