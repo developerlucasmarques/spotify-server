@@ -12,6 +12,7 @@ async function bootstrap() {
     .setTitle('Spotify server')
     .setDescription('Aplicação que simula algumas funcionalidades do Spotify.')
     .setVersion('0.0.0')
+    .addTag('Status')
     .addTag('Manager-Admin')
     .build();
 
