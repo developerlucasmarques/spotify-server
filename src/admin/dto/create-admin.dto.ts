@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsNotEmpty, IsString,
+  IsNotEmpty,
+  IsString,
   Length,
   Matches,
-  MinLength
+  MinLength,
 } from 'class-validator';
 
 export class CreateAdminDto {
@@ -35,6 +36,7 @@ export class CreateAdminDto {
   })
   password: string;
 
+  @IsString()
   @ApiProperty({
     description: 'Confirmação da senha do Admin',
     example: 'Abcd@1234',
