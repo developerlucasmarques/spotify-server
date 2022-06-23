@@ -35,6 +35,7 @@ export class CreateAdminDto {
   })
   password: string;
 
+  @IsString()
   @ApiProperty({
     description: 'Confirmação da senha do Admin',
     example: 'Abcd@1234',
