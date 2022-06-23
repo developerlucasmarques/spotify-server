@@ -16,11 +16,16 @@ export class AdminService {
     name: true,
     email: true,
     cpf: true,
+    userCategory: {
+      select: {
+        admin: true,
+      },
+    },
   };
 
   async create(dto: CreateAdminDto) {
     try {
-      const user = this.prisma.user.findUnique({
+      const user = await this.prisma.user.findUnique({
         where: { email: dto.email },
       });
 
