@@ -11,7 +11,7 @@ model Admin {
   id String @unique @default(uuid())
 
   name     String  @db.VarChar(50)
-  cpf      String     @unique
+  cpf      String  @unique
   password String
   manager  Boolean @default(false)
   admin    Boolean @default(true)
@@ -23,12 +23,29 @@ model Admin {
 model User {
   id       String @id @default(uuid())
   name     String @db.VarChar(50)
-  cpf      String    @unique
+  cpf      String @unique
   email    String @unique
   password String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  userPlan   UserPlan @relation(fields: [userPlanId], references: [id])
+  userPlanId String   @map("user_plan_id")
+
   @@map("user")
+}
+
+model UserPlan {
+  id String @id @default(uuid())
+
+  userId User[]
+
+  free   Boolean @default(false)
+  basic  Boolean @default(false)
+  duo    Boolean @default(false)
+  family Boolean @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
