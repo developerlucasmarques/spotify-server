@@ -8,16 +8,20 @@ datasource db {
 }
 
 model Admin {
-  id String @unique @default(uuid())
+  id String @id @unique @default(uuid())
 
-  name     String  @db.VarChar(50)
-  cpf      String  @unique
+  name     String @db.VarChar(50)
+  email    String @unique
+  cpf      String @unique
   password String
-  manager  Boolean @default(false)
-  admin    Boolean @default(true)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userCategory   UserCategory @relation(fields: [userCategoryId], references: [id])
+  userCategoryId String       @map("user_category_id")
+
+  @@map("admin")
 }
 
 model User {
@@ -27,11 +31,14 @@ model User {
   email    String @unique
   password String
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
   userPlan   UserPlan @relation(fields: [userPlanId], references: [id])
   userPlanId String   @map("user_plan_id")
+
+  userCategory   UserCategory @relation(fields: [userCategoryId], references: [id])
+  userCategoryId String       @map("user_category_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("user")
 }
@@ -44,8 +51,25 @@ model UserPlan {
   accounts    Int
   description String
 
-  userId User[]
+  users User[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_plan")
+}
+
+model UserCategory {
+  id      String  @id @default(uuid())
+  manager Boolean @default(false)
+  admin   Boolean
+  user    Boolean
+
+  users  User[]
+  admins Admin[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_category")
 }
