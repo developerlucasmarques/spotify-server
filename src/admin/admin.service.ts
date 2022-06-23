@@ -14,13 +14,25 @@ export class AdminService {
   adminSelect = {
     id: true,
     name: true,
+    email: true,
     cpf: true,
   };
 
   async create(dto: CreateAdminDto) {
     try {
+      const user = this.prisma.user.findUnique({
+        where: { email: dto.email },
+      });
+
+      if (user) {
+        throw new BadRequestException(
+          'Unable to create an admin with a user email',
+        );
+      }
+
       this.verifyConfirmPassword(dto.password, dto.confirmPassword);
       delete dto.confirmPassword;
+
       const data: Prisma.AdminCreateInput = {
         ...dto,
         password: await bcrypt.hash(dto.password, 10),
@@ -88,7 +100,7 @@ export class AdminService {
     }
   }
 
-  verifyConfirmPassword(password, confirmPassword) {
+  verifyConfirmPassword(password: string, confirmPassword: string) {
     if (password !== confirmPassword) {
       throw new BadRequestException('As senhas informadas não são iguais');
     }
