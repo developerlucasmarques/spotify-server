@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateUserPlanDto } from './dto/create-user-plan.dto';
 import { UpdateUserPlanDto } from './dto/update-user-plan.dto';
+import { UserPlan } from './entities/user-plan.entity';
 
 @Injectable()
 export class UserPlanService {
@@ -38,11 +39,24 @@ export class UserPlanService {
     }
   }
 
-  update(id: number, updateUserPlanDto: UpdateUserPlanDto) {
-    return `This action updates a #${id} userPlan`;
+  async update(id: string, dto: UpdateUserPlanDto) {
+    try {
+      const data: Partial<UserPlan> = { ...dto };
+
+      return await this.prisma.userPlan.update({
+        where: { id },
+        data,
+      });
+    } catch (error) {
+      handleError(error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} userPlan`;
+  async delete(id: string) {
+    try {
+      await this.prisma.userPlan.delete({ where: { id } });
+    } catch (error) {
+      handleError(error);
+    }
   }
 }

@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { UserPlanService } from './user-plan.service';
 import { CreateUserPlanDto } from './dto/create-user-plan.dto';
@@ -15,13 +17,13 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('user-plan')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('user-plan')
 export class UserPlanController {
   constructor(private readonly userPlanService: UserPlanService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Create a new User Plan',
   })
@@ -30,8 +32,6 @@ export class UserPlanController {
   }
 
   @Get()
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @ApiOperation({
     summary: 'List all Users Plans',
   })
@@ -40,8 +40,6 @@ export class UserPlanController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @ApiOperation({
     summary: 'View User Plan by Id',
   })
@@ -50,15 +48,19 @@ export class UserPlanController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateUserPlanDto: UpdateUserPlanDto,
-  ) {
-    return this.userPlanService.update(+id, updateUserPlanDto);
+  @ApiOperation({
+    summary: 'Edit a User Plan by Id',
+  })
+  update(@Param('id') id: string, @Body() dto: UpdateUserPlanDto) {
+    return this.userPlanService.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userPlanService.remove(+id);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({
+    summary: 'Remove a User Plan by Id',
+  })
+  delete(@Param('id') id: string) {
+    return this.userPlanService.delete(id);
   }
 }
