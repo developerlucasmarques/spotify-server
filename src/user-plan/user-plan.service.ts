@@ -20,12 +20,22 @@ export class UserPlanService {
     }
   }
 
-  findAll() {
-    return `This action returns all userPlan`;
+  async findAll() {
+    try {
+      return await this.prisma.userPlan.findMany();
+    } catch (error) {
+      handleError(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} userPlan`;
+  async findOne(id: string) {
+    try {
+      return await this.prisma.userPlan.findUnique({
+        where: { id },
+      });
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   update(id: number, updateUserPlanDto: UpdateUserPlanDto) {
