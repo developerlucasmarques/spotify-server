@@ -4,6 +4,7 @@ import { CreateAdminDto } from './dto/create-admin.dto';
 import { Admin } from './entities/admin.entity';
 import * as bcrypt from 'bcrypt';
 import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AdminService {
@@ -18,9 +19,15 @@ export class AdminService {
   async create(dto: CreateAdminDto) {
     this.verifyConfirmPassword(dto.password, dto.confirmPassword);
     delete dto.confirmPassword;
-    const data: Admin = {
+    const data: Prisma.AdminCreateInput = {
       ...dto,
       password: await bcrypt.hash(dto.password, 10),
+      userCategory: {
+        create: {
+          admin: true,
+          user: false,
+        },
+      },
     };
 
     return await this.prisma.admin.create({ data, select: this.adminSelect });
