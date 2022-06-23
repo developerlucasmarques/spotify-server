@@ -4,6 +4,7 @@ export class User {
   cpf: string
   email: string
   password: string
+  userPlanId?: string
   createdAt?: Date
   updatedAt?: Date
 }

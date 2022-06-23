@@ -12,6 +12,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Admin } from 'src/admin/entities/admin.entity';
+import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -36,7 +38,7 @@ export class UserController {
   @ApiOperation({
     summary: 'List all users',
   })
-  findAll(): Promise<User[]> {
+  findAll(@LoggedAdmin() admin: Admin): Promise<User[]> {
     return this.userService.findAll();
   }
 
