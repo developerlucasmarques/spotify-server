@@ -8,11 +8,15 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Admin } from '@prisma/client';
+import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
-import { Admin } from './entities/admin.entity';
+import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
 
 @Controller('admin')
 @ApiTags('Manager-Admin')
@@ -45,14 +49,15 @@ export class AdminController {
     return this.adminService.findOne(id);
   }
 
-  // @Patch(':id')
-  // @ApiOperation({
-  //   summary:
-  //     'Editar a senha do Admin pelo ID',
-  // })
-  // update(@Param('id') id: string) {
-  //   return this.adminService.update();
-  // }
+  @Patch()
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Editar nome e senha do Admin.',
+  })
+  update(@LoggedAdmin() admin: Admin, @Body() dto: UpdateAdminDto) {
+    return this.adminService.update(admin.id, dto);
+  }
 
   @Delete(':id')
   @ApiOperation({
