@@ -5,6 +5,7 @@ import { Admin } from './entities/admin.entity';
 import * as bcrypt from 'bcrypt';
 import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
 import { Prisma } from '@prisma/client';
+import { handleError } from 'src/utils/handle-error.util';
 
 @Injectable()
 export class AdminService {
@@ -17,54 +18,74 @@ export class AdminService {
   };
 
   async create(dto: CreateAdminDto) {
-    this.verifyConfirmPassword(dto.password, dto.confirmPassword);
-    delete dto.confirmPassword;
-    const data: Prisma.AdminCreateInput = {
-      ...dto,
-      password: await bcrypt.hash(dto.password, 10),
-      userCategory: {
-        create: {
-          admin: true,
-          user: false,
+    try {
+      this.verifyConfirmPassword(dto.password, dto.confirmPassword);
+      delete dto.confirmPassword;
+      const data: Prisma.AdminCreateInput = {
+        ...dto,
+        password: await bcrypt.hash(dto.password, 10),
+        userCategory: {
+          create: {
+            admin: true,
+            user: false,
+          },
         },
-      },
-    };
+      };
 
-    return await this.prisma.admin.create({ data, select: this.adminSelect });
+      return await this.prisma.admin.create({ data, select: this.adminSelect });
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   async findAll() {
-    return await this.prisma.admin.findMany({ select: this.adminSelect });
+    try {
+      return await this.prisma.admin.findMany({ select: this.adminSelect });
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   async findOne(id: string) {
-    return await this.prisma.admin.findUnique({
-      where: { id },
-      select: this.adminSelect,
-    });
+    try {
+      return await this.prisma.admin.findUnique({
+        where: { id },
+        select: this.adminSelect,
+      });
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   async update(id: string, dto: UpdateAdminDto) {
-    if (dto.password) {
-      this.verifyConfirmPassword(dto.password, dto.confirmPassword);
+    try {
+      if (dto.password) {
+        this.verifyConfirmPassword(dto.password, dto.confirmPassword);
+      }
+      delete dto.confirmPassword;
+
+      const data: Partial<Admin> = { ...dto };
+
+      if (data.password) {
+        data.password = await bcrypt.hash(dto.password, 10);
+      }
+
+      return await this.prisma.admin.update({
+        where: { id },
+        data,
+        select: this.adminSelect,
+      });
+    } catch (error) {
+      handleError(error);
     }
-    delete dto.confirmPassword;
-
-    const data: Partial<Admin> = { ...dto };
-
-    if (data.password) {
-      data.password = await bcrypt.hash(dto.password, 10);
-    }
-
-    return await this.prisma.admin.update({
-      where: { id },
-      data,
-      select: this.adminSelect,
-    });
   }
 
   async delete(id: string) {
-    await this.prisma.admin.delete({ where: { id } });
+    try {
+      await this.prisma.admin.delete({ where: { id } });
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   verifyConfirmPassword(password, confirmPassword) {
