@@ -39,12 +39,12 @@ model User {
 model UserPlan {
   id String @id @default(uuid())
 
-  userId User[]
+  name        String @unique
+  price       Float
+  accounts    Int
+  description String
 
-  free   Boolean @default(false)
-  basic  Boolean @default(false)
-  duo    Boolean @default(false)
-  family Boolean @default(false)
+  userId User[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
