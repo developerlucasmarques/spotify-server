@@ -3,8 +3,7 @@ export class Admin {
   name: string;
   cpf: string;
   password: string;
-  manager?: boolean;
-  admin?: boolean;
+  email: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

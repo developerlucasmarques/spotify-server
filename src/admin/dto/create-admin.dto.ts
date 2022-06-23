@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsEmail,
   IsNotEmpty,
   IsString,
   Length,
   Matches,
-  MinLength,
+  MinLength
 } from 'class-validator';
 
 export class CreateAdminDto {
@@ -25,6 +26,14 @@ export class CreateAdminDto {
   })
   cpf: string;
 
+  @IsEmail()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'The email of the user.',
+    example: 'user@gmail.com',
+  })
+  email: string;
+
   @IsString()
   @MinLength(8)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
@@ -42,4 +51,6 @@ export class CreateAdminDto {
     example: 'Abcd@1234',
   })
   confirmPassword: string;
+
+
 }
