@@ -2,8 +2,10 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { LoginResponseDto } from './dto/login-response.dto';
-import { LoginDto } from './dto/login.dto';
+import { LoginAdminResponseDto } from './dto/login-admin-response.dto';
+import { LoginAdminDto } from './dto/login-admin.dto';
+import { LoginUserResponseDto } from './dto/login-user-response.dto';
+import { LoginDto } from './dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +14,7 @@ export class AuthService {
     private readonly jwt: JwtService,
   ) {}
 
-  async Login(loginDto: LoginDto): Promise<LoginResponseDto> {
+  async LoginUser(loginDto: LoginDto): Promise<LoginUserResponseDto> {
     const { email, password } = loginDto;
 
     const user = await this.prisma.user.findUnique({ where: { email } });
@@ -32,6 +34,29 @@ export class AuthService {
     return {
       token: this.jwt.sign({ email }),
       user,
+    };
+  }
+
+  async LoginAdmin(loginAdminDto: LoginAdminDto): Promise<LoginAdminResponseDto> {
+    const { cpf, password } = loginAdminDto;
+
+    const admin = await this.prisma.admin.findUnique({ where: { cpf } });
+
+    if (!admin) {
+      throw new UnauthorizedException('Invalid CPF and/or password!');
+    }
+
+    const isHashValid = await bcrypt.compare(password, admin.password);
+
+    if (!isHashValid) {
+      throw new UnauthorizedException('Imvalid CPF and/or password!');
+    }
+
+    delete admin.password;
+
+    return {
+      token: this.jwt.sign({ cpf }),
+      admin,
     };
   }
 }
