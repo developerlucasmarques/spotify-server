@@ -32,6 +32,11 @@ export class UserService {
           id: dto.userPlanId,
         },
       },
+      userCategory: {
+        create: {
+          user: true,
+        },
+      },
     };
 
     return this.prisma.user.create({ data, select: this.userSelect });
