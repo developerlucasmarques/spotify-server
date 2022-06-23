@@ -24,8 +24,8 @@ async function bootstrap() {
     .setDescription("Application for Spotify's online platform")
     .setVersion('1.0.0')
     .addTag('status')
-    .addTag('user')
     .addTag('auth')
+    .addTag('user')
     .addTag('Manager-Admin')
     .addBearerAuth()
     .build();
