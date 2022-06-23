@@ -7,18 +7,18 @@ import {
 export const LoggedManager = createParamDecorator(
   (_, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    const Admin = request.ManagerAdmin;
+    const admin = request.user;
 
-    if (!Admin) {
+    if (!admin) {
       throw new UnauthorizedException('User not found or not authorized!');
     }
 
-    if (Admin.manager != true) {
+    if (admin.userCategory.manager !== true) {
       throw new UnauthorizedException(
-        'User does not have permission to access this route!',
+        'User does not have pessssrmission to access this route!',
       );
     }
 
-    return Admin;
+    return admin;
   },
 );

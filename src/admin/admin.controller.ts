@@ -12,14 +12,17 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Admin } from '@prisma/client';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
+import { LoggedManager } from 'src/auth/logged-manager.decorator';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
+import { Admin } from './entities/admin.entity';
 
 @Controller('admin')
 @ApiTags('Manager-Admin')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
@@ -27,7 +30,7 @@ export class AdminController {
   @ApiOperation({
     summary: 'Criar um novo Admin - (apenas "Manager" pode executar essa rota)',
   })
-  create(@Body() dto: CreateAdminDto) {
+  create(@LoggedManager() admin: Admin, @Body() dto: CreateAdminDto) {
     return this.adminService.create(dto);
   }
 
@@ -36,7 +39,7 @@ export class AdminController {
     summary:
       'Buscar todos os Admins - (apenas "Manager" pode executar essa rota)',
   })
-  findAll() {
+  findAll(@LoggedManager() admin: Admin) {
     return this.adminService.findAll();
   }
 
@@ -45,13 +48,11 @@ export class AdminController {
     summary:
       'Buscar um Admin pelo ID - (apenas "Manager" pode executar essa rota)',
   })
-  findOne(@Param('id') id: string) {
+  findOne(@LoggedManager() admin: Admin, @Param('id') id: string) {
     return this.adminService.findOne(id);
   }
 
   @Patch()
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Editar nome e senha do Admin.',
   })
@@ -65,7 +66,7 @@ export class AdminController {
       'Deletar um Admin pelo ID - (apenas "Manager" pode executar essa rota)',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id') id: string) {
+  delete(@LoggedManager() admin: Admin, @Param('id') id: string) {
     return this.adminService.delete(id);
   }
 }
