@@ -23,7 +23,7 @@ model Admin {
 model User {
   id       String @id @default(uuid())
   name     String @db.VarChar(50)
-  cpf      Int    @unique
+  cpf      String    @unique
   email    String @unique
   password String
 
