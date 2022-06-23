@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { Admin } from './entities/admin.entity';
 import * as bcrypt from 'bcrypt';
+import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
 
 @Injectable()
 export class AdminService {
@@ -32,6 +33,25 @@ export class AdminService {
   async findOne(id: string) {
     return await this.prisma.admin.findUnique({
       where: { id },
+      select: this.adminSelect,
+    });
+  }
+
+  async update(id: string, dto: UpdateAdminDto) {
+    if (dto.password) {
+      this.verifyConfirmPassword(dto.password, dto.confirmPassword);
+    }
+    delete dto.confirmPassword;
+
+    const data: Partial<Admin> = { ...dto };
+
+    if (data.password) {
+      data.password = await bcrypt.hash(dto.password, 10);
+    }
+    
+    return await this.prisma.admin.update({
+      where: { id },
+      data,
       select: this.adminSelect,
     });
   }
