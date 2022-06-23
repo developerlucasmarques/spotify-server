@@ -62,7 +62,7 @@ model UserPlan {
 model UserCategory {
   id      String  @id @default(uuid())
   manager Boolean @default(false)
-  admin   Boolean
+  admin   Boolean @default(false)
   user    Boolean
 
   users  User[]
