@@ -2,8 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
-  IsNumber,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -46,4 +46,11 @@ export class CreateUserDto {
     example: 'User#5678@!',
   })
   password: string;
+
+  @IsUUID()
+  @ApiProperty({
+    description: 'Id of any of the plans available on the platform',
+    example: '3cb41218-ff72-4956-81aa-406d24a9e69f',
+  })
+  userPlanId: string;
 }
