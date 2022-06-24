@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
 import { Prisma } from '@prisma/client';
 import { handleError } from 'src/utils/handle-error.util';
+import { verifyConfirmPassword } from 'src/utils/confirm-password.ultil';
 
 @Injectable()
 export class AdminService {
@@ -25,6 +26,7 @@ export class AdminService {
 
   async create(dto: CreateAdminDto) {
     try {
+      verifyConfirmPassword(dto.password, dto.confirmPassword);
       const user = await this.prisma.user.findUnique({
         where: { email: dto.email },
       });
@@ -34,8 +36,6 @@ export class AdminService {
           'Unable to create an admin with a user email',
         );
       }
-
-      this.verifyConfirmPassword(dto.password, dto.confirmPassword);
       delete dto.confirmPassword;
 
       const data: Prisma.AdminCreateInput = {
@@ -77,7 +77,7 @@ export class AdminService {
   async update(id: string, dto: UpdateAdminDto) {
     try {
       if (dto.password) {
-        this.verifyConfirmPassword(dto.password, dto.confirmPassword);
+        verifyConfirmPassword(dto.password, dto.confirmPassword);
       }
       delete dto.confirmPassword;
 
@@ -102,12 +102,6 @@ export class AdminService {
       await this.prisma.admin.delete({ where: { id } });
     } catch (error) {
       handleError(error);
-    }
-  }
-
-  verifyConfirmPassword(password: string, confirmPassword: string) {
-    if (password !== confirmPassword) {
-      throw new BadRequestException('As senhas informadas não são iguais');
     }
   }
 }
