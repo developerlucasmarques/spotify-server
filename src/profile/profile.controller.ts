@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
@@ -27,5 +27,13 @@ export class ProfileController {
   })
   findAll(@LoggedUser() user: User) {
     return this.profileService.findAll(user.id);
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Fetch a profile of the logged in user, by the profile id',
+  })
+  findOne(@LoggedUser() user: User, @Param('id') profileId: string) {
+    return this.profileService.findOne(user.id, profileId);
   }
 }
