@@ -14,6 +14,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from 'src/admin/entities/admin.entity';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -42,34 +43,55 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
+  @Get('/my-account:id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'View logged user account',
+  })
+  findMyAccount(@LoggedUser() user: User) {
+    return this.userService.findMyAccount(user.id);
+  }
+
+  @Get('/search-user:id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'View a user by Id',
   })
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  findOneUser(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+    return this.userService.findOneUser(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Edit a user by Id',
+    summary: 'Edit user logged',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    return this.userService.update(id, dto);
+  updateMyAccount(@LoggedUser() user: User, @Body() dto: UpdateUserDto) {
+    return this.userService.updateMyAccount(user.id, dto);
   }
 
-  @Delete(':id')
+  @Delete('/delete-my-account:id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({
+    summary: 'Remove user logged',
+  })
+  deleteMyAccount(@LoggedUser() user: User) {
+    return this.userService.deleteMyAccount(user.id);
+  }
+
+  @Delete('delete-user:id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Remove a user by Id',
   })
-  delete(@Param('id') id: string) {
-    return this.userService.delete(id);
+  deleteUser(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+    return this.userService.deleteUser(id);
   }
 }
