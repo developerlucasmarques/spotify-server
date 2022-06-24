@@ -42,7 +42,7 @@ export class ProfileService {
 
   async findAll(userId: string) {
     try {
-      return await this.prisma.profile.findMany({
+      const profiles = await this.prisma.profile.findMany({
         where: { userId: userId },
         select: {
           id: true,
@@ -50,6 +50,12 @@ export class ProfileService {
           image: true,
         },
       });
+
+      if (profiles.length === 0) {
+        throw new NotFoundException('No profile found');
+      }
+
+      return profiles;
     } catch (error) {
       handleError(error);
     }
