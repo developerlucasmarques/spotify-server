@@ -37,4 +37,19 @@ export class ProfileService {
       handleError(error);
     }
   }
+
+  async findAll(userId: string) {
+    try {
+      return this.prisma.profile.findMany({
+        where: { userId: userId },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      });
+    } catch (error) {
+      handleError(error);
+    }
+  }
 }

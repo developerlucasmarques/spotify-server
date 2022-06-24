@@ -9,7 +9,7 @@ import { ProfileService } from './profile.service';
 @ApiTags('profile')
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
-@Controller()
+@Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
@@ -21,8 +21,11 @@ export class ProfileController {
     return this.profileService.create(user.id, dto);
   }
 
-  // @Get()
-  // @ApiOperation({
-  //   summary: ''
-  // })
+  @Get()
+  @ApiOperation({
+    summary: 'Fetch all profiles of the logged in user',
+  })
+  findAll(@LoggedUser() user: User) {
+    return this.profileService.findAll(user.id);
+  }
 }
