@@ -42,8 +42,8 @@ export class UserService {
           },
         },
         userCategory: {
-          create: {
-            user: true,
+          connect: {
+            name: 'user',
           },
         },
       };
