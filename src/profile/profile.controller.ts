@@ -1,9 +1,18 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { User } from 'src/user/entities/user.entity';
-import { ProfileDto } from './dto/create-profile.dto';
+import { CreateProfileDto } from './dto/create-profile.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileService } from './profile.service';
 
 @ApiTags('profile')
@@ -17,7 +26,7 @@ export class ProfileController {
   @ApiOperation({
     summary: 'Create a new logged in user profile',
   })
-  create(@LoggedUser() user: User, @Body() dto: ProfileDto) {
+  create(@LoggedUser() user: User, @Body() dto: CreateProfileDto) {
     return this.profileService.create(user.id, dto);
   }
 
@@ -35,5 +44,17 @@ export class ProfileController {
   })
   findOne(@LoggedUser() user: User, @Param('id') profileId: string) {
     return this.profileService.findOne(user.id, profileId);
+  }
+
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Edit a profile by id',
+  })
+  update(
+    @LoggedUser() user: User,
+    @Param('id') profileId: string,
+    @Body() dto: UpdateProfileDto,
+  ) {
+    return this.profileService.update(user.id, profileId, dto);
   }
 }

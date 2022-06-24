@@ -2,13 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
-import { ProfileDto } from './dto/create-profile.dto';
+import { CreateProfileDto } from './dto/create-profile.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { Profile } from './entities/profile.entity';
 
 @Injectable()
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(userId: string, dto: ProfileDto) {
+  async create(userId: string, dto: CreateProfileDto) {
     try {
       const data: Prisma.ProfileCreateInput = {
         ...dto,
@@ -54,27 +56,50 @@ export class ProfileService {
   }
 
   async findOne(userId: string, profileId: string) {
-    return this.findOneProfileInUser(userId, profileId);
+    try {
+      return this.findOneProfileInUser(userId, profileId);
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  async update(userId: string, profileId: string, dto: UpdateProfileDto) {
+    try {
+      this.findOneProfileInUser(userId, profileId);
+
+      const data: Partial<Profile> = { ...dto };
+
+      return await this.prisma.profile.update({
+        where: { id: profileId },
+        data,
+      });
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   async findOneProfileInUser(userId: string, profileId: string) {
-    const userProfile = await this.prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        profiles: {
-          where: {
-            id: profileId,
+    try {
+      const userProfile = await this.prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          profiles: {
+            where: {
+              id: profileId,
+            },
           },
         },
-      },
-    });
+      });
 
-    if (userProfile.profiles.length === 0) {
-      throw new NotFoundException('Profile not found');
+      if (userProfile.profiles.length === 0) {
+        throw new NotFoundException('Profile not found');
+      }
+
+      return userProfile.profiles;
+    } catch (error) {
+      handleError(error);
     }
-
-    return userProfile.profiles;
   }
 }
