@@ -15,6 +15,8 @@ import { CreateUserPlanDto } from './dto/create-user-plan.dto';
 import { UpdateUserPlanDto } from './dto/update-user-plan.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
+import { Admin } from 'src/admin/entities/admin.entity';
 
 @ApiTags('user-plan')
 @UseGuards(AuthGuard())
@@ -27,7 +29,7 @@ export class UserPlanController {
   @ApiOperation({
     summary: 'Create a new User Plan',
   })
-  create(@Body() dto: CreateUserPlanDto) {
+  create(@LoggedAdmin() admin: Admin, @Body() dto: CreateUserPlanDto) {
     return this.userPlanService.create(dto);
   }
 
@@ -35,7 +37,7 @@ export class UserPlanController {
   @ApiOperation({
     summary: 'List all Users Plans',
   })
-  findAll() {
+  findAll(@LoggedAdmin() admin: Admin) {
     return this.userPlanService.findAll();
   }
 
@@ -43,7 +45,7 @@ export class UserPlanController {
   @ApiOperation({
     summary: 'View User Plan by Id',
   })
-  findOne(@Param('id') id: string) {
+  findOne(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
     return this.userPlanService.findOne(id);
   }
 
@@ -51,7 +53,7 @@ export class UserPlanController {
   @ApiOperation({
     summary: 'Edit a User Plan by Id',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateUserPlanDto) {
+  update(@LoggedAdmin() admin: Admin, @Param('id') id: string, @Body() dto: UpdateUserPlanDto) {
     return this.userPlanService.update(id, dto);
   }
 
@@ -60,7 +62,7 @@ export class UserPlanController {
   @ApiOperation({
     summary: 'Remove a User Plan by Id',
   })
-  delete(@Param('id') id: string) {
+  delete(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
     return this.userPlanService.delete(id);
   }
 }
