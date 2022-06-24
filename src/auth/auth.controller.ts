@@ -13,9 +13,9 @@ import { Admin } from 'src/admin/entities/admin.entity';
 import { User } from 'src/user/entities/user.entity';
 import { AuthService } from './auth.service';
 import { LoginAdminResponseDto } from './dto/login-admin-response.dto';
-import { LoginAdminDto } from './dto/login-admin.dto';
 import { LoginUserResponseDto } from './dto/login-user-response.dto';
-import { LoginDto } from './dto/login-user.dto';
+import { LoginDto } from './dto/login.dto';
+import { LoggedAdmin } from './logged-admin.decorator';
 import { LoggedUser } from './logged-user.decorator';
 
 @Controller('auth')
@@ -37,11 +37,11 @@ export class AuthController {
   @ApiOperation({
     summary: 'Log in, receiving a validation token',
   })
-  LoginAdmin(@Body() loginAdminDto: LoginAdminDto): Promise<LoginAdminResponseDto> {
-    return this.authService.LoginAdmin(loginAdminDto);
+  LoginAdmin(@Body() loginDto: LoginDto): Promise<LoginAdminResponseDto> {
+    return this.authService.LoginAdmin(loginDto);
   }
 
-  @Get()
+  @Get('/user')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
@@ -51,13 +51,13 @@ export class AuthController {
     return user;
   }
 
-  @Get()
+  @Get('/admin')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Return user authentication now',
   })
-  Admin(@LoggedUser() admin: Admin) {
+  Admin(@LoggedAdmin() admin: Admin) {
     return admin;
   }
 }

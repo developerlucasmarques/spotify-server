@@ -15,13 +15,29 @@ export class AdminService {
   adminSelect = {
     id: true,
     name: true,
+    email: true,
     cpf: true,
+    userCategory: {
+      select: {
+        admin: true,
+      },
+    },
   };
 
   async create(dto: CreateAdminDto) {
     try {
       verifyConfirmPassword(dto.password, dto.confirmPassword);
+      const user = await this.prisma.user.findUnique({
+        where: { email: dto.email },
+      });
+
+      if (user) {
+        throw new BadRequestException(
+          'Unable to create an admin with a user email',
+        );
+      }
       delete dto.confirmPassword;
+
       const data: Prisma.AdminCreateInput = {
         ...dto,
         password: await bcrypt.hash(dto.password, 10),

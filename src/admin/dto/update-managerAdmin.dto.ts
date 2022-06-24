@@ -17,14 +17,14 @@ export class UpdateAdminDto {
   })
   @ApiProperty({
     description: 'Senha do Admin',
-    example: 'Abcd@1234',
+    example: 'User#5678@!',
   })
   password?: string;
 
   @IsString()
   @ApiProperty({
     description: 'Confirmação da senha do Admin',
-    example: 'Abcd@1234',
+    example: 'User#5678@!',
   })
   confirmPassword?: string;
 }

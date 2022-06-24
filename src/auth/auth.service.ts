@@ -3,9 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginAdminResponseDto } from './dto/login-admin-response.dto';
-import { LoginAdminDto } from './dto/login-admin.dto';
 import { LoginUserResponseDto } from './dto/login-user-response.dto';
-import { LoginDto } from './dto/login-user.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -37,10 +36,12 @@ export class AuthService {
     };
   }
 
-  async LoginAdmin(loginAdminDto: LoginAdminDto): Promise<LoginAdminResponseDto> {
-    const { cpf, password } = loginAdminDto;
+  async LoginAdmin(loginDto: LoginDto): Promise<LoginAdminResponseDto> {
+    const { email, password } = loginDto;
 
-    const admin = await this.prisma.admin.findUnique({ where: { cpf } });
+    const admin = await this.prisma.admin.findUnique({
+      where: { email }
+    });
 
     if (!admin) {
       throw new UnauthorizedException('Invalid CPF and/or password!');
@@ -55,7 +56,7 @@ export class AuthService {
     delete admin.password;
 
     return {
-      token: this.jwt.sign({ cpf }),
+      token: this.jwt.sign({ email }),
       admin,
     };
   }

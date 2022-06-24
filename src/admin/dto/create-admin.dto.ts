@@ -30,7 +30,7 @@ export class CreateAdminDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The email of the user.',
-    example: 'user@gmail.com',
+    example: 'admin@admin.com',
   })
   email: string;
 
@@ -41,14 +41,14 @@ export class CreateAdminDto {
   })
   @ApiProperty({
     description: 'Senha do Admin',
-    example: 'Abcd@1234',
+    example: 'User#5678@!',
   })
   password: string;
 
   @IsString()
   @ApiProperty({
     description: 'Confirmação da senha do Admin',
-    example: 'Abcd@1234',
+    example: 'User#5678@!',
   })
   confirmPassword: string;
 
