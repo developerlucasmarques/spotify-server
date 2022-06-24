@@ -10,15 +10,16 @@ import {
 } from 'class-validator';
 
 export class UpdateAdminDto {
+  @IsOptional()
   @IsString()
   @Length(3, 50)
-  @IsOptional()
   @ApiProperty({
     description: 'Nome do Admin',
     example: 'Maria Silva',
   })
   name?: string;
 
+  @IsOptional()
   @IsEmail()
   @IsNotEmpty()
   @ApiProperty({
@@ -27,9 +28,9 @@ export class UpdateAdminDto {
   })
   email: string;
 
+  @IsOptional()
   @IsString()
   @MinLength(8)
-  @IsOptional()
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Senha muito fraca',
   })
@@ -39,9 +40,9 @@ export class UpdateAdminDto {
   })
   password?: string;
 
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @IsOptional()
   @ApiProperty({
     description: 'Confirmação da senha do Admin',
     example: 'User#5678@!',

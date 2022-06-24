@@ -14,20 +14,10 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  private userSelect = {
-    id: true,
-    name: true,
-    cpf: true,
-    email: true,
-    password: false,
-    userPlanId: true,
-    createdAt: true,
-    updatedAt: true,
-  };
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto): Promise<User> {
+  async create(dto: CreateUserDto) {
     try {
       verifyConfirmPassword(dto.password, dto.confirmPassword);
       delete dto.confirmPassword;
@@ -48,25 +38,61 @@ export class UserService {
         },
       };
 
-      return await this.prisma.user.create({ data, select: this.userSelect });
+      return await this.prisma.user.create({
+        data,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          userPlan: {
+            select: {
+              name: true,
+              accounts: true,
+            },
+          },
+          createdAt: true,
+        },
+      });
     } catch (error) {
       handleError(error);
     }
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll() {
     try {
-      return this.prisma.user.findMany({ select: this.userSelect });
+      return this.prisma.user.findMany({
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      });
     } catch (error) {
       handleError(error);
     }
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string) {
     try {
       const record = await this.prisma.user.findUnique({
         where: { id },
-        select: this.userSelect,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          userPlan: {
+            select: {
+              name: true,
+              accounts: true,
+            },
+          },
+          profiles: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+        },
       });
 
       if (!record) {
@@ -79,7 +105,7 @@ export class UserService {
     }
   }
 
-  findOne(id: string): Promise<User> {
+  findOne(id: string) {
     try {
       return this.findById(id);
     } catch (error) {
@@ -105,7 +131,13 @@ export class UserService {
       return this.prisma.user.update({
         where: { id },
         data,
-        select: this.userSelect,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          cpf: true,
+          updatedAt: true,
+        },
       });
     } catch (error) {
       handleError(error);
