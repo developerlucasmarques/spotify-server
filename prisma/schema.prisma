@@ -18,8 +18,8 @@ model Admin {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  userCategory   UserCategory @relation(fields: [userCategoryId], references: [id])
-  userCategoryId String       @map("user_category_id")
+  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
+  userCategoryName String       @map("user_category_id")
 
   @@map("admin")
 }
@@ -60,10 +60,8 @@ model UserPlan {
 }
 
 model UserCategory {
-  id      String  @id @default(uuid())
-  manager Boolean @default(false)
-  admin   Boolean @default(false)
-  user    Boolean
+  id   String @id @default(uuid())
+  name String @unique
 
   users  User[]
   admins Admin[]
