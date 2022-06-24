@@ -72,7 +72,21 @@ export class ProfileService {
       return await this.prisma.profile.update({
         where: { id: profileId },
         data,
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
       });
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  async delete(userId: string, profileId: string) {
+    try {
+      await this.findOneProfileInUser(userId, profileId);
+      await this.prisma.profile.delete({ where: { id: profileId } });
     } catch (error) {
       handleError(error);
     }

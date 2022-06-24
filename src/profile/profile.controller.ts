@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -56,5 +59,14 @@ export class ProfileController {
     @Body() dto: UpdateProfileDto,
   ) {
     return this.profileService.update(user.id, profileId, dto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Delete a profile by id',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@LoggedUser() user: User, @Param('id') profileId: string) {
+    return this.profileService.delete(user.id, profileId);
   }
 }
