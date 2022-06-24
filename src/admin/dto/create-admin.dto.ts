@@ -5,7 +5,7 @@ import {
   IsString,
   Length,
   Matches,
-  MinLength
+  MinLength,
 } from 'class-validator';
 
 export class CreateAdminDto {
@@ -46,11 +46,10 @@ export class CreateAdminDto {
   password: string;
 
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: 'Confirmação da senha do Admin',
     example: 'User#5678@!',
   })
   confirmPassword: string;
-
-
 }
