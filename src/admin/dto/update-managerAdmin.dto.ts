@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsEmail,
+  IsNotEmpty,
   IsOptional,
   IsString,
   Length,
@@ -17,6 +19,14 @@ export class UpdateAdminDto {
   })
   name?: string;
 
+  @IsEmail()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'The email of the user.',
+    example: 'admin@admin.com',
+  })
+  email: string;
+
   @IsString()
   @MinLength(8)
   @IsOptional()
@@ -30,6 +40,7 @@ export class UpdateAdminDto {
   password?: string;
 
   @IsString()
+  @IsNotEmpty()
   @IsOptional()
   @ApiProperty({
     description: 'Confirmação da senha do Admin',
