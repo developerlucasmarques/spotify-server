@@ -47,6 +47,13 @@ export class CreateUserDto {
   })
   password: string;
 
+  @IsString()
+  @ApiProperty({
+    description: 'User password confirmation',
+    example: 'User#5678@!',
+  })
+  confirmPassword: string;
+
   @IsUUID()
   @ApiProperty({
     description: 'Id of any of the plans available on the platform',
