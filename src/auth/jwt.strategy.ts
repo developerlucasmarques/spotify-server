@@ -17,21 +17,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: { email: string }) {
     try {
       const user = await this.prisma.user.findUnique({
-        where: { email: payload.email }
+        where: { email: payload.email },
       });
 
       const admin = await this.prisma.admin.findUnique({
-        where: { email: payload.email },
-        include: {
-          userCategory: {
-            select: {
-              manager: true,
-              admin: true,
-            },
-          },
-        },
+        where: { email: payload.email }
       });
-      const adminCategory = { userCategory: `${admin.userCategory}` };
 
       if (!user && !admin) {
         throw new UnauthorizedException('User not found or not authorized!');
@@ -44,7 +35,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
       if (admin) {
         delete admin.password;
-        return [admin, adminCategory];
+        return admin;
       }
     } catch (error) {
       handleError(error);

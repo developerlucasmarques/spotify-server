@@ -19,7 +19,7 @@ export class AdminService {
     cpf: true,
     userCategory: {
       select: {
-        admin: true,
+        name: true,
       },
     },
   };
@@ -42,9 +42,8 @@ export class AdminService {
         ...dto,
         password: await bcrypt.hash(dto.password, 10),
         userCategory: {
-          create: {
-            admin: true,
-            user: false,
+          connect: {
+            name: 'admin',
           },
         },
       };

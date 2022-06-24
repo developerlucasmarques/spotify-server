@@ -12,7 +12,7 @@ export const LoggedAdmin = createParamDecorator((_, ctx: ExecutionContext) => {
     throw new UnauthorizedException('User not found or not authorized!');
   }
 
-  if (admin.userCategory.admin !== true) {
+  if (admin.userCategoryName !== 'admin') {
     throw new UnauthorizedException(
       'User does not have permission to access this route!',
     );
