@@ -26,7 +26,8 @@ async function bootstrap() {
     .addTag('status')
     .addTag('auth')
     .addTag('user')
-    .addTag('Manager-Admin')
+    .addTag('profile')
+    .addTag('manager-admin')
     .addTag('user-plan')
     .addBearerAuth()
     .build();
