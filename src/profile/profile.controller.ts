@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
@@ -20,4 +20,9 @@ export class ProfileController {
   create(@LoggedUser() user: User, @Body() dto: ProfileDto) {
     return this.profileService.create(user.id, dto);
   }
+
+  // @Get()
+  // @ApiOperation({
+  //   summary: ''
+  // })
 }
