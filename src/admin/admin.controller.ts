@@ -20,7 +20,7 @@ import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
 import { Admin } from './entities/admin.entity';
 
 @Controller('admin')
-@ApiTags('Manager-Admin')
+@ApiTags('manager-admin')
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 export class AdminController {
