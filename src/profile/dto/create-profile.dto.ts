@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
-export class ProfileDto {
+export class CreateProfileDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
