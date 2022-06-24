@@ -60,13 +60,13 @@ export class AuthService {
       });
 
       if (!admin) {
-        throw new UnauthorizedException('Invalid CPF and/or password!');
+        throw new UnauthorizedException('Invalid email and/or password!');
       }
 
       const isHashValid = await bcrypt.compare(password, admin.password);
 
       if (!isHashValid) {
-        throw new UnauthorizedException('Imvalid CPF and/or password!');
+        throw new UnauthorizedException('Imvalid email and/or password!');
       }
 
       delete admin.password;

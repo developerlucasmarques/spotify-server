@@ -23,7 +23,14 @@ export class UserPlanService {
 
   async findAll() {
     try {
-      return await this.prisma.userPlan.findMany();
+      return await this.prisma.userPlan.findMany({
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          accounts: true,
+        }
+      });
     } catch (error) {
       handleError(error);
     }
