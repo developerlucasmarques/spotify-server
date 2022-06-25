@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateCountryDto } from './dto/create-country.dto';
@@ -25,7 +25,7 @@ export class CountryService {
   }
 
   async findAll() {
-    return await this.prisma.country
+    const allCountries = await this.prisma.country
       .findMany({
         select: {
           id: true,
@@ -33,22 +33,20 @@ export class CountryService {
         },
       })
       .catch(handleError);
+
+    if (allCountries.length === 0) {
+      throw new NotFoundException('No country found');
+    }
+
+    return allCountries;
   }
 
   async findOne(id: string) {
-    return await this.prisma.country
-      .findUnique({
-        where: { id },
-        select: {
-          id: true,
-          name: true,
-          code: true,
-        },
-      })
-      .catch(handleError);
+    return this.findById(id);
   }
 
   async update(id: string, dto: UpdateCountryDto) {
+    await this.findById(id);
     const data: Partial<Country> = { ...dto };
 
     return this.prisma.country
@@ -65,6 +63,24 @@ export class CountryService {
   }
 
   async delete(id: string) {
+    await this.findById(id);
     await this.prisma.country.delete({ where: { id } }).catch(handleError);
+  }
+
+  async findById(id: string) {
+    const country: Country = await this.prisma.country.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        code: true,
+      },
+    });
+
+    if (!country) {
+      throw new NotFoundException(`Country with ID '${id}' not found`);
+    }
+
+    return country;
   }
 }
