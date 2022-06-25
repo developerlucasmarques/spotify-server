@@ -65,7 +65,7 @@ export class AuthService {
     const isHashValid = await bcrypt.compare(password, admin.password);
 
     if (!isHashValid) {
-      throw new UnauthorizedException('Imvalid email and/or password!');
+      throw new UnauthorizedException('Invalid email and/or password!');
     }
 
     delete admin.password;
@@ -73,6 +73,49 @@ export class AuthService {
     return {
       token: this.jwt.sign({ email }),
       admin,
+    };
+  }
+
+  async LoginArtist(loginDto: LoginDto) {
+    const { email, password } = loginDto;
+
+    const artist = await this.prisma.artist
+      .findUnique({
+        where: { email },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          password: true,
+          userCategory: {
+            select: {
+              name: true,
+            },
+          },
+          countryRelacion: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (!artist) {
+      throw new UnauthorizedException('Invalid email and/or password!');
+    }
+
+    const isHashValid = await bcrypt.compare(password, artist.password);
+
+    if (!isHashValid) {
+      throw new UnauthorizedException('Invalid email and/or password!');
+    }
+
+    delete artist.password;
+
+    return {
+      token: this.jwt.sign({ email }),
+      artist,
     };
   }
 }
