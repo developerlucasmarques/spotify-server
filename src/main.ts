@@ -30,6 +30,7 @@ async function bootstrap() {
     .addTag('manager-admin')
     .addTag('user-plan')
     .addTag('artist')
+    .addTag('country')
     .addBearerAuth()
     .build();
 

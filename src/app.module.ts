@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { UserPlanModule } from './user-plan/user-plan.module';
 import { ProfileModule } from './profile/profile.module';
 import { ArtistModule } from './artist/artist.module';
+import { CountryModule } from './country/country.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ArtistModule } from './artist/artist.module';
     UserPlanModule,
     ProfileModule,
     ArtistModule,
+    CountryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

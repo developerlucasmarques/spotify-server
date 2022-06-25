@@ -100,8 +100,24 @@ model Artist {
   userCategory     UserCategory @relation(fields: [userCategoryName], references: [id])
   userCategoryName String       @map("user_category_id")
 
+  countryRelacion Country @relation(fields: [countryId], references: [id])
+  countryId       String
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("artist")
+}
+
+model Country {
+  id String @id @default(uuid())
+
+  name String
+
+  artists Artist[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("country")
 }
