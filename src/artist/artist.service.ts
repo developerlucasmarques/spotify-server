@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { verifyConfirmPassword } from 'src/utils/confirm-password.ultil';
+import { handleError } from 'src/utils/handle-error.util';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
@@ -32,52 +33,58 @@ export class ArtistService {
         },
       },
     };
-    return await this.prisma.artist.create({
-      data,
-      select: {
-        id: true,
-        name: true,
-        image: true,
-        email: true,
-        userCategory: {
-          select: {
-            name: true,
+    return await this.prisma.artist
+      .create({
+        data,
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          email: true,
+          userCategory: {
+            select: {
+              name: true,
+            },
+          },
+          countryRelacion: {
+            select: {
+              name: true,
+            },
           },
         },
-        countryRelacion: {
-          select: {
-            name: true,
-          },
-        },
-      },
-    });
+      })
+      .catch(handleError);
   }
 
   async findAll() {
-    return this.prisma.artist.findMany({
-      select: {
-        id: true,
-        name: true,
-        image: true,
-      },
-    });
+    return this.prisma.artist
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      })
+      .catch(handleError);
   }
 
   async findOne(id: string) {
-    const record = await this.prisma.artist.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        image: true,
-        countryRelacion: {
-          select: {
-            name: true,
+    const record = await this.prisma.artist
+      .findUnique({
+        where: { id },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          countryRelacion: {
+            select: {
+              name: true,
+            },
           },
+          about: true,
         },
-        about: true,
-      },
-    });
+      })
+      .catch(handleError);
 
     if (!record) {
       throw new NotFoundException(`Record with Id '${id}' not found!`);
@@ -100,17 +107,23 @@ export class ArtistService {
       data.password = await bcrypt.hash(data.password, 10);
     }
 
-    return await this.prisma.artist.update({
-      where: { id: artistId },
-      data,
-    });
+    return await this.prisma.artist
+      .update({
+        where: { id: artistId },
+        data,
+      })
+      .catch(handleError);
   }
 
   async delete(artistId: string) {
-    return await this.prisma.artist.delete({ where: { id: artistId } });
+    return await this.prisma.artist
+      .delete({ where: { id: artistId } })
+      .catch(handleError);
   }
 
   async deleteArtist(id: string) {
-    return await this.prisma.artist.delete({ where: { id } });
+    return await this.prisma.artist
+      .delete({ where: { id } })
+      .catch(handleError);
   }
 }
