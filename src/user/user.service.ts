@@ -56,7 +56,7 @@ export class UserService {
   }
 
   async findAll() {
-    return this.prisma.user
+    const allUsers = await this.prisma.user
       .findMany({
         select: {
           id: true,
@@ -65,6 +65,12 @@ export class UserService {
         },
       })
       .catch(handleError);
+
+    if (allUsers.length === 0) {
+      throw new NotFoundException('No a users found');
+    }
+
+    return allUsers;
   }
 
   async findById(userId: string) {
@@ -98,12 +104,12 @@ export class UserService {
     return record;
   }
 
-  findMyAccount(userId: string) {
-    return this.findById(userId);
+  async findMyAccount(userId: string) {
+    return await this.findById(userId);
   }
 
-  findOneUser(id: string) {
-    return this.prisma.user.findUnique({ where: { id } });
+  async findOneUser(id: string) {
+    return await this.findById(id);
   }
 
   async updateMyAccount(userId: string, dto: UpdateUserDto) {
@@ -120,7 +126,7 @@ export class UserService {
       data.password = await bcrypt.hash(data.password, 10);
     }
 
-    return this.prisma.user
+    return await this.prisma.user
       .update({
         where: { id: userId },
         data,

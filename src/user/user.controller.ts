@@ -43,7 +43,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get('/my-account:id')
+  @Get('/my-account')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
@@ -53,7 +53,7 @@ export class UserController {
     return this.userService.findMyAccount(user.id);
   }
 
-  @Get('/search-user:id')
+  @Get('/search-user/:id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
@@ -63,7 +63,7 @@ export class UserController {
     return this.userService.findOneUser(id);
   }
 
-  @Patch(':id')
+  @Patch()
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
@@ -73,7 +73,7 @@ export class UserController {
     return this.userService.updateMyAccount(user.id, dto);
   }
 
-  @Delete('/delete-my-account:id')
+  @Delete('/delete-my-account')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
@@ -84,7 +84,7 @@ export class UserController {
     return this.userService.deleteMyAccount(user.id);
   }
 
-  @Delete('delete-user:id')
+  @Delete('delete-user/:id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
