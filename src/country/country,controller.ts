@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -58,5 +61,12 @@ export class CountryController {
     return this.countryService.update(id, dto);
   }
 
-  
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Delete a country by id',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+    return this.countryService.delete(id);
+  }
 }

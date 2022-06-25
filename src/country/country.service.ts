@@ -63,4 +63,8 @@ export class CountryService {
       })
       .catch(handleError);
   }
+
+  async delete(id: string) {
+    await this.prisma.country.delete({ where: { id } }).catch(handleError);
+  }
 }
