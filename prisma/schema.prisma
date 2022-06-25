@@ -34,8 +34,8 @@ model User {
   userPlan   UserPlan @relation(fields: [userPlanId], references: [id])
   userPlanId String   @map("user_plan_id")
 
-  userCategory     UserCategory @relation(fields: [userCategoryName], references: [id])
-  userCategoryName String       @map("user_category_id")
+  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
+  userCategoryName String       @map("user_category_name")
 
   profiles Profile[]
 
