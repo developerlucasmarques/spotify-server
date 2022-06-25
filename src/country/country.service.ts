@@ -23,5 +23,15 @@ export class CountryService {
       .catch(handleError);
   }
 
-
+  async findAll() {
+    return await this.prisma.country
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+          code: true,
+        },
+      })
+      .catch(handleError);
+  }
 }
