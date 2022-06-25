@@ -34,7 +34,7 @@ model User {
   userPlan   UserPlan @relation(fields: [userPlanId], references: [id])
   userPlanId String   @map("user_plan_id")
 
-  userCategory   UserCategory @relation(fields: [userCategoryName], references: [id])
+  userCategory     UserCategory @relation(fields: [userCategoryName], references: [id])
   userCategoryName String       @map("user_category_id")
 
   profiles Profile[]
@@ -65,8 +65,9 @@ model UserCategory {
   id   String @id @default(uuid())
   name String @unique
 
-  users  User[]
-  admins Admin[]
+  users   User[]
+  admins  Admin[]
+  artists Artist[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -83,4 +84,24 @@ model Profile {
   userId String @map("user_id")
 
   @@map("profile")
+}
+
+model Artist {
+  id String @id @default(uuid())
+
+  name     String
+  image    String
+  cpf      String @unique
+  email    String @unique
+  password String
+  country  String
+  about    String
+
+  userCategory     UserCategory @relation(fields: [userCategoryName], references: [id])
+  userCategoryName String       @map("user_category_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("artist")
 }
