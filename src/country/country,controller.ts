@@ -1,10 +1,19 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from 'src/admin/entities/admin.entity';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { CountryService } from './country.service';
 import { CreateCountryDto } from './dto/create-country.dto';
+import { UpdateCountryDto } from './dto/update-country.dto';
 
 @ApiTags('country')
 @Controller('country')
@@ -23,9 +32,31 @@ export class CountryController {
 
   @Get()
   @ApiOperation({
-    summary: 'Search a new country',
+    summary: 'Search all countries',
   })
   findAll(@LoggedAdmin() admin: Admin) {
     return this.countryService.findAll();
   }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Search for a country by id',
+  })
+  findOne(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+    return this.countryService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Edit a country by id',
+  })
+  update(
+    @LoggedAdmin() admin: Admin,
+    @Param('id') id: string,
+    @Body() dto: UpdateCountryDto,
+  ) {
+    return this.countryService.update(id, dto);
+  }
+
+  
 }
