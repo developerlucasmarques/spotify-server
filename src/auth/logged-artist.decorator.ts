@@ -8,7 +8,6 @@ export const LoggedArtist = createParamDecorator((_, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest();
   const artist = request.user;
 
-  console.log(artist)
   if (!artist) {
     throw new UnauthorizedException('User not found or not authorized!');
   }
