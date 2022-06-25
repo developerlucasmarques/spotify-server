@@ -17,10 +17,11 @@ export class CountryService {
         select: {
           id: true,
           name: true,
+          code: true,
         },
       })
       .catch(handleError);
   }
 
-  
+
 }
