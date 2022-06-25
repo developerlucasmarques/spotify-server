@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { UserPlanModule } from './user-plan/user-plan.module';
 import { ProfileModule } from './profile/profile.module';
+import { ArtistModule } from './artist/artist.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProfileModule } from './profile/profile.module';
     AdminModule,
     UserPlanModule,
     ProfileModule,
+    ArtistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
