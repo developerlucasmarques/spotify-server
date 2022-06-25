@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { verifyConfirmPassword } from 'src/utils/confirm-password.ultil';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
+import { Artist } from './entities/artist.entity';
 
 @Injectable()
 export class ArtistService {
@@ -62,15 +63,50 @@ export class ArtistService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} artist`;
+  async findOne(id: string) {
+    const record = await this.prisma.artist.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        countryRelacion: {
+          select: {
+            name: true,
+          },
+        },
+        about: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Record with Id '${id}' not found!`);
+    }
+
+    return record;
   }
 
-  update(id: number, updateArtistDto: UpdateArtistDto) {
-    return `This action updates a #${id} artist`;
+  async update(artistId: string, dto: UpdateArtistDto) {
+    if (dto.password) {
+      verifyConfirmPassword(dto.password, dto.confirmPassword);
+    }
+    delete dto.confirmPassword;
+
+    await this.prisma.artist.findUnique({ where: { id: artistId } });
+
+    const data: Partial<Artist> = { ...dto };
+
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
+
+    return await this.prisma.artist.update({
+      where: { id: artistId },
+      data,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} artist`;
+  async delete(artistId: string) {
+    return await this.prisma.artist.delete({ where: { id: artistId } });
   }
 }

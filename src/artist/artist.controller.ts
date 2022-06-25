@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoggedArtist } from 'src/auth/logged-artist.decorator';
@@ -26,22 +26,38 @@ export class ArtistController {
   @ApiOperation({
     summary: 'List all artists',
   })
-  findAll(@LoggedArtist() artist: Artist) {
+  findAll() {
     return this.artistService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'View a artist by Id',
+  })
   findOne(@Param('id') id: string) {
-    return this.artistService.findOne(+id);
+    return this.artistService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArtistDto: UpdateArtistDto) {
-    return this.artistService.update(+id, updateArtistDto);
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Edit artist logged',
+  })
+  update(@LoggedArtist() artist: Artist, @Body() dto: UpdateArtistDto) {
+    return this.artistService.update(artist.id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.artistService.remove(+id);
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({
+    summary: 'Remove artist logged',
+  })
+  delete(@LoggedArtist() artist: Artist) {
+    return this.artistService.delete(artist.id);
   }
 }
