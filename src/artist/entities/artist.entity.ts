@@ -5,9 +5,9 @@ export class Artist {
   cpf: string
   email: string
   password: string
-  country: string
   about: string
   userCategoryName: string
+  countryId: string
   createdAt?: Date
   updatedAt?: Date
 }

@@ -66,16 +66,17 @@ export class CreateArtistDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The country of the artist.',
-    example: 'User#5678@!',
+    description: 'The about of the artist.',
+    example:
+      'ALOK is a bonafide dance music superstar, holding the title of the second biggest Instagram following of any electronic artist globally, with over 26 million fans and 20 million monthly listeners making him the most listened to Brazilian artist in the world. In 2021, he was named the 4th Best DJ in the world, according to the prestigious DJ Mag Top 100 DJ Poll.',
   })
-  country: string;
+  about: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The about of the artist.',
-    example: 'User#5678@!',
+    description: 'The country of the artist.',
+    example: 'ab065335-b6e9-495e-9eee-8becfdc625f2',
   })
-  about: string;
+  countryId: string;
 }

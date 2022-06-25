@@ -94,7 +94,6 @@ model Artist {
   cpf      String @unique
   email    String @unique
   password String
-  country  String
   about    String
 
   userCategory     UserCategory @relation(fields: [userCategoryName], references: [id])

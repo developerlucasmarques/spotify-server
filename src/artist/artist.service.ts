@@ -19,11 +19,15 @@ export class ArtistService {
       cpf: dto.cpf,
       email: dto.email,
       password: await bcrypt.hash(dto.password, 10),
-      country: dto.country,
       about: dto.about,
       userCategory: {
         connect: {
           name: 'artist',
+        },
+      },
+      countryRelacion: {
+        connect: {
+          id: dto.countryId,
         },
       },
     };
@@ -35,6 +39,11 @@ export class ArtistService {
         image: true,
         email: true,
         userCategory: {
+          select: {
+            name: true,
+          },
+        },
+        countryRelacion: {
           select: {
             name: true,
           },
