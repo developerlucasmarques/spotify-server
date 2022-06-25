@@ -52,8 +52,14 @@ export class ArtistService {
     });
   }
 
-  findAll() {
-    return `This action returns all artist`;
+  async findAll() {
+    return this.prisma.artist.findMany({
+      select: {
+        id: true,
+        name: true,
+        image: true,
+      },
+    });
   }
 
   findOne(id: number) {

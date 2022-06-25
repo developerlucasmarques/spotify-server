@@ -10,11 +10,13 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from 'src/admin/entities/admin.entity';
+import { Artist } from 'src/artist/entities/artist.entity';
 import { User } from 'src/user/entities/user.entity';
 import { AuthService } from './auth.service';
 import { LoginUserResponseDto } from './dto/login-user-response.dto';
 import { LoginDto } from './dto/login.dto';
 import { LoggedAdmin } from './logged-admin.decorator';
+import { LoggedArtist } from './logged-artist.decorator';
 import { LoggedUser } from './logged-user.decorator';
 
 @Controller('auth')
@@ -40,6 +42,15 @@ export class AuthController {
     return this.authService.LoginAdmin(loginDto);
   }
 
+  @Post('/artist')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Log in, receiving a validation token',
+  })
+  LoginArtist(@Body() loginDto: LoginDto) {
+    return this.authService.LoginArtist(loginDto);
+  }
+
   @Get('/user')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
@@ -58,5 +69,15 @@ export class AuthController {
   })
   Admin(@LoggedAdmin() admin: Admin) {
     return admin;
+  }
+
+  @Get('/artist')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Return user authentication now',
+  })
+  Artist(@LoggedArtist() artist: Artist) {
+    return artist;
   }
 }

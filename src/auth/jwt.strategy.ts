@@ -27,7 +27,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       })
       .catch(handleError);
 
-    if (!user && !admin) {
+      const artist = await this.prisma.artist
+      .findUnique({
+        where: { email: payload.email },
+      })
+      .catch(handleError);
+
+    if (!user && !admin && !artist) {
       throw new UnauthorizedException('User not found or not authorized!');
     }
 
@@ -39,6 +45,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (admin) {
       delete admin.password;
       return admin;
+    }
+
+    if (artist) {
+      delete artist.password;
+      return artist;
     }
   }
 }
