@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Admin } from 'src/admin/entities/admin.entity';
+import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedArtist } from 'src/auth/logged-artist.decorator';
 import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
@@ -59,5 +61,16 @@ export class ArtistController {
   })
   delete(@LoggedArtist() artist: Artist) {
     return this.artistService.delete(artist.id);
+  }
+
+  @Delete('delete-artist:id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({
+    summary: 'Remove a artist by Id',
+  })
+  deleteArtist(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+    return this.artistService.deleteArtist(id);
   }
 }

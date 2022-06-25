@@ -17,27 +17,27 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateUserDto) {
-    try {
-      verifyConfirmPassword(dto.password, dto.confirmPassword);
-      delete dto.confirmPassword;
-      const data: Prisma.UserCreateInput = {
-        name: dto.name,
-        cpf: dto.cpf,
-        email: dto.email,
-        password: await bcrypt.hash(dto.password, 10),
-        userPlan: {
-          connect: {
-            id: dto.userPlanId,
-          },
+    verifyConfirmPassword(dto.password, dto.confirmPassword);
+    delete dto.confirmPassword;
+    const data: Prisma.UserCreateInput = {
+      name: dto.name,
+      cpf: dto.cpf,
+      email: dto.email,
+      password: await bcrypt.hash(dto.password, 10),
+      userPlan: {
+        connect: {
+          id: dto.userPlanId,
         },
-        userCategory: {
-          connect: {
-            name: 'user',
-          },
+      },
+      userCategory: {
+        connect: {
+          name: 'user',
         },
-      };
+      },
+    };
 
-      return await this.prisma.user.create({
+    return await this.prisma.user
+      .create({
         data,
         select: {
           id: true,
@@ -51,29 +51,25 @@ export class UserService {
           },
           createdAt: true,
         },
-      });
-    } catch (error) {
-      handleError(error);
-    }
+      })
+      .catch(handleError);
   }
 
   async findAll() {
-    try {
-      return this.prisma.user.findMany({
+    return this.prisma.user
+      .findMany({
         select: {
           id: true,
           name: true,
           email: true,
         },
-      });
-    } catch (error) {
-      handleError(error);
-    }
+      })
+      .catch(handleError);
   }
 
   async findById(userId: string) {
-    try {
-      const record = await this.prisma.user.findUnique({
+    const record = await this.prisma.user
+      .findUnique({
         where: { id: userId },
         select: {
           id: true,
@@ -92,50 +88,40 @@ export class UserService {
             },
           },
         },
-      });
+      })
+      .catch(handleError);
 
-      if (!record) {
-        throw new NotFoundException(`Record with Id '${userId}' not found!`);
-      }
-
-      return record;
-    } catch (error) {
-      handleError(error);
+    if (!record) {
+      throw new NotFoundException(`Record with Id '${userId}' not found!`);
     }
+
+    return record;
   }
 
   findMyAccount(userId: string) {
-    try {
-      return this.findById(userId);
-    } catch (error) {
-      handleError(error);
-    }
+    return this.findById(userId);
   }
 
   findOneUser(id: string) {
-    try {
-      return this.prisma.user.findUnique({ where: { id } });
-    } catch (error) {
-      handleError(error);
-    }
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
   async updateMyAccount(userId: string, dto: UpdateUserDto) {
-    try {
-      if (dto.password) {
-        verifyConfirmPassword(dto.password, dto.confirmPassword);
-      }
-      delete dto.confirmPassword;
+    if (dto.password) {
+      verifyConfirmPassword(dto.password, dto.confirmPassword);
+    }
+    delete dto.confirmPassword;
 
-      await this.findById(userId);
+    await this.findById(userId);
 
-      const data: Partial<User> = { ...dto };
+    const data: Partial<User> = { ...dto };
 
-      if (data.password) {
-        data.password = await bcrypt.hash(data.password, 10);
-      }
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
 
-      return this.prisma.user.update({
+    return this.prisma.user
+      .update({
         where: { id: userId },
         data,
         select: {
@@ -145,27 +131,17 @@ export class UserService {
           cpf: true,
           updatedAt: true,
         },
-      });
-    } catch (error) {
-      handleError(error);
-    }
+      })
+      .catch(handleError);
   }
 
   async deleteMyAccount(userId: string) {
-    try {
-      await this.findById(userId);
-      await this.prisma.user.delete({ where: { id: userId } });
-    } catch (error) {
-      handleError(error);
-    }
+    await this.findById(userId);
+    await this.prisma.user.delete({ where: { id: userId } }).catch(handleError);
   }
 
   async deleteUser(id: string) {
-    try {
-      await this.findById(id);
-      await this.prisma.user.delete({ where: { id } });
-    } catch (error) {
-      handleError(error);
-    }
+    await this.findById(id);
+    await this.prisma.user.delete({ where: { id } }).catch(handleError);
   }
 }
