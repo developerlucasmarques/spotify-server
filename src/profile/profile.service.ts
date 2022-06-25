@@ -1,6 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/user/entities/user.entity';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -12,6 +17,28 @@ export class ProfileService {
 
   async create(userId: string, dto: CreateProfileDto) {
     try {
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          profiles: {
+            select: {
+              id: true,
+            },
+          },
+          userPlan: {
+            select: {
+              accounts: true,
+            },
+          },
+        },
+      });
+
+      if (user.profiles.length >= user.userPlan.accounts) {
+        throw new UnauthorizedException(
+          'Profile limits reached for your account type',
+        );
+      }
+
       const data: Prisma.ProfileCreateInput = {
         ...dto,
         user: {
@@ -36,6 +63,9 @@ export class ProfileService {
         },
       });
     } catch (error) {
+      if (error.status === 401) {
+        return error.response;
+      }
       handleError(error);
     }
   }
@@ -57,6 +87,9 @@ export class ProfileService {
 
       return profiles;
     } catch (error) {
+      if (error.status === 404) {
+        return error.response;
+      }
       handleError(error);
     }
   }
@@ -119,6 +152,9 @@ export class ProfileService {
 
       return userProfile.profiles;
     } catch (error) {
+      if (error.status === 404) {
+        return error.response;
+      }
       handleError(error);
     }
   }
