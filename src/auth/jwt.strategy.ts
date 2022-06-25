@@ -15,30 +15,30 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: { email: string }) {
-    try {
-      const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.user
+      .findUnique({
         where: { email: payload.email },
-      });
+      })
+      .catch(handleError);
 
-      const admin = await this.prisma.admin.findUnique({
-        where: { email: payload.email }
-      });
+    const admin = await this.prisma.admin
+      .findUnique({
+        where: { email: payload.email },
+      })
+      .catch(handleError);
 
-      if (!user && !admin) {
-        throw new UnauthorizedException('User not found or not authorized!');
-      }
+    if (!user && !admin) {
+      throw new UnauthorizedException('User not found or not authorized!');
+    }
 
-      if (user) {
-        delete user.password;
-        return user;
-      }
+    if (user) {
+      delete user.password;
+      return user;
+    }
 
-      if (admin) {
-        delete admin.password;
-        return admin;
-      }
-    } catch (error) {
-      handleError(error);
+    if (admin) {
+      delete admin.password;
+      return admin;
     }
   }
 }

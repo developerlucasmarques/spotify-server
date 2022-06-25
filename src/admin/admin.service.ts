@@ -1,12 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateAdminDto } from './dto/create-admin.dto';
-import { Admin } from './entities/admin.entity';
-import * as bcrypt from 'bcrypt';
-import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { handleError } from 'src/utils/handle-error.util';
+import * as bcrypt from 'bcrypt';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { verifyConfirmPassword } from 'src/utils/confirm-password.ultil';
+import { handleError } from 'src/utils/handle-error.util';
+import { CreateAdminDto } from './dto/create-admin.dto';
+import { UpdateAdminDto } from './dto/update-managerAdmin.dto';
+import { Admin } from './entities/admin.entity';
 
 @Injectable()
 export class AdminService {
@@ -25,82 +29,79 @@ export class AdminService {
   };
 
   async create(dto: CreateAdminDto) {
-    try {
-      verifyConfirmPassword(dto.password, dto.confirmPassword);
-      const user = await this.prisma.user.findUnique({
+    verifyConfirmPassword(dto.password, dto.confirmPassword);
+    const user = await this.prisma.user
+      .findUnique({
         where: { email: dto.email },
-      });
+      })
+      .catch(handleError);
 
-      if (user) {
-        throw new BadRequestException(
-          'Unable to create an admin with a user email',
-        );
-      }
-      delete dto.confirmPassword;
-
-      const data: Prisma.AdminCreateInput = {
-        ...dto,
-        password: await bcrypt.hash(dto.password, 10),
-        userCategory: {
-          connect: {
-            name: 'admin',
-          },
-        },
-      };
-
-      return await this.prisma.admin.create({ data, select: this.adminSelect });
-    } catch (error) {
-      handleError(error);
+    if (user) {
+      throw new BadRequestException(
+        'Unable to create an admin with a user email',
+      );
     }
+    delete dto.confirmPassword;
+
+    const data: Prisma.AdminCreateInput = {
+      ...dto,
+      password: await bcrypt.hash(dto.password, 10),
+      userCategory: {
+        connect: {
+          name: 'admin',
+        },
+      },
+    };
+
+    return await this.prisma.admin
+      .create({ data, select: this.adminSelect })
+      .catch(handleError);
   }
 
   async findAll() {
-    try {
-      return await this.prisma.admin.findMany({ select: this.adminSelect });
-    } catch (error) {
-      handleError(error);
-    }
+    return await this.prisma.admin
+      .findMany({ select: this.adminSelect })
+      .catch(handleError);
   }
 
   async findOne(id: string) {
-    try {
-      return await this.prisma.admin.findUnique({
-        where: { id },
-        select: this.adminSelect,
-      });
-    } catch (error) {
-      handleError(error);
-    }
+    return await this.findById(id);
   }
 
   async update(id: string, dto: UpdateAdminDto) {
-    try {
-      if (dto.password) {
-        verifyConfirmPassword(dto.password, dto.confirmPassword);
-      }
-      delete dto.confirmPassword;
+    if (dto.password) {
+      verifyConfirmPassword(dto.password, dto.confirmPassword);
+    }
+    delete dto.confirmPassword;
 
-      const data: Partial<Admin> = { ...dto };
+    const data: Partial<Admin> = { ...dto };
 
-      if (data.password) {
-        data.password = await bcrypt.hash(dto.password, 10);
-      }
+    if (data.password) {
+      data.password = await bcrypt.hash(dto.password, 10);
+    }
 
-      return await this.prisma.admin.update({
+    return await this.prisma.admin
+      .update({
         where: { id },
         data,
         select: this.adminSelect,
-      });
-    } catch (error) {
-      handleError(error);
-    }
+      })
+      .catch(handleError);
   }
 
   async delete(id: string) {
-    try {
-      await this.prisma.admin.delete({ where: { id } });
-    } catch (error) {
-      handleError(error);
+    await this.findById(id);
+    await this.prisma.admin.delete({ where: { id } }).catch(handleError);
+  }
+
+  async findById(id: string) {
+    const admin = await this.prisma.admin
+      .findUnique({ where: { id }, select: this.adminSelect })
+      .catch(handleError);
+
+    if (!admin) {
+      throw new NotFoundException(`Record with ID '${id}' not found`);
     }
+    return admin;
   }
 }
