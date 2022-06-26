@@ -31,6 +31,7 @@ async function bootstrap() {
     .addTag('user-plan')
     .addTag('artist')
     .addTag('country')
+    .addTag('album')
     .addBearerAuth()
     .build();
 
