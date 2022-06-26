@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
@@ -36,19 +36,18 @@ export class AlbumService {
       .catch(handleError);
   }
 
-  findAll() {
-    return `This action returns all album`;
-  }
+  async findAll(artistId: string) {
+    const albums = await this.prisma.album
+      .findMany({
+        where: { id: artistId },
+        select: { id: true, name: true, image: true },
+      })
+      .catch(handleError);
 
-  findOne(id: string) {
-    return `This action returns a #${id} album`;
-  }
+    if (albums.length === 0) {
+      throw new NotFoundException('No album found');
+    }
 
-  update(id: string, dto: UpdateAlbumDto) {
-    return `This action updates a #${id} album`;
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} album`;
+    return albums;
   }
 }

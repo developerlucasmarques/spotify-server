@@ -29,22 +29,7 @@ export class AlbumController {
   }
 
   @Get()
-  findAll() {
-    return this.albumService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.albumService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateAlbumDto) {
-    return this.albumService.update(id, dto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.albumService.remove(id);
+  findAll(@LoggedArtist() artist: Artist) {
+    return this.albumService.findAll(artist.id);
   }
 }
