@@ -102,6 +102,8 @@ model Artist {
   countryRelacion Country @relation(fields: [countryId], references: [id])
   countryId       String
 
+  albums Album[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -120,4 +122,20 @@ model Country {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("country")
+}
+
+model Album {
+  id String @id @default(uuid())
+
+  name  String @unique
+  year  Int
+  image String
+
+  artist   Artist @relation(fields: [artistId], references: [id])
+  artistId String @map("artist_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("album")
 }
