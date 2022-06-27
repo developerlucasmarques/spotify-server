@@ -104,6 +104,8 @@ model Artist {
 
   albums Album[]
 
+  musics Music[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -134,8 +136,28 @@ model Album {
   artist   Artist @relation(fields: [artistId], references: [id])
   artistId String @map("artist_id")
 
+  musics Music[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("album")
+}
+
+model Music {
+  id       String @id @default(uuid())
+  name     String
+  musicUrl String @map("music_url")
+
+  album   Album  @relation(fields: [albumId], references: [id])
+  albumId String @map("album_id")
+
+  artist   Artist @relation(fields: [artistId], references: [id])
+  artistId String @map("artist_id")
+
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("music")
 }
