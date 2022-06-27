@@ -6,7 +6,7 @@ export class CreateCountryDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'Country Name',
-    example: 'Brazil',
+    example: 'United States',
   })
   name: string;
 
@@ -15,7 +15,7 @@ export class CreateCountryDto {
   @Length(2, 2)
   @ApiProperty({
     description: 'Country Code',
-    example: 'BR',
+    example: 'US',
   })
   code: string;
 }

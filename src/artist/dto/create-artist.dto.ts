@@ -14,15 +14,14 @@ export class CreateArtistDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The name of the artist.',
-    example: 'Alok',
+    example: "Guns N' Roses",
   })
   name: string;
 
   @IsUrl()
   @ApiProperty({
     description: 'The image of the artist.',
-    example:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxfx_RtmsjNV7Mb0-WZmas7PP0nIf7BFUJDxQzIoK0TLsHHSOX7WlRxHi57Q4fz96EfM&usqp=CAU',
+    example: 'https://i.scdn.co/image/ab6761610000e5eb50defaf9fc059a1efc541f4c',
   })
   image: string;
 
@@ -68,7 +67,7 @@ export class CreateArtistDto {
   @ApiProperty({
     description: 'The about of the artist.',
     example:
-      'ALOK is a bonafide dance music superstar, holding the title of the second biggest Instagram following of any electronic artist globally, with over 26 million fans and 20 million monthly listeners making him the most listened to Brazilian artist in the world. In 2021, he was named the 4th Best DJ in the world, according to the prestigious DJ Mag Top 100 DJ Poll.',
+      "Guns N' Roses is an American hard rock band formed in Los Angeles, California in 1985. The band has released six studio albums, three EPs and one live album to date. The band sold over 100 million copies worldwide, with around 43 million in the United States alone.",
   })
   about: string;
 

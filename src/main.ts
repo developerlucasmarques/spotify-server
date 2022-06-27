@@ -32,6 +32,7 @@ async function bootstrap() {
     .addTag('artist')
     .addTag('country')
     .addTag('album')
+    .addTag('music')
     .addBearerAuth()
     .build();
 
