@@ -10,6 +10,7 @@ import { ProfileModule } from './profile/profile.module';
 import { ArtistModule } from './artist/artist.module';
 import { CountryModule } from './country/country.module';
 import { AlbumModule } from './album/album.module';
+import { MusicModule } from './music/music.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AlbumModule } from './album/album.module';
     ArtistModule,
     CountryModule,
     AlbumModule,
+    MusicModule,
   ],
   controllers: [AppController],
   providers: [AppService],
