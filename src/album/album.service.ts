@@ -54,7 +54,7 @@ export class AlbumService {
       })
       .catch(handleError);
 
-    if (albums.length === 0) {
+    if (albums[0].albums.length === 0) {
       throw new NotFoundException('No album found');
     }
 
@@ -63,6 +63,28 @@ export class AlbumService {
 
   async findOne(artistId: string, albumId: string) {
     return await this.findOneAlbumInArtist(artistId, albumId);
+  }
+
+  async update(artistId: string, albumId: string, dto: UpdateAlbumDto) {
+    await this.findOneAlbumInArtist(artistId, albumId);
+    return await this.prisma.album
+      .update({
+        where: { id: albumId },
+        data: { ...dto },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      })
+      .catch(handleError);
+  }
+
+  async delete(artistId: string, albumId: string) {
+    await this.findOneAlbumInArtist(artistId, albumId);
+    return await this.prisma.album
+      .delete({ where: { id: albumId } })
+      .catch(handleError);
   }
 
   async findOneAlbumInArtist(artistId: string, albumId: string) {

@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -48,5 +50,26 @@ export class AlbumController {
   })
   findOne(@LoggedArtist() artist: Artist, @Param('id') albumId: string) {
     return this.albumService.findOne(artist.id, albumId);
+  }
+
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Edit an album of the artist who is logged in (artist)',
+  })
+  update(
+    @LoggedArtist() artist: Artist,
+    @Param('id') albumId: string,
+    @Body() dto: UpdateAlbumDto,
+  ) {
+    return this.albumService.update(artist.id, albumId, dto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Delete an album of the artist who is logged in (artist)',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@LoggedArtist() artist: Artist, @Param('id') albumId: string) {
+    return this.albumService.delete(artist.id, albumId);
   }
 }
