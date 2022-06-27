@@ -81,6 +81,24 @@ export class ArtistService {
               name: true,
             },
           },
+          musics: {
+            take: 5,
+            skip: 0,
+            select: {
+              id: true,
+              name: true,
+              musicUrl: true,
+            },
+          },
+          albums: {
+            take: 4,
+            skip: 0,
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
           about: true,
         },
       })

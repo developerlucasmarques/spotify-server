@@ -72,29 +72,6 @@ export class MusicService {
     return musics;
   }
 
-  async findMusicsArtist(artistId: string) {
-    const musics = await this.prisma.artist
-      .findMany({
-        where: { id: artistId },
-        select: {
-          musics: {
-            select: {
-              id: true,
-              name: true,
-              musicUrl: true,
-            }
-          }
-        },
-      })
-      .catch(handleError);
-
-    if (musics.length === 0) {
-      throw new NotFoundException('No music found');
-    }
-
-    return musics;
-  }
-
   async findById(artistId: string, musicId: string) {
     const record = await this.prisma.artist
       .findUnique({
@@ -145,11 +122,57 @@ export class MusicService {
             select: {
               name: true,
               image: true,
-            }
-          }
+            },
+          },
         },
       })
       .catch(handleError);
+  }
+
+  async findOneByArtsit(musicId: string) {
+    const musics = await this.prisma.artist
+      .findMany({
+        where: { id: musicId },
+        select: {
+          musics: {
+            select: {
+              id: true,
+              name: true,
+              musicUrl: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (musics.length === 0) {
+      throw new NotFoundException('No music found');
+    }
+
+    return musics;
+  }
+
+  async findMusicsArtist(artistId: string) {
+    const musics = await this.prisma.artist
+      .findMany({
+        where: { id: artistId },
+        select: {
+          musics: {
+            select: {
+              id: true,
+              name: true,
+              musicUrl: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (musics.length === 0) {
+      throw new NotFoundException('No music found');
+    }
+
+    return musics;
   }
 
   async update(artistdId: string, musicId: string, dto: UpdateMusicDto) {
