@@ -174,5 +174,6 @@ model ProfileFavoriteMusic {
   music   Music  @relation(fields: [musicId], references: [id])
   musicId String @map("music_id")
 
+  @@unique([profileId, musicId])
   @@map("profile_favorite_music")
 }
