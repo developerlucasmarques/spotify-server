@@ -9,8 +9,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Admin } from '@prisma/client';
 import { Artist } from 'src/artist/entities/artist.entity';
+import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedArtist } from 'src/auth/logged-artist.decorator';
 import { AlbumService } from './album.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
@@ -24,12 +26,27 @@ export class AlbumController {
   constructor(private readonly albumService: AlbumService) {}
 
   @Post()
+  @ApiOperation({
+    summary:
+      'Create an album and associate it with the artist who created it (artist)',
+  })
   create(@LoggedArtist() artist: Artist, @Body() dto: CreateAlbumDto) {
     return this.albumService.create(artist.id, dto);
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'Fetch all albums of the artist who is logged in (artist)',
+  })
   findAll(@LoggedArtist() artist: Artist) {
     return this.albumService.findAll(artist.id);
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Search for an album by the artist who is logged in (artist)',
+  })
+  findOne(@LoggedArtist() artist: Artist, @Param('id') albumId: string) {
+    return this.albumService.findOne(artist.id, albumId);
   }
 }
