@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle-error.util';
 import { CreateMusicDto } from './dto/create-music.dto';
 import { UpdateMusicDto } from './dto/update-music.dto';
 
@@ -24,41 +25,152 @@ export class MusicService {
       },
     };
 
-    return this.prisma.music.create({
-      data,
-      select: {
-        id: true,
-        name: true,
-        musicUrl: true,
-        album: {
-          select: {
-            name: true,
-            image: true,
+    return this.prisma.music
+      .create({
+        data,
+        select: {
+          id: true,
+          name: true,
+          musicUrl: true,
+          album: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+          artist: {
+            select: {
+              id: true,
+              name: true,
+            },
           },
         },
-        artist: {
-          select: {
-            id: true,
-            name: true,
+      })
+      .catch(handleError);
+  }
+
+  async findAll() {
+    const musics = await this.prisma.music
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+          musicUrl: true,
+          artist: {
+            select: {
+              name: true,
+            },
           },
         },
-      },
-    });
+      })
+      .catch(handleError);
+
+    if (musics.length === 0) {
+      throw new NotFoundException('No music found');
+    }
+
+    return musics;
   }
 
-  findAll() {
-    return `This action returns all music`;
+  async findMusicsArtist(artistId: string) {
+    const musics = await this.prisma.artist
+      .findMany({
+        where: { id: artistId },
+        select: {
+          musics: {
+            select: {
+              id: true,
+              name: true,
+              musicUrl: true,
+            }
+          }
+        },
+      })
+      .catch(handleError);
+
+    if (musics.length === 0) {
+      throw new NotFoundException('No music found');
+    }
+
+    return musics;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} music`;
+  async findById(artistId: string, musicId: string) {
+    const record = await this.prisma.artist
+      .findUnique({
+        where: { id: artistId },
+        select: {
+          musics: {
+            where: {
+              id: musicId,
+            },
+            select: {
+              id: true,
+              name: true,
+              musicUrl: true,
+              album: {
+                select: {
+                  name: true,
+                  image: true,
+                },
+              },
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (record.musics.length === 0) {
+      throw new NotFoundException(`Music with ID '${musicId}' not found`);
+    }
+
+    return record;
   }
 
-  update(id: number, updateMusicDto: UpdateMusicDto) {
-    return `This action updates a #${id} music`;
+  async findOne(musicId: string) {
+    return await this.prisma.music
+      .findUnique({
+        where: { id: musicId },
+        select: {
+          id: true,
+          name: true,
+          musicUrl: true,
+          artist: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+          album: {
+            select: {
+              name: true,
+              image: true,
+            }
+          }
+        },
+      })
+      .catch(handleError);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} music`;
+  async update(artistdId: string, musicId: string, dto: UpdateMusicDto) {
+    await this.findById(artistdId, musicId);
+    return await this.prisma.music
+      .update({
+        where: { id: musicId },
+        data: { ...dto },
+        select: {
+          id: true,
+          name: true,
+          musicUrl: true,
+        },
+      })
+      .catch(handleError);
+  }
+
+  async delete(artistId: string, musicId: string) {
+    await this.findById(artistId, musicId);
+    return await this.prisma.music
+      .delete({ where: { id: musicId } })
+      .catch(handleError);
   }
 }
