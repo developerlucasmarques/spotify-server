@@ -6,37 +6,40 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ProfileFavoriteMusicService } from './profile-favorite-music.service';
 import { CreateProfileFavoriteMusicDto } from './dto/create-profile-favorite-music.dto';
 import { UpdateProfileFavoriteMusicDto } from './dto/update-profile-favorite-music.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('profile-favorite-music')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('profile-favorite-music')
 export class ProfileFavoriteMusicController {
   constructor(
     private readonly favoriteMusicService: ProfileFavoriteMusicService,
   ) {}
 
-  @Post()
-  create(@Body() dto: CreateProfileFavoriteMusicDto) {
-    return this.favoriteMusicService.create(dto);
-  }
-
-  @Get()
-  findAll() {
-    return this.favoriteMusicService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.favoriteMusicService.findOne(id);
+  findAll(@LoggedUser() user: User, @Param('id') profileId: string) {
+    return this.favoriteMusicService.findAll(user.id, profileId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateProfileFavoriteMusicDto) {
-    return this.favoriteMusicService.update(id, dto);
+  @ApiOperation({
+    summary: 'Add a song to a profile',
+  })
+  update(
+    @LoggedUser() user: User,
+    @Param('id') profileId: string,
+    @Body() dto: CreateProfileFavoriteMusicDto,
+  ) {
+    return this.favoriteMusicService.update(user.id, profileId, dto);
   }
 
   @Delete(':id')
