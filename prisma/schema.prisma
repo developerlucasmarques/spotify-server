@@ -83,6 +83,8 @@ model Profile {
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
 
+  musics ProfileFavoriteMusic[]
+
   @@map("profile")
 }
 
@@ -155,9 +157,22 @@ model Music {
   artist   Artist @relation(fields: [artistId], references: [id])
   artistId String @map("artist_id")
 
+  profiles ProfileFavoriteMusic[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("music")
+}
+
+model ProfileFavoriteMusic {
+  id String @id @default(uuid())
+
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String  @map("profile_id")
+
+  music   Music  @relation(fields: [musicId], references: [id])
+  musicId String @map("music_id")
+
+  @@map("profile_favorite_music")
 }
