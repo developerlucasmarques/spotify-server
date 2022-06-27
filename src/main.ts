@@ -33,6 +33,7 @@ async function bootstrap() {
     .addTag('country')
     .addTag('album')
     .addTag('music')
+    .addTag('profile-favorite-music')
     .addBearerAuth()
     .build();
 

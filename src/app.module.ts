@@ -11,6 +11,7 @@ import { ArtistModule } from './artist/artist.module';
 import { CountryModule } from './country/country.module';
 import { AlbumModule } from './album/album.module';
 import { MusicModule } from './music/music.module';
+import { ProfileFavoriteMusicModule } from './profile-favorite-music/profile-favorite-music.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MusicModule } from './music/music.module';
     CountryModule,
     AlbumModule,
     MusicModule,
+    ProfileFavoriteMusicModule,
   ],
   controllers: [AppController],
   providers: [AppService],
