@@ -44,20 +44,28 @@ export class MusicController {
     return this.musicService.findAll();
   }
 
-  @Get('/find-all-musics-artist:id')
-  @ApiOperation({
-    summary: 'Fetch all musics of the artist who is logged in (artist).',
-  })
-  findMusicsArtist(@LoggedArtist() artist: Artist) {
-    return this.musicService.findMusicsArtist(artist.id);
-  }
-
   @Get(':id')
   @ApiOperation({
     summary: 'View a music by Id',
   })
   findOne(@LoggedUser() user: User, @Param('id') musicId: string) {
     return this.musicService.findOne(musicId);
+  }
+
+  @Get('/artist/:id')
+  @ApiOperation({
+    summary: 'View a music by Id of the artist.',
+  })
+  findOneByArtist(@LoggedUser() user: User, @Param('id') artistId: string) {
+    return this.musicService.findOneByArtsit(artistId);
+  }
+
+  @Get('/find-all-musics-artist/:id')
+  @ApiOperation({
+    summary: 'Fetch all musics of the artist who is logged in (artist).',
+  })
+  findMusicsArtist(@LoggedArtist() artist: Artist) {
+    return this.musicService.findMusicsArtist(artist.id);
   }
 
   @Patch(':id')
