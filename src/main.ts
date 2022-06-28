@@ -34,6 +34,8 @@ async function bootstrap() {
     .addTag('album')
     .addTag('music')
     .addTag('profile-favorite-music')
+    .addTag('category')
+    .addTag('category-music')
     .addBearerAuth()
     .build();
 

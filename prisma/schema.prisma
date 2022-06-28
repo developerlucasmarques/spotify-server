@@ -157,6 +157,8 @@ model Music {
   artist   Artist @relation(fields: [artistId], references: [id])
   artistId String @map("artist_id")
 
+  // CategoryMusic CategoryMusic[]
+
   profiles ProfileFavoriteMusic[]
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -177,3 +179,30 @@ model ProfileFavoriteMusic {
   @@unique([profileId, musicId])
   @@map("profile_favorite_music")
 }
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+
+  // CategoryMusic CategoryMusic[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("category")
+}
+
+// model CategoryMusic {
+//   id String @id @default(uuid())
+
+//   category   Category @relation(fields: [categoryId], references: [id])
+//   categoryId String   @map("category_id")
+
+//   music   Music  @relation(fields: [musicId], references: [id])
+//   musicId String @map("music_id")
+
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+
+//   @@map("category_music")
+// }
