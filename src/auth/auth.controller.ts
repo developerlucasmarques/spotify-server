@@ -24,28 +24,28 @@ import { LoggedUser } from './logged-user.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('/user')
+  @Post('/sign-in-user')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Log in, receiving a validation token',
+    summary: 'Log in, receiving a validation token - (FOR USER)',
   })
   LoginUser(@Body() loginDto: LoginDto): Promise<LoginUserResponseDto> {
     return this.authService.LoginUser(loginDto);
   }
 
-  @Post('/admin')
+  @Post('/sign-in-admin')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Log in, receiving a validation token',
+    summary: 'Log in, receiving a validation token - (FOR ADMIN)',
   })
   LoginAdmin(@Body() loginDto: LoginDto) {
     return this.authService.LoginAdmin(loginDto);
   }
 
-  @Post('/artist')
+  @Post('/sign-in-artist')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Log in, receiving a validation token',
+    summary: 'Log in, receiving a validation token - (FOR ARTIST)',
   })
   LoginArtist(@Body() loginDto: LoginDto) {
     return this.authService.LoginArtist(loginDto);
@@ -55,7 +55,7 @@ export class AuthController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Return user authentication now',
+    summary: 'Return user authentication now - (FOR USER)',
   })
   Profile(@LoggedUser() user: User) {
     return user;
@@ -65,7 +65,7 @@ export class AuthController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Return user authentication now',
+    summary: 'Return user authentication now - (FOR ADMIN)',
   })
   Admin(@LoggedAdmin() admin: Admin) {
     return admin;
@@ -75,7 +75,7 @@ export class AuthController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Return user authentication now',
+    summary: 'Return user authentication now - (FOR ARTIST)',
   })
   Artist(@LoggedArtist() artist: Artist) {
     return artist;
