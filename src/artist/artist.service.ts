@@ -57,7 +57,7 @@ export class ArtistService {
   }
 
   async findAll() {
-    return this.prisma.artist
+    const artists = await this.prisma.artist
       .findMany({
         select: {
           id: true,
@@ -66,6 +66,11 @@ export class ArtistService {
         },
       })
       .catch(handleError);
+
+    if (artists.length === 0) {
+      throw new NotFoundException('No a artists found');
+    }
+    return artists;
   }
 
   async findOne(id: string) {
