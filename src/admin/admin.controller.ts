@@ -28,7 +28,7 @@ export class AdminController {
 
   @Post()
   @ApiOperation({
-    summary: 'Criar um novo Admin - (apenas "Manager" pode executar essa rota)',
+    summary: 'Create a new Admin - (MANAGER)',
   })
   create(/*@LoggedManager() admin: Admin, */ @Body() dto: CreateAdminDto) {
     return this.adminService.create(dto);
@@ -36,37 +36,35 @@ export class AdminController {
 
   @Get()
   @ApiOperation({
-    summary:
-      'Buscar todos os Admins - (apenas "Manager" pode executar essa rota)',
+    summary: 'Fetch all Admins - (MANAGER)',
   })
   findAll(@LoggedManager() admin: Admin) {
     return this.adminService.findAll();
   }
 
-  @Get(':id')
+  @Get(':adminID')
   @ApiOperation({
-    summary:
-      'Buscar um Admin pelo ID - (apenas "Manager" pode executar essa rota)',
+    summary: 'Fetch an admin by ID - (MANAGER)',
   })
-  findOne(@LoggedManager() admin: Admin, @Param('id') id: string) {
+  findOne(@LoggedManager() admin: Admin, @Param('adminID') id: string) {
     return this.adminService.findOne(id);
   }
 
   @Patch()
   @ApiOperation({
-    summary: 'Editar nome e senha do Admin.',
+    summary: 'Edit an admin logged - (ADMIN)',
   })
   update(@LoggedAdmin() admin: Admin, @Body() dto: UpdateAdminDto) {
     return this.adminService.update(admin.id, dto);
   }
 
-  @Delete(':id')
+  @Delete(':adminID')
   @ApiOperation({
     summary:
-      'Deletar um Admin pelo ID - (apenas "Manager" pode executar essa rota)',
+      'Delete an admin by ID - (MANAGER)',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@LoggedManager() admin: Admin, @Param('id') id: string) {
+  delete(@LoggedManager() admin: Admin, @Param('adminID') id: string) {
     return this.adminService.delete(id);
   }
 }
