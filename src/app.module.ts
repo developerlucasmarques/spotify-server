@@ -10,8 +10,8 @@ import { ProfileModule } from './profile/profile.module';
 import { ArtistModule } from './artist/artist.module';
 import { CountryModule } from './country/country.module';
 import { AlbumModule } from './album/album.module';
-import { MusicModule } from './music/music.module';
-import { ProfileFavoriteMusicModule } from './profile-favorite-music/profile-favorite-music.module';
+import { SongModule } from './song/song.module';
+import { ProfileFavoriteSongModule } from './profile-favorite-song/profile-favorite-song.module';
 import { CategoryModule } from './category/category.module';
 
 @Module({
@@ -25,8 +25,8 @@ import { CategoryModule } from './category/category.module';
     ArtistModule,
     CountryModule,
     AlbumModule,
-    MusicModule,
-    ProfileFavoriteMusicModule,
+    SongModule,
+    ProfileFavoriteSongModule,
     CategoryModule,
   ],
   controllers: [AppController],

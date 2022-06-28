@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 
 @Injectable()
-export class ProfileFavoriteMusicService {
+export class ProfileFavoriteSongService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(userId: string, profileId: string) {
@@ -14,13 +14,13 @@ export class ProfileFavoriteMusicService {
       .findUnique({
         where: { id: profileId },
         select: {
-          musics: {
+          songs: {
             select: {
-              music: {
+              song: {
                 select: {
                   id: true,
                   name: true,
-                  musicUrl: true,
+                  songUrl: true,
                   artist: {
                     select: {
                       id: true,
@@ -42,30 +42,30 @@ export class ProfileFavoriteMusicService {
       })
       .catch(handleError);
 
-    if (allFavorites.musics.length === 0) {
+    if (allFavorites.songs.length === 0) {
       throw new NotFoundException('No favorite songs found in profile');
     }
 
     return allFavorites;
   }
 
-  async update(userId: string, profileId: string, musicIdD: string) {
+  async update(userId: string, profileId: string, songIdD: string) {
     await this.findByIdProfileUser(userId, profileId);
 
-    const data: Prisma.ProfileFavoriteMusicCreateInput = {
+    const data: Prisma.ProfileFavoriteSongCreateInput = {
       profile: {
         connect: {
           id: profileId,
         },
       },
-      music: {
+      song: {
         connect: {
-          id: musicIdD,
+          id: songIdD,
         },
       },
     };
 
-    return await this.prisma.profileFavoriteMusic
+    return await this.prisma.profileFavoriteSong
       .create({
         data,
         select: {
@@ -74,11 +74,11 @@ export class ProfileFavoriteMusicService {
               name: true,
             },
           },
-          music: {
+          song: {
             select: {
               id: true,
               name: true,
-              musicUrl: true,
+              songUrl: true,
               artist: {
                 select: {
                   id: true,
@@ -99,15 +99,15 @@ export class ProfileFavoriteMusicService {
       .catch(handleError);
   }
 
-  async delete(userId: string, profileId: string, musicId: string) {
+  async delete(userId: string, profileId: string, songId: string) {
     await this.findByIdProfileUser(userId, profileId);
-    await this.findByIdMusicInProfile(profileId, musicId);
-    return await this.prisma.profileFavoriteMusic
+    await this.findByIdSongInProfile(profileId, songId);
+    return await this.prisma.profileFavoriteSong
       .delete({
         where: {
-          profileId_musicId: {
+          profileId_songId: {
             profileId: profileId,
-            musicId: musicId,
+            songId: songId,
           },
         },
       })
@@ -134,15 +134,15 @@ export class ProfileFavoriteMusicService {
     return profileUser;
   }
 
-  async findByIdMusicInProfile(profileId: string, musicId: string) {
-    const musicProfile = await this.prisma.profile
+  async findByIdSongInProfile(profileId: string, songId: string) {
+    const songProfile = await this.prisma.profile
       .findUnique({
         where: { id: profileId },
         select: {
-          musics: {
+          songs: {
             where: {
-              music: {
-                id: musicId,
+              song: {
+                id: songId,
               },
             },
           },
@@ -150,7 +150,7 @@ export class ProfileFavoriteMusicService {
       })
       .catch(handleError);
 
-    if (musicProfile.musics.length === 0) {
+    if (songProfile.songs.length === 0) {
       throw new NotFoundException('No favorite songs found in the profile ');
     }
   }

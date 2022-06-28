@@ -61,13 +61,13 @@ export class ArtistService {
       .findUnique({
         where: { id: artistId },
         select: {
-          musics: {
+          songs: {
             take: 5,
             skip: 0,
             select: {
               id: true,
               name: true,
-              musicUrl: true,
+              songUrl: true,
             },
           },
           albums: {
@@ -81,7 +81,7 @@ export class ArtistService {
       })
       .catch(handleError);
 
-    if(record.musics.length === 0 && record.albums.length === 0) {
+    if(record.songs.length === 0 && record.albums.length === 0) {
       throw new NotFoundException('No song or album found')
     }
 
@@ -118,13 +118,13 @@ export class ArtistService {
               name: true,
             },
           },
-          musics: {
+          songs: {
             take: 5,
             skip: 0,
             select: {
               id: true,
               name: true,
-              musicUrl: true,
+              songUrl: true,
             },
           },
           albums: {
@@ -149,7 +149,7 @@ export class ArtistService {
   }
 
   async findOneByArtist(artistId: string) {
-    const musics = await this.prisma.artist
+    const songs = await this.prisma.artist
       .findMany({
         where: { id: artistId },
         select: {
@@ -162,11 +162,11 @@ export class ArtistService {
               name: true,
               image: true,
               year: true,
-              musics: {
+              songs: {
                 select: {
                   id: true,
                   name: true,
-                  musicUrl: true,
+                  songUrl: true,
                 },
               },
             },
@@ -175,11 +175,11 @@ export class ArtistService {
       })
       .catch(handleError);
 
-    if (musics.length === 0) {
-      throw new NotFoundException('No music found');
+    if (songs.length === 0) {
+      throw new NotFoundException('No song found');
     }
 
-    return musics;
+    return songs;
   }
 
   async update(artistId: string, dto: UpdateArtistDto) {

@@ -83,7 +83,7 @@ model Profile {
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
 
-  musics ProfileFavoriteMusic[]
+  songs ProfileFavoriteSong[]
 
   @@map("profile")
 }
@@ -106,7 +106,7 @@ model Artist {
 
   albums Album[]
 
-  musics Music[]
+  songs Song[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -138,7 +138,7 @@ model Album {
   artist   Artist @relation(fields: [artistId], references: [id])
   artistId String @map("artist_id")
 
-  musics Music[]
+  songs Song[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -146,10 +146,10 @@ model Album {
   @@map("album")
 }
 
-model Music {
+model Song {
   id       String @id @default(uuid())
   name     String
-  musicUrl String @map("music_url")
+  songUrl String @map("song_url")
 
   album   Album  @relation(fields: [albumId], references: [id])
   albumId String @map("album_id")
@@ -157,34 +157,34 @@ model Music {
   artist   Artist @relation(fields: [artistId], references: [id])
   artistId String @map("artist_id")
 
-  CategoryMusic CategoryMusic[]
+  CategorySong CategorySong[]
 
-  profiles ProfileFavoriteMusic[]
+  profiles ProfileFavoriteSong[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("music")
+  @@map("song")
 }
 
-model ProfileFavoriteMusic {
+model ProfileFavoriteSong {
   id String @id @default(uuid())
 
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @map("profile_id")
 
-  music   Music  @relation(fields: [musicId], references: [id])
-  musicId String @map("music_id")
+  song   Song  @relation(fields: [songId], references: [id])
+  songId String @map("song_id")
 
-  @@unique([profileId, musicId])
-  @@map("profile_favorite_music")
+  @@unique([profileId, songId])
+  @@map("profile_favorite_song")
 }
 
 model Category {
   id   String @id @default(uuid())
   name String @unique
 
-  CategoryMusic CategoryMusic[]
+  CategorySong CategorySong[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -192,17 +192,17 @@ model Category {
   @@map("category")
 }
 
-model CategoryMusic {
+model CategorySong {
   id String @id @default(uuid())
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String   @map("category_id")
 
-  music   Music  @relation(fields: [musicId], references: [id])
-  musicId String @map("music_id")
+  song   Song  @relation(fields: [songId], references: [id])
+  songId String @map("song_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("category_music")
+  @@map("category_song")
 }

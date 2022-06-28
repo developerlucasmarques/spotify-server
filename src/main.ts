@@ -32,10 +32,10 @@ async function bootstrap() {
     .addTag('artist')
     .addTag('country')
     .addTag('album')
-    .addTag('music')
-    .addTag('profile-favorite-music')
+    .addTag('song')
+    .addTag('profile-favorite-song')
     .addTag('category')
-    .addTag('category-music')
+    .addTag('category-song')
     .addBearerAuth()
     .build();
 
