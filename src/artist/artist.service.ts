@@ -56,6 +56,38 @@ export class ArtistService {
       .catch(handleError);
   }
 
+  async homePage(artistId: string) {
+    const record = await this.prisma.artist
+      .findUnique({
+        where: { id: artistId },
+        select: {
+          musics: {
+            take: 5,
+            skip: 0,
+            select: {
+              id: true,
+              name: true,
+              musicUrl: true,
+            },
+          },
+          albums: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if(record.musics.length === 0 && record.albums.length === 0) {
+      throw new NotFoundException('No song or album found')
+    }
+
+    return record;
+  }
+
   async findAll() {
     const artists = await this.prisma.artist
       .findMany({
@@ -125,9 +157,11 @@ export class ArtistService {
           name: true,
           albums: {
             select: {
+              _count: true,
               id: true,
               name: true,
               image: true,
+              year: true,
               musics: {
                 select: {
                   id: true,

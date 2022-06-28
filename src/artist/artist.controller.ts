@@ -35,11 +35,22 @@ export class ArtistController {
     return this.artistService.create(dto);
   }
 
+  @Get('/home')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary:
+      'Fetch all data of the artist who is logged in - (ONLY ARTIST)',
+  })
+  homePage(@LoggedArtist() artist: Artist) {
+    return this.artistService.homePage(artist.id);
+  }
+
   @Get('/all')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'List all artists - (USER)',
+    summary: 'List all artists - (OPEN)',
   })
   findAll() {
     return this.artistService.findAll();
@@ -49,7 +60,7 @@ export class ArtistController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Fetch a artist by Id - (USER)',
+    summary: 'Fetch a artist by Id - (OPEN)',
   })
   findOne(@Param('artistID') id: string) {
     return this.artistService.findOne(id);
@@ -71,7 +82,7 @@ export class ArtistController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Edit artist logged - (ARTIST)',
+    summary: 'Edit artist logged - (ONLY ARTIST)',
   })
   update(@LoggedArtist() artist: Artist, @Body() dto: UpdateArtistDto) {
     return this.artistService.update(artist.id, dto);
@@ -82,7 +93,7 @@ export class ArtistController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remove artist logged - (ARTIST)',
+    summary: 'Remove artist logged - (ONLY ARTIST)',
   })
   delete(@LoggedArtist() artist: Artist) {
     return this.artistService.delete(artist.id);
@@ -93,7 +104,7 @@ export class ArtistController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remove a artist by Id - (ADMIN)',
+    summary: 'Remove a artist by Id - (ONLY ADMIN)',
   })
   deleteArtist(@LoggedAdmin() admin: Admin, @Param('artistID') id: string) {
     return this.artistService.deleteArtist(id);
