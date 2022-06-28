@@ -33,7 +33,7 @@ export class ArtistController {
     return this.artistService.create(dto);
   }
 
-  @Get('/find-all')
+  @Get('/all')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
@@ -43,7 +43,7 @@ export class ArtistController {
     return this.artistService.findAll();
   }
 
-  @Get('/find-one/:artistID')
+  @Get('/:artistID')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
