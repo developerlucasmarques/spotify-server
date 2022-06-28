@@ -157,7 +157,7 @@ model Music {
   artist   Artist @relation(fields: [artistId], references: [id])
   artistId String @map("artist_id")
 
-  // CategoryMusic CategoryMusic[]
+  CategoryMusic CategoryMusic[]
 
   profiles ProfileFavoriteMusic[]
 
@@ -184,7 +184,7 @@ model Category {
   id   String @id @default(uuid())
   name String @unique
 
-  // CategoryMusic CategoryMusic[]
+  CategoryMusic CategoryMusic[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -192,17 +192,17 @@ model Category {
   @@map("category")
 }
 
-// model CategoryMusic {
-//   id String @id @default(uuid())
+model CategoryMusic {
+  id String @id @default(uuid())
 
-//   category   Category @relation(fields: [categoryId], references: [id])
-//   categoryId String   @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("category_id")
 
-//   music   Music  @relation(fields: [musicId], references: [id])
-//   musicId String @map("music_id")
+  music   Music  @relation(fields: [musicId], references: [id])
+  musicId String @map("music_id")
 
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-//   @@map("category_music")
-// }
+  @@map("category_music")
+}
