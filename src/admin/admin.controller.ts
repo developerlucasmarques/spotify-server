@@ -26,7 +26,7 @@ import { Admin } from './entities/admin.entity';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Post()
+  @Post('/create')
   @ApiOperation({
     summary: 'Create a new Admin - (MANAGER)',
   })
@@ -34,7 +34,7 @@ export class AdminController {
     return this.adminService.create(dto);
   }
 
-  @Get()
+  @Get('/find-all')
   @ApiOperation({
     summary: 'Fetch all Admins - (MANAGER)',
   })
@@ -42,7 +42,7 @@ export class AdminController {
     return this.adminService.findAll();
   }
 
-  @Get(':adminID')
+  @Get('/find-one/:adminID')
   @ApiOperation({
     summary: 'Fetch an admin by ID - (MANAGER)',
   })
@@ -50,7 +50,7 @@ export class AdminController {
     return this.adminService.findOne(id);
   }
 
-  @Patch()
+  @Patch('/update')
   @ApiOperation({
     summary: 'Edit an admin logged - (ADMIN)',
   })
@@ -58,7 +58,7 @@ export class AdminController {
     return this.adminService.update(admin.id, dto);
   }
 
-  @Delete(':adminID')
+  @Delete('/delete/:adminID')
   @ApiOperation({
     summary:
       'Delete an admin by ID - (MANAGER)',
