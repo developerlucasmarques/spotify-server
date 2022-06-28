@@ -25,48 +25,48 @@ import { UpdateCountryDto } from './dto/update-country.dto';
 export class CountryController {
   constructor(private readonly countryService: CountryService) {}
 
-  @Post()
+  @Post('/create')
   @ApiOperation({
-    summary: 'Create a new country',
+    summary: 'Create a new country - (ONLY ADMIN)',
   })
   create(@LoggedAdmin() admin: Admin, @Body() dto: CreateCountryDto) {
     return this.countryService.create(dto);
   }
 
-  @Get()
+  @Get('/find-all')
   @ApiOperation({
-    summary: 'Search all countries',
+    summary: 'Search all countries - (ONLY ADMIN)',
   })
   findAll(@LoggedAdmin() admin: Admin) {
     return this.countryService.findAll();
   }
 
-  @Get(':id')
+  @Get('/find-one/:countryID')
   @ApiOperation({
-    summary: 'Search for a country by id',
+    summary: 'Search for a country by id - (ONLY ADMIN)',
   })
-  findOne(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+  findOne(@LoggedAdmin() admin: Admin, @Param('countryID') id: string) {
     return this.countryService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('/update/:countryID')
   @ApiOperation({
-    summary: 'Edit a country by id',
+    summary: 'Edit a country by id - (ONLY ADMIN)',
   })
   update(
     @LoggedAdmin() admin: Admin,
-    @Param('id') id: string,
+    @Param('countryID') id: string,
     @Body() dto: UpdateCountryDto,
   ) {
     return this.countryService.update(id, dto);
   }
 
-  @Delete(':id')
+  @Delete('/delete/:countryID')
   @ApiOperation({
-    summary: 'Delete a country by id',
+    summary: 'Delete a country by id - (ONLY ADMIN)',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+  delete(@LoggedAdmin() admin: Admin, @Param('countryID') id: string) {
     return this.countryService.delete(id);
   }
 }
