@@ -21,8 +21,8 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @ApiTags('category')
-// @UseGuards(AuthGuard())
-// @ApiBearerAuth()
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
@@ -31,7 +31,7 @@ export class CategoryController {
   @ApiOperation({
     summary: 'Create a new Music Category',
   })
-  create(/*@LoggedAdmin() admin: Admin,*/ @Body() dto: CreateCategoryDto) {
+  create(@LoggedAdmin() admin: Admin, @Body() dto: CreateCategoryDto) {
     return this.categoryService.create(dto);
   }
 
@@ -39,7 +39,7 @@ export class CategoryController {
   @ApiOperation({
     summary: 'List All Music Categories',
   })
-  findAll(/*@LoggedUser() user: User*/) {
+  findAll(@LoggedUser() user: User) {
     return this.categoryService.findAll();
   }
 
@@ -48,7 +48,7 @@ export class CategoryController {
     summary: 'List a Music Categorie by Id',
   })
   findOne(
-    /*@LoggedUser() user: User,*/ @Param('categoryId') categoryId: string,
+    @LoggedUser() user: User, @Param('categoryID') categoryId: string,
   ) {
     return this.categoryService.findOne(categoryId);
   }
@@ -58,8 +58,8 @@ export class CategoryController {
     summary: 'Edit a Music Categorie by Id',
   })
   update(
-    /*@LoggedAdmin() admin: Admin,*/
-    @Param('categoryId') categoryId: string,
+    @LoggedAdmin() admin: Admin,
+    @Param('categoryID') categoryId: string,
     @Body() dto: UpdateCategoryDto,
   ) {
     return this.categoryService.update(categoryId, dto);
@@ -71,7 +71,7 @@ export class CategoryController {
     summary: 'Delete a Music Categorie by Id',
   })
   delete(
-    /*@LoggedAdmin() admin: Admin,*/ @Param('categoryId') categoryId: string,
+    @LoggedAdmin() admin: Admin, @Param('categoryID') categoryId: string,
   ) {
     return this.categoryService.delete(categoryId);
   }

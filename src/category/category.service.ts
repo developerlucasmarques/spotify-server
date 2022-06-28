@@ -82,7 +82,7 @@ export class CategoryService {
   async delete(categoryId: string) {
     await this.findById(categoryId);
 
-    return this.prisma.category
+    return await this.prisma.category
       .delete({
         where: { id: categoryId },
       })
