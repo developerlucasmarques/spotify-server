@@ -64,7 +64,7 @@ export class ArtistController {
   findOneByArtist(
     @Param('artistID') artistId: string,
   ) {
-    return this.artistService.findOneByArtsit(artistId);
+    return this.artistService.findOneByArtist(artistId);
   }
 
   @Patch('/update')

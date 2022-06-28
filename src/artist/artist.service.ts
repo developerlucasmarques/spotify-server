@@ -116,7 +116,7 @@ export class ArtistService {
     return record;
   }
 
-  async findOneByArtsit(artistId: string) {
+  async findOneByArtist(artistId: string) {
     const musics = await this.prisma.artist
       .findMany({
         where: { id: artistId },
