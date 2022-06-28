@@ -1,20 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Admin } from '@prisma/client';
 import { Artist } from 'src/artist/entities/artist.entity';
-import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedArtist } from 'src/auth/logged-artist.decorator';
 import { AlbumService } from './album.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
@@ -27,49 +25,49 @@ import { UpdateAlbumDto } from './dto/update-album.dto';
 export class AlbumController {
   constructor(private readonly albumService: AlbumService) {}
 
-  @Post()
+  @Post('/create')
   @ApiOperation({
     summary:
-      'Create an album and associate it with the artist who created it (artist)',
+      'Create an album and associate it with the artist who created it - (ARTIST)',
   })
   create(@LoggedArtist() artist: Artist, @Body() dto: CreateAlbumDto) {
     return this.albumService.create(artist.id, dto);
   }
 
-  @Get()
+  @Get('/find-all')
   @ApiOperation({
-    summary: 'Fetch all albums of the artist who is logged in (artist)',
+    summary: 'Fetch all albums of the artist who is logged in - (ARTIST)',
   })
   findAll(@LoggedArtist() artist: Artist) {
     return this.albumService.findAll(artist.id);
   }
 
-  @Get(':id')
+  @Get('/find-one/:albumID')
   @ApiOperation({
-    summary: 'Search for an album by the artist who is logged in (artist)',
+    summary: 'Search for an album by the artist who is logged in - (ARTIST)',
   })
-  findOne(@LoggedArtist() artist: Artist, @Param('id') albumId: string) {
+  findOne(@LoggedArtist() artist: Artist, @Param('albumID') albumId: string) {
     return this.albumService.findOne(artist.id, albumId);
   }
 
-  @Patch(':id')
+  @Patch('update/:albumID')
   @ApiOperation({
-    summary: 'Edit an album of the artist who is logged in (artist)',
+    summary: 'Edit an album of the artist who is logged - (ARTIST)',
   })
   update(
     @LoggedArtist() artist: Artist,
-    @Param('id') albumId: string,
+    @Param('albumID') albumId: string,
     @Body() dto: UpdateAlbumDto,
   ) {
     return this.albumService.update(artist.id, albumId, dto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:albumID')
   @ApiOperation({
-    summary: 'Delete an album of the artist who is logged in (artist)',
+    summary: 'Delete an album of the artist who is logged in - (ARTIST)',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@LoggedArtist() artist: Artist, @Param('id') albumId: string) {
+  delete(@LoggedArtist() artist: Artist, @Param('albumID') albumId: string) {
     return this.albumService.delete(artist.id, albumId);
   }
 }
