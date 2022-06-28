@@ -116,6 +116,38 @@ export class ArtistService {
     return record;
   }
 
+  async findOneByArtsit(artistId: string) {
+    const musics = await this.prisma.artist
+      .findMany({
+        where: { id: artistId },
+        select: {
+          id: true,
+          name: true,
+          albums: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+              musics: {
+                select: {
+                  id: true,
+                  name: true,
+                  musicUrl: true,
+                },
+              },
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (musics.length === 0) {
+      throw new NotFoundException('No music found');
+    }
+
+    return musics;
+  }
+
   async update(artistId: string, dto: UpdateArtistDto) {
     if (dto.password) {
       verifyConfirmPassword(dto.password, dto.confirmPassword);

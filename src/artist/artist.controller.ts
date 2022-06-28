@@ -15,6 +15,8 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from 'src/admin/entities/admin.entity';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedArtist } from 'src/auth/logged-artist.decorator';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
@@ -51,6 +53,18 @@ export class ArtistController {
   })
   findOne(@Param('artistID') id: string) {
     return this.artistService.findOne(id);
+  }
+
+  @Get('/:artistID/discography')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'View all songs by an artist - (ONLY USER)',
+  })
+  findOneByArtist(
+    @Param('artistID') artistId: string,
+  ) {
+    return this.artistService.findOneByArtsit(artistId);
   }
 
   @Patch('/update')
