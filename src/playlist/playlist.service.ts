@@ -40,8 +40,26 @@ export class PlaylistService {
       .catch(handleError);
   }
 
-  findAll() {
-    return `This action returns all playlist`;
+  async profilePlayLists(userId: string, dto: UpdatePlaylistDto) {
+    await this.findOneProfileInUser(userId, dto.profileId);
+    const playLists = await this.prisma.profile.findUnique({
+      where: { id: dto.profileId },
+      select: {
+        playlists: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+            private: true,
+          },
+        },
+      },
+    });
+
+    if (playLists.playlists.length === 0) {
+      throw new NotFoundException('No playlist found');
+    }
+    return playLists;
   }
 
   findOne(id: string) {

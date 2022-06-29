@@ -28,9 +28,9 @@ export class PlaylistController {
     return this.playlistService.create(user.id, dto);
   }
 
-  @Get()
-  profilePlayLists() {
-    return this.playlistService.findAll();
+  @Post('/all')
+  profilePlayLists(@LoggedUser() user: User, @Body() dto: UpdatePlaylistDto) {
+    return this.playlistService.profilePlayLists(user.id, dto);
   }
 
   @Get(':id')
