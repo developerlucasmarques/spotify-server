@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { stringify } from 'querystring';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
@@ -40,17 +41,16 @@ export class PlaylistService {
       .catch(handleError);
   }
 
-  async profilePlayLists(userId: string, dto: UpdatePlaylistDto) {
-    await this.findOneProfileInUser(userId, dto.profileId);
+  async findAllPlaylistProfile(userId: string, profileId: string) {
+    await this.findOneProfileInUser(userId, profileId);
     const playLists = await this.prisma.profile.findUnique({
-      where: { id: dto.profileId },
+      where: { id: profileId },
       select: {
         playlists: {
           select: {
             id: true,
             name: true,
             image: true,
-            private: true,
           },
         },
       },
@@ -62,8 +62,27 @@ export class PlaylistService {
     return playLists;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} playlist`;
+  async findOnePlaylistProfile(profileId: string, playlistId: string) {
+    const playlist = await this.prisma.playList.findUnique({
+      where: { id: playlistId },
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        private: true,
+        profile: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    if (playlist.private && playlist.profile.id !== profileId) {
+      throw new NotFoundException('Playlist not found');
+    }
+
+    return playlist;
   }
 
   update(id: string, dto: UpdatePlaylistDto) {

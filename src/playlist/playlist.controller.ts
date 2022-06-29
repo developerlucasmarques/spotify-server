@@ -28,22 +28,37 @@ export class PlaylistController {
     return this.playlistService.create(user.id, dto);
   }
 
-  @Post('/all')
-  profilePlayLists(@LoggedUser() user: User, @Body() dto: UpdatePlaylistDto) {
-    return this.playlistService.profilePlayLists(user.id, dto);
+  @Get('/all/:profileID')
+  findAllPlaylistProfile(
+    @LoggedUser() user: User,
+    @Param('profileID') profileId: string,
+  ) {
+    return this.playlistService.findAllPlaylistProfile(user.id, profileId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.playlistService.findOne(id);
+  @Get('/:profileID/:playlistID')
+  findOnePlaylistProfile(
+    @LoggedUser() user: User,
+    @Param('profileID') profileId: string,
+    @Param('playlistID') playlistId: string,
+  ) {
+    return this.playlistService.findOnePlaylistProfile(
+      profileId,
+      playlistId,
+    );
   }
 
-  @Patch(':id')
+  // @Get(':id')
+  // findOneAnotherUserPlaylist(@Param('id') id: string) {
+  //   return this.playlistService.findAnotherUserPlaylist(id);
+  // }
+
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() dto: UpdatePlaylistDto) {
     return this.playlistService.update(id, dto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.playlistService.remove(id);
   }
