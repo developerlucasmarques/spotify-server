@@ -23,6 +23,13 @@ export class SongService {
           id: artistId,
         },
       },
+      CategorySongs: {
+        createMany: {
+          data: dto.categoryId.map((categoryId) => ({
+            categoryId: categoryId,
+          })),
+        },
+      },
     };
 
     return this.prisma.song
@@ -44,6 +51,16 @@ export class SongService {
               name: true,
             },
           },
+          CategorySongs: {
+            select: {
+              category: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
         },
       })
       .catch(handleError);
@@ -58,6 +75,7 @@ export class SongService {
           songUrl: true,
           artist: {
             select: {
+              id: true,
               name: true,
             },
           },
@@ -114,14 +132,25 @@ export class SongService {
           songUrl: true,
           artist: {
             select: {
+              id: true,
               name: true,
               image: true,
             },
           },
           album: {
             select: {
+              id: true,
               name: true,
               image: true,
+            },
+          },
+          CategorySongs: {
+            select: {
+              category: {
+                select: {
+                  name: true,
+                },
+              },
             },
           },
         },

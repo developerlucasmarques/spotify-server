@@ -37,9 +37,9 @@ export class CategoryController {
 
   @Get('find-all-musics-categories')
   @ApiOperation({
-    summary: 'List All Music Categories - (ONLY USER)',
+    summary: 'List All Music Categories - (OPEN)',
   })
-  findAll(@LoggedUser() user: User) {
+  findAll() {
     return this.categoryService.findAll();
   }
 
