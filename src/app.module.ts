@@ -13,6 +13,7 @@ import { AlbumModule } from './album/album.module';
 import { SongModule } from './song/song.module';
 import { ProfileFavoriteSongModule } from './profile-favorite-song/profile-favorite-song.module';
 import { CategoryModule } from './category/category.module';
+import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CategoryModule } from './category/category.module';
     SongModule,
     ProfileFavoriteSongModule,
     CategoryModule,
+    PlaylistModule,
   ],
   controllers: [AppController],
   providers: [AppService],

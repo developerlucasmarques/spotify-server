@@ -84,6 +84,7 @@ model Profile {
   userId String @map("user_id")
 
   songs ProfileFavoriteSong[]
+  playlists PlayList[]
 
   @@map("profile")
 }
@@ -205,4 +206,20 @@ model CategorySong {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("category_song")
+}
+
+model PlayList {
+  id String @id @default(uuid())
+
+  name String
+  image String
+  private Boolean
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String @map("profile_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("playlist")
 }
