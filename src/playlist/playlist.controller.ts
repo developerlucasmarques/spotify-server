@@ -37,21 +37,13 @@ export class PlaylistController {
   }
 
   @Get('/:profileID/:playlistID')
-  findOnePlaylistProfile(
+  findOnePlaylist(
     @LoggedUser() user: User,
     @Param('profileID') profileId: string,
     @Param('playlistID') playlistId: string,
   ) {
-    return this.playlistService.findOnePlaylistProfile(
-      profileId,
-      playlistId,
-    );
+    return this.playlistService.findOnePlaylist(profileId, playlistId);
   }
-
-  // @Get(':id')
-  // findOneAnotherUserPlaylist(@Param('id') id: string) {
-  //   return this.playlistService.findAnotherUserPlaylist(id);
-  // }
 
   @Patch('update/:id')
   update(@Param('id') id: string, @Body() dto: UpdatePlaylistDto) {

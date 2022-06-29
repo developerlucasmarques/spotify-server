@@ -62,7 +62,7 @@ export class PlaylistService {
     return playLists;
   }
 
-  async findOnePlaylistProfile(profileId: string, playlistId: string) {
+  async findOnePlaylist(profileId: string, playlistId: string) {
     const playlist = await this.prisma.playList.findUnique({
       where: { id: playlistId },
       select: {
