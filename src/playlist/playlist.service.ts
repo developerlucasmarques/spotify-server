@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
@@ -9,7 +9,8 @@ import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 export class PlaylistService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreatePlaylistDto) {
+  async create(userId: string, dto: CreatePlaylistDto) {
+    await this.findOneProfileInUser(userId, dto.profileId);
     const data: Prisma.PlayListCreateInput = {
       name: dto.name,
       image: dto.image,
@@ -43,15 +44,34 @@ export class PlaylistService {
     return `This action returns all playlist`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} playlist`;
   }
 
-  update(id: number, dto: UpdatePlaylistDto) {
+  update(id: string, dto: UpdatePlaylistDto) {
     return `This action updates a #${id} playlist`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} playlist`;
+  }
+
+  async findOneProfileInUser(userId: string, profileId: string) {
+    const record = await this.prisma.user
+      .findUnique({
+        where: { id: userId },
+        select: {
+          profiles: {
+            where: {
+              id: profileId,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (record.profiles.length === 0) {
+      throw new NotFoundException(`Profile with ID '${profileId}' not found`);
+    }
   }
 }
