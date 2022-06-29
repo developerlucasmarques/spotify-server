@@ -19,16 +19,13 @@ import { ApiTags } from '@nestjs/swagger';
 export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
 
-  @Post('/create/:profileID')
-  create(
-    @Param('profileID') profileId: string,
-    @Body() dto: CreatePlaylistDto,
-  ) {
-    return this.playlistService.create(profileId, dto);
+  @Post('/create')
+  create(@Body() dto: CreatePlaylistDto) {
+    return this.playlistService.create(dto);
   }
 
   @Get()
-  findAll() {
+  profilePlayLists() {
     return this.playlistService.findAll();
   }
 

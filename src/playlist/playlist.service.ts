@@ -9,12 +9,14 @@ import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 export class PlaylistService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(profileId: string, dto: CreatePlaylistDto) {
+  async create(dto: CreatePlaylistDto) {
     const data: Prisma.PlayListCreateInput = {
-      ...dto,
+      name: dto.name,
+      image: dto.image,
+      private: dto.private,
       profile: {
         connect: {
-          id: profileId,
+          id: dto.profileId,
         },
       },
     };
@@ -30,7 +32,6 @@ export class PlaylistService {
             select: {
               id: true,
               name: true,
-              image: true,
             },
           },
         },

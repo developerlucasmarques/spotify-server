@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsString,
+  IsUrl,
+  IsUUID,
+} from 'class-validator';
 
 export class CreatePlaylistDto {
   @IsNotEmpty()
@@ -24,4 +30,11 @@ export class CreatePlaylistDto {
     example: false,
   })
   private: boolean;
+
+  @IsUUID()
+  @ApiProperty({
+    description: 'Profile that is creating the playlist.',
+    example: '76b73966-928c-407e-8c35-ba327f4d200c',
+  })
+  profileId: string;
 }
