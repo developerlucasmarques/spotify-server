@@ -1,15 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('playlist')
 @Controller('playlist')
 export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
 
-  @Post()
-  create(@Body() createPlaylistDto: CreatePlaylistDto) {
-    return this.playlistService.create(createPlaylistDto);
+  @Post('/create/:profileID')
+  create(
+    @Param('profileID') profileId: string,
+    @Body() dto: CreatePlaylistDto,
+  ) {
+    return this.playlistService.create(profileId, dto);
   }
 
   @Get()
@@ -23,8 +38,8 @@ export class PlaylistController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlaylistDto: UpdatePlaylistDto) {
-    return this.playlistService.update(+id, updatePlaylistDto);
+  update(@Param('id') id: string, @Body() dto: UpdatePlaylistDto) {
+    return this.playlistService.update(+id, dto);
   }
 
   @Delete(':id')
