@@ -29,7 +29,7 @@ export class CategoryController {
 
   @Post('create-music-category')
   @ApiOperation({
-    summary: 'Create a new Music Category',
+    summary: 'Create a new Music Category - (ONLY ADMIN)',
   })
   create(@LoggedAdmin() admin: Admin, @Body() dto: CreateCategoryDto) {
     return this.categoryService.create(dto);
@@ -37,7 +37,7 @@ export class CategoryController {
 
   @Get('find-all-musics-categories')
   @ApiOperation({
-    summary: 'List All Music Categories',
+    summary: 'List All Music Categories - (ONLY USER)',
   })
   findAll(@LoggedUser() user: User) {
     return this.categoryService.findAll();
@@ -45,7 +45,7 @@ export class CategoryController {
 
   @Get('find-one-music-category/:categoryID')
   @ApiOperation({
-    summary: 'List a Music Categorie by Id',
+    summary: 'List a Music Categorie by Id - (ONLY USER)',
   })
   findOne(
     @LoggedUser() user: User, @Param('categoryID') categoryId: string,
@@ -55,7 +55,7 @@ export class CategoryController {
 
   @Patch('edit-music-category/:categoryID')
   @ApiOperation({
-    summary: 'Edit a Music Categorie by Id',
+    summary: 'Edit a Music Categorie by Id - (ONLY ADMIN)',
   })
   update(
     @LoggedAdmin() admin: Admin,
@@ -68,7 +68,7 @@ export class CategoryController {
   @Delete('remove-music-category/:categoryID')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Delete a Music Categorie by Id',
+    summary: 'Delete a Music Categorie by Id - (ONLY ADMIN)',
   })
   delete(
     @LoggedAdmin() admin: Admin, @Param('categoryID') categoryId: string,
