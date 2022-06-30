@@ -30,11 +30,4 @@ export class CreatePlaylistDto {
     example: false,
   })
   private: boolean;
-
-  @IsUUID()
-  @ApiProperty({
-    description: 'Profile that is creating the playlist.',
-    example: '76b73966-928c-407e-8c35-ba327f4d200c',
-  })
-  profileId: string;
 }

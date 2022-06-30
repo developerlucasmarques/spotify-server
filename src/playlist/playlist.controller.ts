@@ -10,10 +10,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
-import { User } from 'src/user/entities/user.entity';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 import { PlaylistService } from './playlist.service';
@@ -26,39 +25,75 @@ export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
 
   @Post('/create')
-  create(@LoggedUser() user: User, @Body() dto: CreatePlaylistDto) {
-    return this.playlistService.create(user.id, dto);
+  @ApiOperation({
+    summary: 'Create new playlist in the logged in user profile - (ONLY USER)',
+  })
+  create(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Body() dto: CreatePlaylistDto,
+  ) {
+    return this.playlistService.create(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      dto,
+    );
   }
 
   @Get('/all')
+  @ApiOperation({
+    summary: 'Search all playlists in the logged-in user profile - (ONLY USER)',
+  })
   findAllPlaylistProfile(@LoggedUser() user: UserProfileId) {
     return this.playlistService.findAllPlaylistProfile(user);
   }
 
-  @Get('/:profileID/:playlistID')
+  @Get('/:playlistID')
+  @ApiOperation({
+    summary:
+      'Search for a playlist by id in the logged-in users profile - (ONLY USER)',
+  })
   findOnePlaylist(
-    @Param('profileID') profileId: string,
+    @LoggedUser() userProfileId: UserProfileId,
     @Param('playlistID') playlistId: string,
   ) {
-    return this.playlistService.findOnePlaylist(profileId, playlistId);
+    return this.playlistService.findOnePlaylist(
+      userProfileId.profileId,
+      playlistId,
+    );
   }
 
   @Patch('update/:playlistID')
+  @ApiOperation({
+    summary:
+      'Edit a playlist by id in the logged in users profile - (ONLY USER)',
+  })
   updatePlayList(
-    @LoggedUser() user: User,
+    @LoggedUser() userProfileId: UserProfileId,
     @Param('playlistID') playlistId: string,
     @Body() dto: UpdatePlaylistDto,
   ) {
-    return this.playlistService.updatePlayList(user.id, playlistId, dto);
+    return this.playlistService.updatePlayList(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      playlistId,
+      dto,
+    );
   }
 
-  @Patch('delete/:profileID/:playlistID')
+  @Patch('delete/:playlistID')
+  @ApiOperation({
+    summary:
+      'Delete a playlist by id in the logged in users profile - (ONLY USER)',
+  })
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(
-    @LoggedUser() user: User,
-    @Param('profileID') profileId: string,
+    @LoggedUser() userProfileId: UserProfileId,
     @Param('playlistID') playlistId: string,
   ) {
-    return this.playlistService.delete(user.id, profileId, playlistId);
+    return this.playlistService.delete(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      playlistId,
+    );
   }
 }

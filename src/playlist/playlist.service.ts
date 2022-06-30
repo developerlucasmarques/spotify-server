@@ -10,15 +10,15 @@ import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 export class PlaylistService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(userId: string, dto: CreatePlaylistDto) {
-    await this.findOneProfileInUser(userId, dto.profileId);
+  async create(userId: string, profileId: string, dto: CreatePlaylistDto) {
+    await this.findOneProfileInUser(userId, profileId);
     const data: Prisma.PlayListCreateInput = {
       name: dto.name,
       image: dto.image,
       private: dto.private,
       profile: {
         connect: {
-          id: dto.profileId,
+          id: profileId,
         },
       },
     };
@@ -93,11 +93,12 @@ export class PlaylistService {
 
   async updatePlayList(
     userId: string,
+    profileId: string,
     playlistId: string,
     dto: UpdatePlaylistDto,
   ) {
-    await this.findOneProfileInUser(userId, dto.profileId);
-    await this.findOnePlayListInProfile(dto.profileId, playlistId);
+    await this.findOneProfileInUser(userId, profileId);
+    await this.findOnePlayListInProfile(profileId, playlistId);
 
     const data: Partial<UpdatePlaylistDto> = { ...dto };
 
