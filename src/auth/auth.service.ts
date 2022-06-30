@@ -2,7 +2,10 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/user/entities/user.entity';
 import { handleError } from 'src/utils/handle-error.util';
+import { UserProfileId } from './dto/logged-profile-type';
+import { LoginProfileDto } from './dto/login-profile.dto';
 import { LoginUserResponseDto } from './dto/login-user-response.dto';
 import { LoginDto } from './dto/login.dto';
 
@@ -35,6 +38,32 @@ export class AuthService {
     return {
       token: this.jwt.sign({ email }),
       user,
+    };
+  }
+
+  async LoginProfile(user: UserProfileId, loginProfileDto: LoginProfileDto) {
+    const email = user.user.email;
+    const profileId = loginProfileDto.profileId;
+
+    const profile = await this.prisma.user
+      .findUnique({
+        where: { email },
+        select: {
+          profiles: {
+            where: {
+              id: loginProfileDto.profileId,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (profile.profiles.length === 0) {
+      throw new UnauthorizedException('Profile or User not found');
+    }
+
+    return {
+      token: this.jwt.sign({ email, profileId }),
     };
   }
 

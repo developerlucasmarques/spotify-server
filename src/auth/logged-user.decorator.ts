@@ -6,15 +6,15 @@ import {
 
 export const LoggedUser = createParamDecorator((_, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest();
-  const user = request.user;
+  const userObject = request.user;
 
-  if (user.userCategoryName !== 'user') {
+  if (userObject.user.userCategoryName !== 'user') {
     throw new UnauthorizedException(
       'User does not have permission to access this route',
     );
   }
 
-  delete user.password;
+  delete userObject.user.password;
 
-  return user;
+  return userObject;
 });

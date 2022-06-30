@@ -14,7 +14,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { email: string }) {
+  async validate(payload: { email: string; profileId: string }) {
+    const profileId = payload.profileId;
     const user = await this.prisma.user
       .findUnique({
         where: { email: payload.email },
@@ -27,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       })
       .catch(handleError);
 
-      const artist = await this.prisma.artist
+    const artist = await this.prisma.artist
       .findUnique({
         where: { email: payload.email },
       })
@@ -39,7 +40,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (user) {
       delete user.password;
-      return user;
+      return { user, profileId };
     }
 
     if (admin) {

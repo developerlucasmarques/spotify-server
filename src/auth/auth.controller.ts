@@ -13,6 +13,8 @@ import { Admin } from 'src/admin/entities/admin.entity';
 import { Artist } from 'src/artist/entities/artist.entity';
 import { User } from 'src/user/entities/user.entity';
 import { AuthService } from './auth.service';
+import { UserProfileId } from './dto/logged-profile-type';
+import { LoginProfileDto } from './dto/login-profile.dto';
 import { LoginUserResponseDto } from './dto/login-user-response.dto';
 import { LoginDto } from './dto/login.dto';
 import { LoggedAdmin } from './logged-admin.decorator';
@@ -31,6 +33,20 @@ export class AuthController {
   })
   LoginUser(@Body() loginDto: LoginDto): Promise<LoginUserResponseDto> {
     return this.authService.LoginUser(loginDto);
+  }
+
+  @Post('/sign-in-profile')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Log in, receiving a validation token - (FOR PROFILE)',
+  })
+  LoginProfile(
+    @LoggedUser() user: UserProfileId,
+    @Body() loginProfileDto: LoginProfileDto,
+  ) {
+    return this.authService.LoginProfile(user, loginProfileDto);
   }
 
   @Post('/sign-in-admin')
@@ -57,7 +73,7 @@ export class AuthController {
   @ApiOperation({
     summary: 'Return user authentication now - (FOR USER)',
   })
-  Profile(@LoggedUser() user: User) {
+  User(@LoggedUser() user: User) {
     return user;
   }
 
