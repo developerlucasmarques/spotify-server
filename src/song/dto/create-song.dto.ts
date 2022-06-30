@@ -20,7 +20,7 @@ export class CreateSongDto {
   @IsUUID()
   @ApiProperty({
     description: 'The album of the song.',
-    example: '',
+    example: '0eee08d7-8a4b-4751-bdfe-1f0bd61a6987',
   })
   albumId: string
 
