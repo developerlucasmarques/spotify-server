@@ -125,7 +125,6 @@ export class PlaylistService {
   }
 
   async findOneProfileInUser(userId: string, profileId: string) {
-    console.log(profileId);
     const record = await this.prisma.user
       .findUnique({
         where: { id: userId },
@@ -139,7 +138,6 @@ export class PlaylistService {
       })
       .catch(handleError);
 
-    console.log(record);
     if (record.profiles.length === 0) {
       throw new NotFoundException(`Profile with ID '${profileId}' not found`);
     }
