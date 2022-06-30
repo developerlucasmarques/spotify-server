@@ -1,8 +1,9 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -10,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { User } from 'src/user/entities/user.entity';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
@@ -28,12 +30,9 @@ export class PlaylistController {
     return this.playlistService.create(user.id, dto);
   }
 
-  @Get('/all/:profileID')
-  findAllPlaylistProfile(
-    @LoggedUser() user: User,
-    @Param('profileID') profileId: string,
-  ) {
-    return this.playlistService.findAllPlaylistProfile(user.id, profileId);
+  @Get('/all')
+  findAllPlaylistProfile(@LoggedUser() user: UserProfileId) {
+    return this.playlistService.findAllPlaylistProfile(user);
   }
 
   @Get('/:profileID/:playlistID')
@@ -53,8 +52,13 @@ export class PlaylistController {
     return this.playlistService.updatePlayList(user.id, playlistId, dto);
   }
 
-  @Delete('delete/:id')
-  remove(@Param('id') id: string) {
-    return this.playlistService.remove(id);
+  @Patch('delete/:profileID/:playlistID')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(
+    @LoggedUser() user: User,
+    @Param('profileID') profileId: string,
+    @Param('playlistID') playlistId: string,
+  ) {
+    return this.playlistService.delete(user.id, profileId, playlistId);
   }
 }

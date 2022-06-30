@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
@@ -40,11 +41,11 @@ export class PlaylistService {
       .catch(handleError);
   }
 
-  async findAllPlaylistProfile(userId: string, profileId: string) {
-    await this.findOneProfileInUser(userId, profileId);
+  async findAllPlaylistProfile(user: UserProfileId) {
+    await this.findOneProfileInUser(user.user.id, user.profileId);
     const playLists = await this.prisma.profile
       .findUnique({
-        where: { id: profileId },
+        where: { id: user.profileId },
         select: {
           playlists: {
             select: {
@@ -75,6 +76,8 @@ export class PlaylistService {
           profile: {
             select: {
               id: true,
+              name: true,
+              image: true,
             },
           },
         },
@@ -98,23 +101,31 @@ export class PlaylistService {
 
     const data: Partial<UpdatePlaylistDto> = { ...dto };
 
-    return await this.prisma.playList.update({
-      where: { id: playlistId },
-      data,
-      select: {
-        id: true,
-        name: true,
-        image: true,
-        private: true,
-      },
-    });
+    return await this.prisma.playList
+      .update({
+        where: { id: playlistId },
+        data,
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          private: true,
+        },
+      })
+      .catch(handleError);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} playlist`;
+  async delete(userId: string, profileId: string, playListId: string) {
+    await this.findOneProfileInUser(userId, profileId);
+    await this.findOnePlayListInProfile(profileId, playListId);
+
+    await this.prisma.playList
+      .delete({ where: { id: playListId } })
+      .catch(handleError);
   }
 
   async findOneProfileInUser(userId: string, profileId: string) {
+    console.log(profileId);
     const record = await this.prisma.user
       .findUnique({
         where: { id: userId },
@@ -128,6 +139,7 @@ export class PlaylistService {
       })
       .catch(handleError);
 
+    console.log(record);
     if (record.profiles.length === 0) {
       throw new NotFoundException(`Profile with ID '${profileId}' not found`);
     }
