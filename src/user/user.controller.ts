@@ -13,6 +13,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from 'src/admin/entities/admin.entity';
+import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -25,7 +26,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('create')
   @ApiOperation({
     summary: 'Create a new user',
   })
@@ -33,11 +34,11 @@ export class UserController {
     return this.userService.create(dto);
   }
 
-  @Get()
+  @Get('all')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'List all users',
+    summary: 'List all users - (ONLY ADMIN)',
   })
   findAll(@LoggedAdmin() admin: Admin) {
     return this.userService.findAll();
@@ -47,30 +48,33 @@ export class UserController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'View logged user account',
+    summary: 'View logged user account - (ONLY USER)',
   })
-  findMyAccount(@LoggedUser() user: User) {
-    return this.userService.findMyAccount(user.id);
+  findMyAccount(@LoggedUser() userProfileId: UserProfileId) {
+    return this.userService.findMyAccount(userProfileId.user.id);
   }
 
-  @Get('/search-user/:id')
+  @Get('/search/:id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'View a user by Id',
+    summary: 'View a user by Id - (ONLY ADMIN)',
   })
   findOneUser(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
     return this.userService.findOneUser(id);
   }
 
-  @Patch()
+  @Patch('update-my-account')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Edit user logged',
+    summary: 'Edit user logged - (ONLY USER)',
   })
-  updateMyAccount(@LoggedUser() user: User, @Body() dto: UpdateUserDto) {
-    return this.userService.updateMyAccount(user.id, dto);
+  updateMyAccount(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Body() dto: UpdateUserDto,
+  ) {
+    return this.userService.updateMyAccount(userProfileId.user.id, dto);
   }
 
   @Delete('/delete-my-account')
@@ -78,18 +82,18 @@ export class UserController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remove user logged',
+    summary: 'Remove user logged - (ONLY USER)',
   })
-  deleteMyAccount(@LoggedUser() user: User) {
-    return this.userService.deleteMyAccount(user.id);
+  deleteMyAccount(@LoggedUser() userProfileId: UserProfileId) {
+    return this.userService.deleteMyAccount(userProfileId.user.id);
   }
 
-  @Delete('delete-user/:id')
+  @Delete('delete/:id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remove a user by Id',
+    summary: 'Remove a user by Id - (ONLY ADMIN)',
   })
   deleteUser(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
     return this.userService.deleteUser(id);

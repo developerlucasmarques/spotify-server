@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -9,49 +10,58 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
-import { User } from 'src/user/entities/user.entity';
 import { ProfileFavoriteSongService } from './profile-favorite-song.service';
 
 @ApiTags('profile-favorite-song')
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
-@Controller('profile-favorite-song')
+@Controller('tracks')
 export class ProfileFavoriteSongController {
   constructor(
     private readonly favoriteSongService: ProfileFavoriteSongService,
   ) {}
 
-  @Patch('add-favorite/:profileID/:songID')
+  @Patch('add/:songID')
   @ApiOperation({
     summary: 'Add a song to a profile - (ONLY USER)',
   })
-  update(
-    @LoggedUser() user: User,
-    @Param('profileID') profileId: string,
+  create(
+    @LoggedUser() userProfileId: UserProfileId,
     @Param('songID') songIdD: string,
   ) {
-    return this.favoriteSongService.update(user.id, profileId, songIdD);
+    return this.favoriteSongService.create(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      songIdD,
+    );
   }
 
-  @Get('find-all-favorites/:profileID')
+  @Get('all')
   @ApiOperation({
     summary: 'Fetch all favorite songs from profile - (ONLY USER)',
   })
-  findAll(@LoggedUser() user: User, @Param('profileID') profileId: string) {
-    return this.favoriteSongService.findAll(user.id, profileId);
+  findAll(@LoggedUser() userProfileId: UserProfileId) {
+    return this.favoriteSongService.findAll(
+      userProfileId.user.id,
+      userProfileId.profileId,
+    );
   }
 
-  @Patch('remove-favorite/:profileID/:songID')
+  @Delete('delete/:songID')
   @ApiOperation({
     summary: 'Remove a song to a profile - (ONLY USER)',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(
-    @LoggedUser() user: User,
-    @Param('profileID') profileId: string,
+    @LoggedUser() userProfileId: UserProfileId,
     @Param('songID') songIdDto: string,
   ) {
-    return this.favoriteSongService.delete(user.id, profileId, songIdDto);
+    return this.favoriteSongService.delete(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      songIdDto,
+    );
   }
 }

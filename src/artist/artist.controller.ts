@@ -39,8 +39,7 @@ export class ArtistController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary:
-      'Fetch all data of the artist who is logged in - (ONLY ARTIST)',
+    summary: 'Fetch all data of the artist who is logged in - (ONLY ARTIST)',
   })
   homePage(@LoggedArtist() artist: Artist) {
     return this.artistService.homePage(artist.id);
@@ -72,9 +71,7 @@ export class ArtistController {
   @ApiOperation({
     summary: 'View all songs by an artist - (ONLY USER)',
   })
-  findOneByArtist(
-    @Param('artistID') artistId: string,
-  ) {
+  findOneByArtist(@Param('artistID') artistId: string) {
     return this.artistService.findOneByArtist(artistId);
   }
 

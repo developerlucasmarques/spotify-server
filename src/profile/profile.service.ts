@@ -1,7 +1,7 @@
 import {
   Injectable,
   NotFoundException,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -67,25 +67,25 @@ export class ProfileService {
   }
 
   async findAll(userId: string) {
-    const profiles = await this.prisma.profile
-      .findMany({
-        where: { userId: userId },
+    const user = await this.prisma.user
+      .findUnique({
+        where: { id: userId },
         select: {
-          id: true,
-          name: true,
-          image: true,
+          profiles: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
         },
       })
       .catch(handleError);
 
-    if (profiles.length === 0) {
+    if (user.profiles.length === 0) {
       throw new NotFoundException('No profile found');
     }
-    return profiles;
-  }
-
-  async findOne(userId: string, profileId: string) {
-    return this.findOneProfileInUser(userId, profileId);
+    return user;
   }
 
   async update(userId: string, profileId: string, dto: UpdateProfileDto) {

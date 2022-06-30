@@ -7,49 +7,7 @@ import { handleError } from 'src/utils/handle-error.util';
 export class ProfileFavoriteSongService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(userId: string, profileId: string) {
-    await this.findByIdProfileUser(userId, profileId);
-
-    const allFavorites = await this.prisma.profile
-      .findUnique({
-        where: { id: profileId },
-        select: {
-          songs: {
-            select: {
-              song: {
-                select: {
-                  id: true,
-                  name: true,
-                  songUrl: true,
-                  artist: {
-                    select: {
-                      id: true,
-                      name: true,
-                    },
-                  },
-                  album: {
-                    select: {
-                      id: true,
-                      name: true,
-                      image: true,
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      })
-      .catch(handleError);
-
-    if (allFavorites.songs.length === 0) {
-      throw new NotFoundException('No favorite songs found in profile');
-    }
-
-    return allFavorites;
-  }
-
-  async update(userId: string, profileId: string, songIdD: string) {
+  async create(userId: string, profileId: string, songIdD: string) {
     await this.findByIdProfileUser(userId, profileId);
 
     const data: Prisma.ProfileFavoriteSongCreateInput = {
@@ -97,6 +55,48 @@ export class ProfileFavoriteSongService {
         },
       })
       .catch(handleError);
+  }
+
+  async findAll(userId: string, profileId: string) {
+    await this.findByIdProfileUser(userId, profileId);
+
+    const allFavorites = await this.prisma.profile
+      .findUnique({
+        where: { id: profileId },
+        select: {
+          songs: {
+            select: {
+              song: {
+                select: {
+                  id: true,
+                  name: true,
+                  songUrl: true,
+                  artist: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                  album: {
+                    select: {
+                      id: true,
+                      name: true,
+                      image: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (allFavorites.songs.length === 0) {
+      throw new NotFoundException('No favorite songs found in profile');
+    }
+
+    return allFavorites;
   }
 
   async delete(userId: string, profileId: string, songId: string) {

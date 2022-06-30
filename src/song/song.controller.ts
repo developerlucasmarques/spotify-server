@@ -67,7 +67,7 @@ export class SongController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remove a song by Id',
+    summary: 'Remove a song by Id - (ONLY ARTIST)',
   })
   delete(@LoggedArtist() artist: Artist, @Param('id') songId: string) {
     return this.songService.delete(artist.id, songId);
