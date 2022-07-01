@@ -136,6 +136,44 @@ export class PlaylistService {
       .catch(handleError);
   }
 
+  async addFavorite(userId: string, profileId: string, playListId: string) {
+    console.log(userId, profileId, playListId)
+    await this.findOneProfileInUser(userId, profileId);
+
+    const data: Prisma.ProfileFavoritePlaylistCreateInput = {
+      profile: {
+        connect: {
+          id: profileId,
+        },
+      },
+      playlist: {
+        connect: {
+          id: playListId,
+        },
+      },
+    };
+
+    return await this.prisma.profileFavoritePlaylist.create({
+      data,
+      select: {
+        profile: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        playlist: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          }
+        }
+      },
+    });
+  }
+
   async findOneProfileInUser(userId: string, profileId: string) {
     const record = await this.prisma.user
       .findUnique({

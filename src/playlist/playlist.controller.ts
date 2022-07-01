@@ -96,4 +96,21 @@ export class PlaylistController {
       playlistId,
     );
   }
+
+  @Patch('add-favorite/:playlistID')
+  @ApiOperation({
+    summary:
+      'Favorite a playlist by id in the logged in users profile - (ONLY USER)',
+  })
+  @HttpCode(HttpStatus.CREATED)
+  addFavorite(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Param('playlistID') playlistId: string,
+  ) {
+    return this.playlistService.addFavorite(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      playlistId,
+    );
+  }
 }
