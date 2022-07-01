@@ -14,6 +14,7 @@ import { SongModule } from './song/song.module';
 import { ProfileFavoriteSongModule } from './profile-favorite-song/profile-favorite-song.module';
 import { CategoryModule } from './category/category.module';
 import { PlaylistModule } from './playlist/playlist.module';
+import { PlaylistSongModule } from './playlist-song/playlist-song.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { PlaylistModule } from './playlist/playlist.module';
     ProfileFavoriteSongModule,
     CategoryModule,
     PlaylistModule,
+    PlaylistSongModule,
   ],
   controllers: [AppController],
   providers: [AppService],

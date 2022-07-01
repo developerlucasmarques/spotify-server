@@ -47,9 +47,7 @@ export class CategoryController {
   @ApiOperation({
     summary: 'List a Music Categorie by Id - (ONLY USER)',
   })
-  findOne(
-    @LoggedUser() user: User, @Param('categoryID') categoryId: string,
-  ) {
+  findOne(@Param('categoryID') categoryId: string) {
     return this.categoryService.findOne(categoryId);
   }
 
@@ -70,9 +68,7 @@ export class CategoryController {
   @ApiOperation({
     summary: 'Delete a Music Categorie by Id - (ONLY ADMIN)',
   })
-  delete(
-    @LoggedAdmin() admin: Admin, @Param('categoryID') categoryId: string,
-  ) {
+  delete(@LoggedAdmin() admin: Admin, @Param('categoryID') categoryId: string) {
     return this.categoryService.delete(categoryId);
   }
 }

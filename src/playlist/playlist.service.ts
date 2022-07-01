@@ -73,6 +73,17 @@ export class PlaylistService {
           name: true,
           image: true,
           private: true,
+          PlayListSongs: {
+            select: {
+              song: {
+                select: {
+                  id: true,
+                  name: true,
+                  songUrl: true,
+                },
+              },
+            },
+          },
           profile: {
             select: {
               id: true,
