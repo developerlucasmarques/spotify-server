@@ -162,6 +162,8 @@ model Song {
 
   profiles ProfileFavoriteSong[]
 
+  PlayListSongs PlayListSong[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -218,8 +220,27 @@ model PlayList {
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @map("profile_id")
 
+  PlayListSongs PlayListSong[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("playlist")
+}
+
+model PlayListSong {
+  id String @id @default(uuid())
+
+  playlist   PlayList @relation(fields: [playlistId], references: [id])
+  playlistId String   @map("playlist_id")
+
+  song   Song   @relation(fields: [songId], references: [id])
+  songId String @map("song_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+
+  @@unique([playlistId, songId])
+  @@map("playlist_song")
 }
