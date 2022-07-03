@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -41,11 +45,11 @@ export class PlaylistService {
       .catch(handleError);
   }
 
-  async findAllPlaylistProfile(user: UserProfileId) {
-    await this.findOneProfileInUser(user.user.id, user.profileId);
-    const playLists = await this.prisma.profile
+  async findAllPlaylistProfile(userId: string, profileId: string) {
+    await this.findOneProfileInUser(userId, profileId);
+    const profilePlaylists = await this.prisma.profile
       .findUnique({
-        where: { id: user.profileId },
+        where: { id: profileId },
         select: {
           playlists: {
             select: {
@@ -58,10 +62,11 @@ export class PlaylistService {
       })
       .catch(handleError);
 
-    if (playLists.playlists.length === 0) {
-      throw new NotFoundException('No playlist found');
-    }
-    return playLists;
+    const favoritePlaylists = await this.searchForFavoritePlaylistFromProfile(
+      profileId,
+    );
+
+    return [{ profilePlaylists }, { favoritePlaylists }];
   }
 
   async findOnePlaylist(profileId: string, playlistId: string) {
@@ -136,9 +141,27 @@ export class PlaylistService {
       .catch(handleError);
   }
 
-  async addFavorite(userId: string, profileId: string, playListId: string) {
-    console.log(userId, profileId, playListId)
+  async addPlaylistFavorite(userId: string, profileId: string, playListId: string) {
     await this.findOneProfileInUser(userId, profileId);
+
+    const playList = await this.prisma.profile
+      .findUnique({
+        where: { id: profileId },
+        select: {
+          playlists: {
+            where: {
+              id: playListId,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (playList.playlists.length > 0) {
+      throw new UnauthorizedException(`Can't favorite your own playlist`);
+    }
+
+    await this.checkIfPlaylistIsPrivate(playListId);
 
     const data: Prisma.ProfileFavoritePlaylistCreateInput = {
       profile: {
@@ -153,25 +176,60 @@ export class PlaylistService {
       },
     };
 
-    return await this.prisma.profileFavoritePlaylist.create({
-      data,
-      select: {
-        profile: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
+    return await this.prisma.profileFavoritePlaylist
+      .create({
+        data,
+        select: {
+          profile: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+          playlist: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
           },
         },
-        playlist: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
-          }
-        }
-      },
-    });
+      })
+      .catch(handleError);
+  }
+
+  async deletePlaylistFavorite(
+    userId: string,
+    profileId: string,
+    playListId: string,
+  ) {
+    await this.findOneProfileInUser(userId, profileId);
+    const favoritePlaylist = await this.prisma.profileFavoritePlaylist
+      .findUnique({
+        where: {
+          profileId_playlistId: {
+            profileId: profileId,
+            playlistId: playListId,
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (!favoritePlaylist) {
+      throw new NotFoundException(`This playlist hasn't been favorited yet`);
+    }
+
+    return await this.prisma.profileFavoritePlaylist
+      .delete({
+        where: {
+          profileId_playlistId: {
+            profileId: profileId,
+            playlistId: playListId,
+          },
+        },
+      })
+      .catch(handleError);
   }
 
   async findOneProfileInUser(userId: string, profileId: string) {
@@ -209,6 +267,44 @@ export class PlaylistService {
 
     if (playList.playlists.length === 0) {
       throw new NotFoundException('No a playlist found');
+    }
+  }
+
+  async searchForFavoritePlaylistFromProfile(profileId: string) {
+    const favoritePlaylists =
+      await this.prisma.profileFavoritePlaylist.findMany({
+        where: {
+          profileId: profileId,
+        },
+        select: {
+          playlist: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      });
+
+    if (favoritePlaylists.length === 0) {
+      throw new NotFoundException('No playlist found');
+    }
+
+    return favoritePlaylists;
+  }
+
+  async checkIfPlaylistIsPrivate(playListId: string) {
+    const playlist = await this.prisma.playList
+      .findUnique({
+        where: {
+          id: playListId,
+        },
+      })
+      .catch(handleError);
+
+    if (playlist.private) {
+      throw new NotFoundException('No playlist found');
     }
   }
 }

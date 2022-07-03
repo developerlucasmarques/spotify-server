@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -43,8 +44,11 @@ export class PlaylistController {
   @ApiOperation({
     summary: 'Search all playlists in the logged-in user profile - (ONLY USER)',
   })
-  findAllPlaylistProfile(@LoggedUser() user: UserProfileId) {
-    return this.playlistService.findAllPlaylistProfile(user);
+  findAllPlaylistProfile(@LoggedUser() userProfileId: UserProfileId) {
+    return this.playlistService.findAllPlaylistProfile(
+      userProfileId.user.id,
+      userProfileId.profileId,
+    );
   }
 
   @Get('/:playlistID')
@@ -80,7 +84,7 @@ export class PlaylistController {
     );
   }
 
-  @Patch('delete/:playlistID')
+  @Delete('delete/:playlistID')
   @ApiOperation({
     summary:
       'Delete a playlist by id in the logged in users profile - (ONLY USER)',
@@ -103,11 +107,27 @@ export class PlaylistController {
       'Favorite a playlist by id in the logged in users profile - (ONLY USER)',
   })
   @HttpCode(HttpStatus.CREATED)
-  addFavorite(
+  addPlaylistFavorite(
     @LoggedUser() userProfileId: UserProfileId,
     @Param('playlistID') playlistId: string,
   ) {
-    return this.playlistService.addFavorite(
+    return this.playlistService.addPlaylistFavorite(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      playlistId,
+    );
+  }
+
+  @Delete('delete-favorite/:playlistID')
+  @ApiOperation({
+    summary: 'Delete a favorite playlist from profile - (ONLY USER)',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  deletePlaylistFavorite(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Param('playlistID') playlistId: string,
+  ) {
+    return this.playlistService.deletePlaylistFavorite(
       userProfileId.user.id,
       userProfileId.profileId,
       playlistId,
