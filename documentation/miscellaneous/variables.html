@@ -1,0 +1,368 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>spotify-server documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">spotify-server documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Miscellaneous</li>
+  <li>Variables</li>
+</ol>
+
+<section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#handleError" title="src/utils/handle-error.util.ts" ><b>handleError</b>&nbsp;&nbsp;&nbsp;(src/.../handle-error.util.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoggedAdmin" title="src/auth/logged-admin.decorator.ts" ><b>LoggedAdmin</b>&nbsp;&nbsp;&nbsp;(src/.../logged-admin.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoggedArtist" title="src/auth/logged-artist.decorator.ts" ><b>LoggedArtist</b>&nbsp;&nbsp;&nbsp;(src/.../logged-artist.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoggedManager" title="src/auth/logged-manager.decorator.ts" ><b>LoggedManager</b>&nbsp;&nbsp;&nbsp;(src/.../logged-manager.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoggedUser" title="src/auth/logged-user.decorator.ts" ><b>LoggedUser</b>&nbsp;&nbsp;&nbsp;(src/.../logged-user.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#verifyConfirmPassword" title="src/utils/confirm-password.ultil.ts" ><b>verifyConfirmPassword</b>&nbsp;&nbsp;&nbsp;(src/.../confirm-password.ultil.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/utils/handle-error.util.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleError"></a>
+                    <span class="name">
+                        <span ><b>handleError</b></span>
+                        <a href="#handleError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(error: Error): undefined &#x3D;&gt; {
+  const errorLines &#x3D; error.message?.split(&#x27;\n&#x27;);
+  const lastErrorLine &#x3D; errorLines[errorLines.length - 1]?.trim();
+
+  if (!lastErrorLine) {
+    console.error(error);
+  }
+
+  throw new UnprocessableEntityException(
+    lastErrorLine || &#x27;Algum erro ocorreu ao executar a operação.&#x27;,
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/auth/logged-admin.decorator.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoggedAdmin"></a>
+                    <span class="name">
+                        <span ><b>LoggedAdmin</b></span>
+                        <a href="#LoggedAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator((_, ctx: ExecutionContext) &#x3D;&gt; {
+  const request &#x3D; ctx.switchToHttp().getRequest();
+  const admin &#x3D; request.user;
+
+  if (!admin) {
+    throw new UnauthorizedException(&#x27;User not found or not authorized!&#x27;);
+  }
+
+  if (
+    admin.userCategoryName !&#x3D;&#x3D; &#x27;admin&#x27; &amp;&amp;
+    admin.userCategoryName !&#x3D;&#x3D; &#x27;manager&#x27;
+  ) {
+    throw new UnauthorizedException(
+      &#x27;User does not have permission to access this route!&#x27;,
+    );
+  }
+
+  return admin;
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/auth/logged-artist.decorator.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoggedArtist"></a>
+                    <span class="name">
+                        <span ><b>LoggedArtist</b></span>
+                        <a href="#LoggedArtist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator((_, ctx: ExecutionContext) &#x3D;&gt; {
+  const request &#x3D; ctx.switchToHttp().getRequest();
+  const artist &#x3D; request.user;
+
+  if (!artist) {
+    throw new UnauthorizedException(&#x27;User not found or not authorized!&#x27;);
+  }
+
+  if (artist.userCategoryName !&#x3D;&#x3D; &#x27;artist&#x27;) {
+    throw new UnauthorizedException(
+      &#x27;User does not have permission to access this route!&#x27;,
+    );
+  }
+
+  return artist;
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/auth/logged-manager.decorator.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoggedManager"></a>
+                    <span class="name">
+                        <span ><b>LoggedManager</b></span>
+                        <a href="#LoggedManager"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(
+  (_, ctx: ExecutionContext) &#x3D;&gt; {
+    const request &#x3D; ctx.switchToHttp().getRequest();
+    const manager &#x3D; request.user;
+
+    if (!manager) {
+      throw new UnauthorizedException(&#x27;User not found or not authorized!&#x27;);
+    }
+
+    if (manager.userCategoryName !&#x3D;&#x3D; &#x27;manager&#x27;) {
+      throw new UnauthorizedException(
+        &#x27;User does not have pessssrmission to access this route!&#x27;,
+      );
+    }
+
+    return manager;
+  },
+)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/auth/logged-user.decorator.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoggedUser"></a>
+                    <span class="name">
+                        <span ><b>LoggedUser</b></span>
+                        <a href="#LoggedUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator((_, ctx: ExecutionContext) &#x3D;&gt; {
+  const request &#x3D; ctx.switchToHttp().getRequest();
+  const userObject &#x3D; request.user;
+
+  if (userObject.user.userCategoryName !&#x3D;&#x3D; &#x27;user&#x27;) {
+    throw new UnauthorizedException(
+      &#x27;User does not have permission to access this route&#x27;,
+    );
+  }
+
+  delete userObject.user.password;
+
+  return userObject;
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/utils/confirm-password.ultil.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyConfirmPassword"></a>
+                    <span class="name">
+                        <span ><b>verifyConfirmPassword</b></span>
+                        <a href="#verifyConfirmPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  password: string,
+  confirmPassword: string,
+): void &#x3D;&gt; {
+  if (password !&#x3D;&#x3D; confirmPassword) {
+    throw new BadRequestException(&#x27;The passwords entered are not the same!&#x27;);
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
