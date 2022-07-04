@@ -14,6 +14,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { AddSongPlaylistDto } from './dto/create-playlist-song.dto';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 import { PlaylistService } from './playlist.service';
@@ -98,6 +99,37 @@ export class PlaylistController {
       userProfileId.user.id,
       userProfileId.profileId,
       playlistId,
+    );
+  }
+
+  @Post('add-song')
+  @ApiOperation({
+    summary: 'Add a song to a playlist - (ONLY USER)',
+  })
+  addSongToPlaylist(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Body() playlistSong: AddSongPlaylistDto,
+  ) {
+    return this.playlistService.addSongToPlaylist(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      playlistSong,
+    );
+  }
+
+  @Patch('delete-song')
+  @ApiOperation({
+    summary: 'Delete a song from a playlist - (ONLY USER)',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  deleteSongToPlaylist(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Body() playlistSong: AddSongPlaylistDto,
+  ) {
+    return this.playlistService.deleteSongToPlaylist(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      playlistSong,
     );
   }
 

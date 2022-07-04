@@ -4,9 +4,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
+import { AddSongPlaylistDto } from './dto/create-playlist-song.dto';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 
@@ -16,7 +16,7 @@ export class PlaylistService {
 
   async create(userId: string, profileId: string, dto: CreatePlaylistDto) {
     await this.findOneProfileInUser(userId, profileId);
-    const data: Prisma.PlayListCreateInput = {
+    const data: Prisma.PlaylistCreateInput = {
       name: dto.name,
       image: dto.image,
       private: dto.private,
@@ -27,7 +27,7 @@ export class PlaylistService {
       },
     };
 
-    return await this.prisma.playList
+    return await this.prisma.playlist
       .create({
         data,
         select: {
@@ -70,7 +70,7 @@ export class PlaylistService {
   }
 
   async findOnePlaylist(profileId: string, playlistId: string) {
-    const playlist = await this.prisma.playList
+    const playlist = await this.prisma.playlist
       .findUnique({
         where: { id: playlistId },
         select: {
@@ -78,7 +78,7 @@ export class PlaylistService {
           name: true,
           image: true,
           private: true,
-          PlayListSongs: {
+          songs: {
             select: {
               song: {
                 select: {
@@ -118,7 +118,7 @@ export class PlaylistService {
 
     const data: Partial<UpdatePlaylistDto> = { ...dto };
 
-    return await this.prisma.playList
+    return await this.prisma.playlist
       .update({
         where: { id: playlistId },
         data,
@@ -132,36 +132,145 @@ export class PlaylistService {
       .catch(handleError);
   }
 
-  async delete(userId: string, profileId: string, playListId: string) {
+  async delete(userId: string, profileId: string, playlistId: string) {
     await this.findOneProfileInUser(userId, profileId);
-    await this.findOnePlayListInProfile(profileId, playListId);
+    await this.findOnePlayListInProfile(profileId, playlistId);
 
-    await this.prisma.playList
-      .delete({ where: { id: playListId } })
+    await this.prisma.playlist
+      .delete({ where: { id: playlistId } })
       .catch(handleError);
   }
 
-  async addPlaylistFavorite(userId: string, profileId: string, playListId: string) {
+  async addSongToPlaylist(
+    userId: string,
+    profileId: string,
+    playlistSong: AddSongPlaylistDto,
+  ) {
     await this.findOneProfileInUser(userId, profileId);
+    await this.findOnePlayListInProfile(profileId, playlistSong.playlistId);
+    await this.findOneSong(playlistSong.songId);
 
-    const playList = await this.prisma.profile
+    const songInPlaylist = await this.prisma.playlist
       .findUnique({
-        where: { id: profileId },
+        where: {
+          id: playlistSong.playlistId,
+        },
         select: {
-          playlists: {
+          songs: {
             where: {
-              id: playListId,
+              song: {
+                id: playlistSong.songId,
+              },
             },
           },
         },
       })
       .catch(handleError);
 
-    if (playList.playlists.length > 0) {
+    if (songInPlaylist.songs.length > 0) {
+      throw new NotFoundException('Song already added to playlist');
+    }
+
+    const data: Prisma.PlaylistSongCreateInput = {
+      playlist: {
+        connect: {
+          id: playlistSong.playlistId,
+        },
+      },
+      song: {
+        connect: {
+          id: playlistSong.songId,
+        },
+      },
+    };
+
+    return await this.prisma.playlistSong
+      .create({
+        data,
+        select: {
+          playlist: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          song: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+  }
+
+  async deleteSongToPlaylist(
+    userId: string,
+    profileId: string,
+    playlistSong: AddSongPlaylistDto,
+  ) {
+    await this.findOneProfileInUser(userId, profileId);
+    await this.findOnePlayListInProfile(profileId, playlistSong.playlistId);
+    await this.findOneSong(playlistSong.songId);
+    const songInPlaylist = await this.prisma.playlist
+      .findUnique({
+        where: {
+          id: playlistSong.playlistId,
+        },
+        select: {
+          songs: {
+            where: {
+              song: {
+                id: playlistSong.songId,
+              },
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (songInPlaylist.songs.length === 0) {
+      throw new NotFoundException('Song not found in playlist');
+    }
+
+    return await this.prisma.playlistSong
+      .delete({
+        where: {
+          playlistId_songId: {
+            playlistId: playlistSong.playlistId,
+            songId: playlistSong.songId,
+          },
+        },
+      })
+      .catch(handleError);
+  }
+
+  async addPlaylistFavorite(
+    userId: string,
+    profileId: string,
+    playlistId: string,
+  ) {
+    await this.findOneProfileInUser(userId, profileId);
+
+    const playlist = await this.prisma.profile
+      .findUnique({
+        where: { id: profileId },
+        select: {
+          playlists: {
+            where: {
+              id: playlistId,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (playlist.playlists.length > 0) {
       throw new UnauthorizedException(`Can't favorite your own playlist`);
     }
 
-    await this.checkIfPlaylistIsPrivate(playListId);
+    await this.checkIfPlaylistIsPrivate(playlistId);
 
     const data: Prisma.ProfileFavoritePlaylistCreateInput = {
       profile: {
@@ -171,7 +280,7 @@ export class PlaylistService {
       },
       playlist: {
         connect: {
-          id: playListId,
+          id: playlistId,
         },
       },
     };
@@ -202,7 +311,7 @@ export class PlaylistService {
   async deletePlaylistFavorite(
     userId: string,
     profileId: string,
-    playListId: string,
+    playlistId: string,
   ) {
     await this.findOneProfileInUser(userId, profileId);
     const favoritePlaylist = await this.prisma.profileFavoritePlaylist
@@ -210,7 +319,7 @@ export class PlaylistService {
         where: {
           profileId_playlistId: {
             profileId: profileId,
-            playlistId: playListId,
+            playlistId: playlistId,
           },
         },
       })
@@ -225,7 +334,7 @@ export class PlaylistService {
         where: {
           profileId_playlistId: {
             profileId: profileId,
-            playlistId: playListId,
+            playlistId: playlistId,
           },
         },
       })
@@ -251,21 +360,21 @@ export class PlaylistService {
     }
   }
 
-  async findOnePlayListInProfile(profileId: string, playListId: string) {
-    const playList = await this.prisma.profile
+  async findOnePlayListInProfile(profileId: string, playlistId: string) {
+    const playlist = await this.prisma.profile
       .findUnique({
         where: { id: profileId },
         select: {
           playlists: {
             where: {
-              id: playListId,
+              id: playlistId,
             },
           },
         },
       })
       .catch(handleError);
 
-    if (playList.playlists.length === 0) {
+    if (playlist.playlists.length === 0) {
       throw new NotFoundException('No a playlist found');
     }
   }
@@ -287,18 +396,14 @@ export class PlaylistService {
         },
       });
 
-    if (favoritePlaylists.length === 0) {
-      throw new NotFoundException('No playlist found');
-    }
-
     return favoritePlaylists;
   }
 
-  async checkIfPlaylistIsPrivate(playListId: string) {
-    const playlist = await this.prisma.playList
+  async checkIfPlaylistIsPrivate(playlistId: string) {
+    const playlist = await this.prisma.playlist
       .findUnique({
         where: {
-          id: playListId,
+          id: playlistId,
         },
       })
       .catch(handleError);
@@ -306,5 +411,21 @@ export class PlaylistService {
     if (playlist.private) {
       throw new NotFoundException('No playlist found');
     }
+  }
+
+  async findOneSong(songId: string) {
+    const song = await this.prisma.song
+      .findUnique({
+        where: {
+          id: songId,
+        },
+      })
+      .catch(handleError);
+
+    if (!song) {
+      throw new NotFoundException(`Song with id '${songId}' not found`);
+    }
+
+    return song;
   }
 }
