@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,8 +7,258 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ManagerAdmin {
-  id String @unique @default(uuid())
+model Admin {
+  id String @id @unique @default(uuid())
 
-  name String
+  name     String @db.VarChar(50)
+  email    String @unique
+  cpf      String @unique
+  password String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
+  userCategoryName String       @map("user_category_name")
+
+  @@map("admin")
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String @db.VarChar(50)
+  cpf      String @unique
+  email    String @unique
+  password String
+
+  userPlan   UserPlan @relation(fields: [userPlanId], references: [id])
+  userPlanId String   @map("user_plan_id")
+
+  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
+  userCategoryName String       @map("user_category_name")
+
+  profiles Profile[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
+}
+
+model UserPlan {
+  id String @id @default(uuid())
+
+  name        String @unique
+  price       Float
+  accounts    Int
+  description String
+
+  users User[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_plan")
+}
+
+model UserCategory {
+  id   String @id @default(uuid())
+  name String @unique
+
+  users   User[]
+  admins  Admin[]
+  artists Artist[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_category")
+}
+
+model Profile {
+  id    String @id @default(uuid())
+  name  String
+  image String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  songs             ProfileFavoriteSong[]
+  playlists         Playlist[]
+  favoritePlaylists ProfileFavoritePlaylist[]
+
+  @@map("profile")
+}
+
+model Artist {
+  id String @id @default(uuid())
+
+  name     String
+  image    String
+  cpf      String @unique
+  email    String @unique
+  password String
+  about    String
+
+  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
+  userCategoryName String       @map("user_category_name")
+
+  countryRelacion Country @relation(fields: [countryId], references: [id])
+  countryId       String
+
+  albums Album[]
+
+  songs Song[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("artist")
+}
+
+model Country {
+  id String @id @default(uuid())
+
+  name String @unique
+  code String @unique
+
+  artists Artist[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("country")
+}
+
+model Album {
+  id String @id @default(uuid())
+
+  name  String
+  year  Int
+  image String
+
+  artist   Artist @relation(fields: [artistId], references: [id])
+  artistId String @map("artist_id")
+
+  songs Song[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("album")
+}
+
+model Song {
+  id      String @id @default(uuid())
+  name    String
+  songUrl String @map("song_url")
+
+  album   Album  @relation(fields: [albumId], references: [id])
+  albumId String @map("album_id")
+
+  artist   Artist @relation(fields: [artistId], references: [id])
+  artistId String @map("artist_id")
+
+  CategorySongs CategorySong[]
+
+  profiles ProfileFavoriteSong[]
+
+  playlists PlaylistSong[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("song")
+}
+
+model ProfileFavoriteSong {
+  id String @id @default(uuid())
+
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String  @map("profile_id")
+
+  song   Song   @relation(fields: [songId], references: [id])
+  songId String @map("song_id")
+
+  @@unique([profileId, songId])
+  @@map("profile_favorite_song")
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+
+  CategorySongs CategorySong[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("category")
+}
+
+model CategorySong {
+  id String @id @default(uuid())
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("category_id")
+
+  song   Song   @relation(fields: [songId], references: [id])
+  songId String @map("song_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("category_id")
+}
+
+model Playlist {
+  id String @id @default(uuid())
+
+  name    String
+  image   String
+  private Boolean
+
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String  @map("profile_id")
+
+  songs            PlaylistSong[]
+  profilesFavoritePlaylist ProfileFavoritePlaylist[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("playlist")
+}
+
+model PlaylistSong {
+  id String @id @default(uuid())
+
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+  playlistId String   @map("playlist_id")
+
+  song   Song   @relation(fields: [songId], references: [id])
+  songId String @map("song_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+
+  @@unique([playlistId, songId])
+  @@map("playlist_song")
+}
+
+model ProfileFavoritePlaylist {
+  id String @id @default(uuid())
+
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String  @map("profile_id")
+
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+  playlistId String   @map("playlist_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([profileId, playlistId])
+  @@map("profile_favorite_playlist")
 }
