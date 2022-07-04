@@ -84,7 +84,7 @@ model Profile {
   userId String @map("user_id")
 
   songs             ProfileFavoriteSong[]
-  playlists         PlayList[]
+  playlists         Playlist[]
   favoritePlaylists ProfileFavoritePlaylist[]
 
   @@map("profile")
@@ -163,7 +163,7 @@ model Song {
 
   profiles ProfileFavoriteSong[]
 
-  PlayListSongs PlayListSong[]
+  playlists PlaylistSong[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -211,7 +211,7 @@ model CategorySong {
   @@map("category_id")
 }
 
-model PlayList {
+model Playlist {
   id String @id @default(uuid())
 
   name    String
@@ -221,7 +221,7 @@ model PlayList {
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @map("profile_id")
 
-  PlayListSongs            PlayListSong[]
+  songs            PlaylistSong[]
   profilesFavoritePlaylist ProfileFavoritePlaylist[]
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -230,10 +230,10 @@ model PlayList {
   @@map("playlist")
 }
 
-model PlayListSong {
+model PlaylistSong {
   id String @id @default(uuid())
 
-  playlist   PlayList @relation(fields: [playlistId], references: [id])
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
   playlistId String   @map("playlist_id")
 
   song   Song   @relation(fields: [songId], references: [id])
@@ -253,7 +253,7 @@ model ProfileFavoritePlaylist {
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @map("profile_id")
 
-  playlist   PlayList @relation(fields: [playlistId], references: [id])
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
   playlistId String   @map("playlist_id")
 
   createdAt DateTime @default(now()) @map("created_at")
