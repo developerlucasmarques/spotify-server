@@ -14,9 +14,11 @@ import { Artist } from 'src/artist/entities/artist.entity';
 import { User } from 'src/user/entities/user.entity';
 import { AuthService } from './auth.service';
 import { UserProfileId } from './dto/logged-profile-type';
+import { LoginAdminDto } from './dto/login-admin.dto';
+import { LoginArtistDto } from './dto/login-artist.dto';
 import { LoginProfileDto } from './dto/login-profile.dto';
 import { LoginUserResponseDto } from './dto/login-user-response.dto';
-import { LoginDto } from './dto/login.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { LoggedAdmin } from './logged-admin.decorator';
 import { LoggedArtist } from './logged-artist.decorator';
 import { LoggedUser } from './logged-user.decorator';
@@ -31,8 +33,8 @@ export class AuthController {
   @ApiOperation({
     summary: 'Log in, receiving a validation token - (FOR USER)',
   })
-  LoginUser(@Body() loginDto: LoginDto): Promise<LoginUserResponseDto> {
-    return this.authService.LoginUser(loginDto);
+  LoginUser(@Body() loginUserDto: LoginUserDto): Promise<LoginUserResponseDto> {
+    return this.authService.LoginUser(loginUserDto);
   }
 
   @Post('/sign-in-profile')
@@ -54,8 +56,8 @@ export class AuthController {
   @ApiOperation({
     summary: 'Log in, receiving a validation token - (FOR ADMIN)',
   })
-  LoginAdmin(@Body() loginDto: LoginDto) {
-    return this.authService.LoginAdmin(loginDto);
+  LoginAdmin(@Body() loginAdminDto: LoginAdminDto) {
+    return this.authService.LoginAdmin(loginAdminDto);
   }
 
   @Post('/sign-in-artist')
@@ -63,8 +65,8 @@ export class AuthController {
   @ApiOperation({
     summary: 'Log in, receiving a validation token - (FOR ARTIST)',
   })
-  LoginArtist(@Body() loginDto: LoginDto) {
-    return this.authService.LoginArtist(loginDto);
+  LoginArtist(@Body() loginArtistDto: LoginArtistDto) {
+    return this.authService.LoginArtist(loginArtistDto);
   }
 
   @Get('/user')

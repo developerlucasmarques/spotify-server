@@ -32,7 +32,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The email of the user.',
-    example: 'user@gmail.com',
+    example: 'user@user.com',
   })
   email: string;
 

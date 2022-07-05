@@ -39,7 +39,7 @@ export class CreateArtistDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The email of the artist.',
-    example: 'artist@gmail.com',
+    example: 'artist@artist.com',
   })
   email: string;
 
