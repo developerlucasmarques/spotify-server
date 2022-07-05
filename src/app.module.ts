@@ -14,6 +14,7 @@ import { ProfileModule } from './profile/profile.module';
 import { SongModule } from './song/song.module';
 import { UserPlanModule } from './user-plan/user-plan.module';
 import { UserModule } from './user/user.module';
+import { HomePageModule } from './home-page/home-page.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { UserModule } from './user/user.module';
     ProfileFavoriteSongModule,
     CategoryModule,
     PlaylistModule,
+    HomePageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

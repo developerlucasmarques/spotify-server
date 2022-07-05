@@ -4,7 +4,7 @@ import { Request } from 'express';
 import { AppService } from './app.service';
 
 @ApiTags('status')
-@Controller()
+@Controller('/status')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 

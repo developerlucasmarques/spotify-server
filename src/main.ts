@@ -27,6 +27,7 @@ async function bootstrap() {
     .addTag('auth')
     .addTag('user')
     .addTag('profile')
+    .addTag('home-page')
     .addTag('manager-admin')
     .addTag('user-plan')
     .addTag('artist')
