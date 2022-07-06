@@ -19,15 +19,15 @@ import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { Admin } from 'src/admin/entities/admin.entity';
 
 @ApiTags('user-plan')
-@UseGuards(AuthGuard())
-@ApiBearerAuth()
 @Controller('user-plan')
 export class UserPlanController {
   constructor(private readonly userPlanService: UserPlanService) {}
 
   @Post()
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Create a new User Plan',
+    summary: 'Create a new User Plan - (ONLY ADMIN)',
   })
   create(@LoggedAdmin() admin: Admin, @Body() dto: CreateUserPlanDto) {
     return this.userPlanService.create(dto);
@@ -35,32 +35,40 @@ export class UserPlanController {
 
   @Get()
   @ApiOperation({
-    summary: 'List all Users Plans',
+    summary: 'List all Users Plans - (OPEN)',
   })
-  findAll(@LoggedAdmin() admin: Admin) {
+  findAll() {
     return this.userPlanService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: 'View User Plan by Id',
+    summary: 'View User Plan by Id - (OPEN)',
   })
-  findOne(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
+  findOne(@Param('id') id: string) {
     return this.userPlanService.findOne(id);
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Edit a User Plan by Id',
+    summary: 'Edit a User Plan by Id - (ONLY ADMIN)',
   })
-  update(@LoggedAdmin() admin: Admin, @Param('id') id: string, @Body() dto: UpdateUserPlanDto) {
+  update(
+    @LoggedAdmin() admin: Admin,
+    @Param('id') id: string,
+    @Body() dto: UpdateUserPlanDto,
+  ) {
     return this.userPlanService.update(id, dto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remove a User Plan by Id',
+    summary: 'Remove a User Plan by Id - (ONLY ADMIN)',
   })
   delete(@LoggedAdmin() admin: Admin, @Param('id') id: string) {
     return this.userPlanService.delete(id);

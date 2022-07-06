@@ -20,12 +20,12 @@ import { UpdateCountryDto } from './dto/update-country.dto';
 
 @ApiTags('country')
 @Controller('country')
-@UseGuards(AuthGuard())
-@ApiBearerAuth()
 export class CountryController {
   constructor(private readonly countryService: CountryService) {}
 
   @Post('/create')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Create a new country - (ONLY ADMIN)',
   })
@@ -35,21 +35,23 @@ export class CountryController {
 
   @Get('/find-all')
   @ApiOperation({
-    summary: 'Search all countries - (ONLY ADMIN)',
+    summary: 'Search all countries - (OPEN)',
   })
-  findAll(@LoggedAdmin() admin: Admin) {
+  findAll() {
     return this.countryService.findAll();
   }
 
   @Get('/find-one/:countryID')
   @ApiOperation({
-    summary: 'Search for a country by id - (ONLY ADMIN)',
+    summary: 'Search for a country by id - (OPEN)',
   })
-  findOne(@LoggedAdmin() admin: Admin, @Param('countryID') id: string) {
+  findOne(@Param('countryID') id: string) {
     return this.countryService.findOne(id);
   }
 
   @Patch('/update/:countryID')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Edit a country by id - (ONLY ADMIN)',
   })
@@ -62,6 +64,8 @@ export class CountryController {
   }
 
   @Delete('/delete/:countryID')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Delete a country by id - (ONLY ADMIN)',
   })
