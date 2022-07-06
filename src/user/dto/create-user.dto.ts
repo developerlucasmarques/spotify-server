@@ -57,7 +57,7 @@ export class CreateUserDto {
   @IsUUID()
   @ApiProperty({
     description: 'Id of any of the plans available on the platform',
-    example: '5ec96e39-7a1a-4202-b593-c6df1b67f0eb',
+    example: '11f38851-afc7-41ae-b2d7-11781579099a',
   })
   userPlanId: string;
 }

@@ -75,7 +75,7 @@ export class CreateArtistDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The country of the artist.',
-    example: 'ab065335-b6e9-495e-9eee-8becfdc625f2',
+    example: 'ac06f36e-4b61-4fe8-8fd6-6ad807ac6282',
   })
   countryId: string;
 }
