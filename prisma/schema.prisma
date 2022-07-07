@@ -262,3 +262,4 @@ model ProfileFavoritePlaylist {
   @@unique([profileId, playlistId])
   @@map("profile_favorite_playlist")
 }
+
