@@ -21,8 +21,8 @@ import { Admin } from './entities/admin.entity';
 
 @Controller('admin')
 @ApiTags('manager-admin')
-// @UseGuards(AuthGuard())
-// @ApiBearerAuth()
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
@@ -30,7 +30,7 @@ export class AdminController {
   @ApiOperation({
     summary: 'Create a new Admin - (MANAGER)',
   })
-  create(/*@LoggedManager() admin: Admin, */ @Body() dto: CreateAdminDto) {
+  create(@LoggedManager() admin: Admin, @Body() dto: CreateAdminDto) {
     return this.adminService.create(dto);
   }
 

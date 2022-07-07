@@ -208,7 +208,7 @@ model CategorySong {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("category_id")
+  @@map("category_song")
 }
 
 model Playlist {

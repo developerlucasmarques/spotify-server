@@ -5,9 +5,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
 import { handleError } from 'src/utils/handle-error.util';
 import { UserProfileId } from './dto/logged-profile-type';
+import { LoginAdminDto } from './dto/login-admin.dto';
+import { LoginArtistDto } from './dto/login-artist.dto';
 import { LoginProfileDto } from './dto/login-profile.dto';
 import { LoginUserResponseDto } from './dto/login-user-response.dto';
-import { LoginDto } from './dto/login.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +18,8 @@ export class AuthService {
     private readonly jwt: JwtService,
   ) {}
 
-  async LoginUser(loginDto: LoginDto): Promise<LoginUserResponseDto> {
-    const { email, password } = loginDto;
+  async LoginUser(loginUserDto: LoginUserDto): Promise<LoginUserResponseDto> {
+    const { email, password } = loginUserDto;
 
     const user = await this.prisma.user
       .findUnique({ where: { email } })
@@ -67,8 +69,8 @@ export class AuthService {
     };
   }
 
-  async LoginAdmin(loginDto: LoginDto) {
-    const { email, password } = loginDto;
+  async LoginAdmin(loginAdminDto: LoginAdminDto ) {
+    const { email, password } = loginAdminDto;
 
     const admin = await this.prisma.admin
       .findUnique({
@@ -105,8 +107,8 @@ export class AuthService {
     };
   }
 
-  async LoginArtist(loginDto: LoginDto) {
-    const { email, password } = loginDto;
+  async LoginArtist(loginArtistDto: LoginArtistDto) {
+    const { email, password } = loginArtistDto;
 
     const artist = await this.prisma.artist
       .findUnique({
