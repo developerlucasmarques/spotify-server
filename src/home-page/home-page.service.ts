@@ -58,7 +58,20 @@ export class HomePageService {
       })
       .catch(handleError);
 
-    return playlists;
+    const playlistsSpotify = await this.prisma.profile.findUnique({
+      where: { userSpotify: true },
+      select: {
+        playlists: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
+    });
+
+    return [playlists, {playlistsSpotify}];
   }
 
   async findOneProfileInUser(userId: string, profileId: string) {
