@@ -13,6 +13,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserProfileId } from 'src/auth/dto/logged-profile-type';
+import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { AddSongPlaylistDto } from './dto/create-playlist-song.dto';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
@@ -164,5 +165,17 @@ export class PlaylistController {
       userProfileId.profileId,
       playlistId,
     );
+  }
+
+  @Post('/spotify-create')
+  @ApiOperation({
+    summary: 'Delete a favorite playlist from profile - (ONLY USER)',
+  })
+  spotifyPlaylistCreate(
+    @LoggedAdmin()
+    @Body()
+    dto: CreatePlaylistDto,
+  ) {
+    return this.playlistService.spotifyPlaylistCreate(dto);
   }
 }

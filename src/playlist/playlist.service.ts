@@ -341,6 +341,36 @@ export class PlaylistService {
       .catch(handleError);
   }
 
+  async spotifyPlaylistCreate(dto: CreatePlaylistDto) {
+    const data: Prisma.PlaylistCreateInput = {
+      name: dto.name,
+      image: dto.image,
+      private: dto.private,
+      profile: {
+        connect: {
+          userSpotify: true,
+        },
+      },
+    };
+
+    return await this.prisma.playlist
+      .create({
+        data,
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          profile: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+  }
+
   async findOneProfileInUser(userId: string, profileId: string) {
     const record = await this.prisma.user
       .findUnique({
