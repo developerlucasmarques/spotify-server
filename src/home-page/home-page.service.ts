@@ -73,9 +73,18 @@ export class HomePageService {
       })
       .catch(handleError);
 
-    
+    const musicCategories = await this.prisma.category
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+        take: 10,
+        skip: 0,
+      })
+      .catch(handleError);
 
-    return [playlists, { playlistsSpotify }];
+    return [playlists, { playlistsSpotify }, { musicCategories }];
   }
 
   async findOneProfileInUser(userId: string, profileId: string) {
