@@ -1,5 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client';
-
+import * as bcrypt from 'bcrypt';
 export const admins: Prisma.AdminCreateInput[] = [
   {
     name: 'Manager',
@@ -27,6 +27,7 @@ export const admins: Prisma.AdminCreateInput[] = [
 
 export const admin = async (prisma: PrismaClient) => {
   for (const obj of Object.values(admins)) {
+    obj.password = await bcrypt.hash(obj.password, 10);
     await prisma.admin.upsert({
       where: { cpf: obj.cpf },
       update: {},
