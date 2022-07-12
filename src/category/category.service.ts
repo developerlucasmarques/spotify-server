@@ -75,6 +75,29 @@ export class CategoryService {
       select: {
         id: true,
         name: true,
+        CategorySongs: {
+          select: {
+            song: {
+              select: {
+                id: true,
+                name: true,
+                songUrl: true,
+                artist: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+                album: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }
