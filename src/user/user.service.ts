@@ -9,6 +9,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { verifyConfirmPassword } from 'src/utils/confirm-password.ultil';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdatePlanDto } from './dto/update-plan.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -136,6 +137,29 @@ export class UserService {
           email: true,
           cpf: true,
           updatedAt: true,
+        },
+      })
+      .catch(handleError);
+  }
+
+  async updateMyPlan(userId: string, dto: UpdatePlanDto) {
+    await this.findById(userId);
+
+    const data: Partial<User> = { ...dto };
+
+    return await this.prisma.user
+      .update({
+        where: { id: userId },
+        data,
+        select: {
+          id: true,
+          name: true,
+          userPlan: {
+            select: {
+              id: true,
+              name: true,
+            }
+          }
         },
       })
       .catch(handleError);
