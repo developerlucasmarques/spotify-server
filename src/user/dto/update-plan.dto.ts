@@ -1,6 +1,5 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsUUID } from 'class-validator';
-import { CreateUserDto } from './create-user.dto';
 
 export class UpdatePlanDto {
   @IsOptional()

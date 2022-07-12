@@ -74,6 +74,17 @@ export class HomePageService {
       })
       .catch(handleError);
 
+    const artists = await this.prisma.artist
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+        take: 10,
+        skip: 0,
+      })
+      .catch(handleError);
+
     const musicCategories = await this.prisma.category
       .findMany({
         select: {
@@ -85,7 +96,7 @@ export class HomePageService {
       })
       .catch(handleError);
 
-    return [playlists, { playlistsSpotify }, { musicCategories }];
+    return [playlists, { playlistsSpotify }, { artists }, { musicCategories }];
   }
 
   async searchPlaylistSongAlbumArtist(dto: SearchDto) {
