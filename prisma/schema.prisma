@@ -134,9 +134,9 @@ model Country {
 model Album {
   id String @id @default(uuid())
 
-  name  String
+  name  String @db.VarChar(40)
   year  Int
-  image String
+  image String @db.VarChar(300)
 
   artist   Artist @relation(fields: [artistId], references: [id])
   artistId String @map("artist_id")
