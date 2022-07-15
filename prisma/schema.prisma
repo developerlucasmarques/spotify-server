@@ -11,9 +11,9 @@ model Admin {
   id String @id @unique @default(uuid())
 
   name     String @db.VarChar(50)
-  email    String @unique
-  cpf      String @unique
-  password String
+  email    String @unique @db.VarChar(50)
+  cpf      String @unique @db.VarChar(14)
+  password String @db.VarChar(50)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

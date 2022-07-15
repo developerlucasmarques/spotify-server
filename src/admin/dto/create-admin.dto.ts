@@ -4,8 +4,7 @@ import {
   IsNotEmpty,
   IsString,
   Length,
-  Matches,
-  MinLength,
+  Matches
 } from 'class-validator';
 
 export class CreateAdminDto {
@@ -19,7 +18,7 @@ export class CreateAdminDto {
 
   @IsString()
   @IsNotEmpty()
-  @Length(13, 14)
+  @Length(11, 14)
   @ApiProperty({
     description: 'CPF do Admin',
     example: '123.123.123-12',
@@ -28,6 +27,7 @@ export class CreateAdminDto {
 
   @IsEmail()
   @IsNotEmpty()
+  @Length(5, 50)
   @ApiProperty({
     description: 'The email of the user.',
     example: 'admin@admin.com',
@@ -35,7 +35,7 @@ export class CreateAdminDto {
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @Length(8, 50)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Senha muito fraca',
   })
