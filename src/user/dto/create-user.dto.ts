@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsString,
   IsUUID,
+  Length,
   Matches,
   MaxLength,
   MinLength,
@@ -12,6 +13,7 @@ import {
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
+  @Length(3, 50)
   @ApiProperty({
     description: 'The name of the user.',
     example: 'Gustavo Martins',
@@ -20,8 +22,7 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(11)
-  @MaxLength(14)
+  @Length(11, 14)
   @ApiProperty({
     description: 'The cpf of the user',
     example: '123.456.789-10',

@@ -1,16 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
+  IsNotEmpty,
   IsOptional,
   IsString,
+  Length,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
 export class UpdateUserDto {
+  @IsNotEmpty()
   @IsOptional()
   @IsString()
+  @Length(3, 50)
   @ApiProperty({
     description: 'The name of the user.',
     example: 'Gustavo Martins',
@@ -19,14 +23,14 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsString()
-  @MinLength(11)
-  @MaxLength(14)
+  @Length(11, 14)
   @ApiProperty({
     description: 'The cpf of the user',
     example: '123.456.789-10',
   })
   cpf: string;
 
+  @IsNotEmpty()
   @IsOptional()
   @IsEmail()
   @ApiProperty({
