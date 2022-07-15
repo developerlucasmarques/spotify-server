@@ -77,8 +77,8 @@ model UserCategory {
 
 model Profile {
   id          String   @id @default(uuid())
-  name        String
-  image       String
+  name        String   @db.VarChar(20)
+  image       String   @db.VarChar(100)
   userSpotify Boolean? @unique
 
   user   User   @relation(fields: [userId], references: [id])
