@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -19,6 +15,7 @@ export class UserService {
 
   async create(dto: CreateUserDto) {
     verifyConfirmPassword(dto.password, dto.confirmPassword);
+    await this.verifyUserPlanExist(dto.userPlanId);
     delete dto.confirmPassword;
     const data: Prisma.UserCreateInput = {
       name: dto.name,
@@ -50,7 +47,6 @@ export class UserService {
               accounts: true,
             },
           },
-          createdAt: true,
         },
       })
       .catch(handleError);
@@ -136,7 +132,6 @@ export class UserService {
           name: true,
           email: true,
           cpf: true,
-          updatedAt: true,
         },
       })
       .catch(handleError);
@@ -144,6 +139,7 @@ export class UserService {
 
   async updateMyPlan(userId: string, dto: UpdatePlanDto) {
     await this.findById(userId);
+    await this.verifyUserPlanExist(dto.userPlanId);
 
     const data: Partial<User> = { ...dto };
 
@@ -158,8 +154,8 @@ export class UserService {
             select: {
               id: true,
               name: true,
-            }
-          }
+            },
+          },
         },
       })
       .catch(handleError);
@@ -173,5 +169,15 @@ export class UserService {
   async deleteUser(id: string) {
     await this.findById(id);
     await this.prisma.user.delete({ where: { id } }).catch(handleError);
+  }
+
+  async verifyUserPlanExist(userPlanId: string) {
+    const plan = await this.prisma.userPlan.findUnique({
+      where: { id: userPlanId },
+    });
+
+    if (!plan) {
+      throw new NotFoundException('User plan ID not found');
+    }
   }
 }
