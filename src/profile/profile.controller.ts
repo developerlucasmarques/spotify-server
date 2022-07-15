@@ -37,7 +37,7 @@ export class ProfileController {
     return this.profileService.create(userProfileId.user.id, dto);
   }
 
-  @Get('/all')
+  @Get('all')
   @ApiOperation({
     summary: 'Fetch all profiles of the logged in user - (ONLY USER)',
   })
@@ -45,27 +45,30 @@ export class ProfileController {
     return this.profileService.findAll(userProfileId.user.id);
   }
 
-  @Patch('update/:profileID')
+  @Patch('update')
   @ApiOperation({
     summary: 'Edit a profile by id - (ONLY USER)',
   })
   update(
     @LoggedUser() userProfileId: UserProfileId,
-    @Param('profileID') profileId: string,
     @Body() dto: UpdateProfileDto,
   ) {
-    return this.profileService.update(userProfileId.user.id, profileId, dto);
+    return this.profileService.update(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      dto,
+    );
   }
 
-  @Delete('delete/:profileID')
+  @Delete('delete')
   @ApiOperation({
     summary: 'Delete a profile by id - (ONLY USER)',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(
-    @LoggedUser() userProfileId: UserProfileId,
-    @Param('profileID') profileId: string,
-  ) {
-    return this.profileService.delete(userProfileId.user.id, profileId);
+  delete(@LoggedUser() userProfileId: UserProfileId) {
+    return this.profileService.delete(
+      userProfileId.user.id,
+      userProfileId.profileId,
+    );
   }
 }
