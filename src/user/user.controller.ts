@@ -19,7 +19,6 @@ import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePlanDto } from './dto/update-plan.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('user')
