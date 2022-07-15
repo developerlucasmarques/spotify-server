@@ -27,9 +27,9 @@ model Admin {
 model User {
   id       String @id @default(uuid())
   name     String @db.VarChar(50)
-  cpf      String @unique
-  email    String @unique
-  password String
+  cpf      String @unique @db.VarChar(14)
+  email    String @unique @db.VarChar(50)
+  password String @db.VarChar(50)
 
   userPlan   UserPlan @relation(fields: [userPlanId], references: [id])
   userPlanId String   @map("user_plan_id")
@@ -76,7 +76,7 @@ model UserCategory {
 }
 
 model Profile {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   image       String
   userSpotify Boolean? @unique

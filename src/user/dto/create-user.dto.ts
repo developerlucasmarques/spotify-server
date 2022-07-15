@@ -31,6 +31,7 @@ export class CreateUserDto {
 
   @IsEmail()
   @IsNotEmpty()
+  @Length(5, 50)
   @ApiProperty({
     description: 'The email of the user.',
     example: 'user@user.com',
@@ -38,7 +39,7 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @Length(8, 50)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Password too weak',
   })
