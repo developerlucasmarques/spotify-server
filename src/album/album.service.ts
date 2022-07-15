@@ -1,15 +1,19 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
-import { Album } from './entities/album.entity';
 
 @Injectable()
 export class AlbumService {
   constructor(private readonly prisma: PrismaService) {}
   async create(artistId: string, dto: CreateAlbumDto) {
+    this.verifyYearAlbum(dto.year);
     const data: Prisma.AlbumCreateInput = {
       ...dto,
       artist: {
@@ -26,6 +30,7 @@ export class AlbumService {
           id: true,
           name: true,
           image: true,
+          year: true,
           artist: {
             select: {
               id: true,
@@ -110,5 +115,13 @@ export class AlbumService {
       throw new NotFoundException(`Album with ID '${albumId}' not found`);
     }
     return record;
+  }
+
+  verifyYearAlbum(year: Number) {
+    if (year < 1900 || year > 2022) {
+      throw new BadRequestException(
+        'The cannot be less than 1900 or greater than 2022',
+      );
+    }
   }
 }
