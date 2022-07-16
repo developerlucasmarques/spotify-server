@@ -13,7 +13,7 @@ export class CreateProfileDto {
 
   @IsNotEmpty()
   @IsUrl()
-  @Length(5, 100)
+  @Length(5, 300)
   @ApiProperty({
     description: 'Profile picture URL',
     example: 'https://profileimage.jpg',
