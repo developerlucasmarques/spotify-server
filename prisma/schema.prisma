@@ -48,10 +48,10 @@ model User {
 model UserPlan {
   id String @id @default(uuid())
 
-  name        String @unique
+  name        String @unique @db.VarChar(30)
   price       Float
   accounts    Int
-  description String
+  description String @db.VarChar(500)
 
   users User[]
 
