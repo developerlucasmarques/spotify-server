@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -147,15 +151,15 @@ export class ArtistService {
       .catch(handleError);
 
     if (!record) {
-      throw new NotFoundException(`Record with Id '${id}' not found!`);
+      throw new NotFoundException(`Artist with Id '${id}' not found!`);
     }
 
     return record;
   }
 
   async findOneByArtist(artistId: string) {
-    const songs = await this.prisma.artist
-      .findMany({
+    const artistDiscography = await this.prisma.artist
+      .findUnique({
         where: { id: artistId },
         select: {
           id: true,
@@ -180,14 +184,30 @@ export class ArtistService {
       })
       .catch(handleError);
 
-    if (songs.length === 0) {
+    if (!artistDiscography) {
+      throw new NotFoundException(`Artist with ID '${artistId} not found'`);
+    }
+
+    if (artistDiscography.albums.length === 0) {
       throw new NotFoundException('No song found');
     }
 
-    return songs;
+    return artistDiscography;
   }
 
   async update(artistId: string, dto: UpdateArtistDto) {
+    if (
+      !dto.name &&
+      !dto.image &&
+      !dto.about &&
+      !dto.confirmPassword &&
+      !dto.countryId &&
+      !dto.cpf &&
+      !dto.email &&
+      !dto.password
+    ) {
+      throw new BadRequestException('No fields were informed to update');
+    }
     if (dto.password) {
       verifyConfirmPassword(dto.password, dto.confirmPassword);
     }
@@ -219,6 +239,7 @@ export class ArtistService {
   }
 
   async deleteArtist(id: string) {
+    await this.findOneArtist(id);
     return await this.prisma.artist
       .delete({ where: { id } })
       .catch(handleError);
@@ -231,6 +252,16 @@ export class ArtistService {
 
     if (!country) {
       throw new NotFoundException(`Country with id ${countryId} not found`);
+    }
+  }
+
+  async findOneArtist(artistId: string) {
+    const artist = await this.prisma.artist.findUnique({
+      where: { id: artistId },
+    });
+
+    if (!artist) {
+      throw new NotFoundException(`Artist with ID '${artistId}' not found`);
     }
   }
 }

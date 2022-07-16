@@ -69,7 +69,7 @@ export class ArtistController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'View all songs by an artist - (ONLY USER)',
+    summary: 'View all songs by an artist - (OPEN)',
   })
   findOneByArtist(@Param('artistID') artistId: string) {
     return this.artistService.findOneByArtist(artistId);
