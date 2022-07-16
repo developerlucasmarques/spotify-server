@@ -94,12 +94,12 @@ model Profile {
 model Artist {
   id String @id @default(uuid())
 
-  name     String
-  image    String
-  cpf      String @unique
-  email    String @unique
-  password String
-  about    String
+  name     String @db.VarChar(50)
+  image    String @db.VarChar(300)
+  cpf      String @unique @db.VarChar(14)
+  email    String @unique @db.VarChar(50)
+  password String @db.VarChar(50)
+  about    String @db.VarChar(300)
 
   userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
   userCategoryName String       @map("user_category_name")
