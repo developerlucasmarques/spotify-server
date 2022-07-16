@@ -12,9 +12,29 @@ import { Artist } from './entities/artist.entity';
 export class ArtistService {
   constructor(private readonly prisma: PrismaService) {}
 
+  private artistSelect = {
+    id: true,
+    name: true,
+    image: true,
+    email: true,
+    userCategory: {
+      select: {
+        name: true,
+      },
+    },
+    countryRelacion: {
+      select: {
+        name: true,
+      },
+    },
+  };
+
   async create(dto: CreateArtistDto) {
     verifyConfirmPassword(dto.password, dto.confirmPassword);
     delete dto.confirmPassword;
+
+    await this.verifyCountryIdExist(dto.countryId);
+
     const data: Prisma.ArtistCreateInput = {
       name: dto.name,
       image: dto.image,
@@ -36,22 +56,7 @@ export class ArtistService {
     return await this.prisma.artist
       .create({
         data,
-        select: {
-          id: true,
-          name: true,
-          image: true,
-          email: true,
-          userCategory: {
-            select: {
-              name: true,
-            },
-          },
-          countryRelacion: {
-            select: {
-              name: true,
-            },
-          },
-        },
+        select: this.artistSelect,
       })
       .catch(handleError);
   }
@@ -81,8 +86,8 @@ export class ArtistService {
       })
       .catch(handleError);
 
-    if(record.songs.length === 0 && record.albums.length === 0) {
-      throw new NotFoundException('No song or album found')
+    if (record.songs.length === 0 && record.albums.length === 0) {
+      throw new NotFoundException('No song or album found');
     }
 
     return record;
@@ -188,6 +193,8 @@ export class ArtistService {
     }
     delete dto.confirmPassword;
 
+    await this.verifyCountryIdExist(dto.countryId);
+
     await this.prisma.artist.findUnique({ where: { id: artistId } });
 
     const data: Partial<Artist> = { ...dto };
@@ -200,6 +207,7 @@ export class ArtistService {
       .update({
         where: { id: artistId },
         data,
+        select: this.artistSelect,
       })
       .catch(handleError);
   }
@@ -214,5 +222,15 @@ export class ArtistService {
     return await this.prisma.artist
       .delete({ where: { id } })
       .catch(handleError);
+  }
+
+  async verifyCountryIdExist(countryId: string) {
+    const country = await this.prisma.country.findUnique({
+      where: { id: countryId },
+    });
+
+    if (!country) {
+      throw new NotFoundException(`Country with id ${countryId} not found`);
+    }
   }
 }
