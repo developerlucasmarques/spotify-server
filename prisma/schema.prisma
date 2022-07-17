@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeature = ["referentialActions"]
 }
 
 datasource db {
@@ -31,8 +32,8 @@ model User {
   email    String @unique @db.VarChar(50)
   password String @db.VarChar(50)
 
-  userPlan   UserPlan @relation(fields: [userPlanId], references: [id])
-  userPlanId String   @map("user_plan_id")
+  userPlan   UserPlan? @relation(fields: [userPlanId], references: [id], onDelete: SetNull)
+  userPlanId String?   @map("user_plan_id")
 
   userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
   userCategoryName String       @map("user_category_name")
