@@ -33,7 +33,7 @@ export class CountryController {
     return this.countryService.create(dto);
   }
 
-  @Get('/find-all')
+  @Get('/all')
   @ApiOperation({
     summary: 'Search all countries - (OPEN)',
   })
@@ -41,7 +41,7 @@ export class CountryController {
     return this.countryService.findAll();
   }
 
-  @Get('/find-one/:countryID')
+  @Get('/:countryID')
   @ApiOperation({
     summary: 'Search for a country by id - (OPEN)',
   })

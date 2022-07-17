@@ -14,7 +14,7 @@ model Admin {
   name     String @db.VarChar(50)
   email    String @unique @db.VarChar(50)
   cpf      String @unique @db.VarChar(14)
-  password String @db.VarChar(50)
+  password String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -30,7 +30,7 @@ model User {
   name     String @db.VarChar(50)
   cpf      String @unique @db.VarChar(14)
   email    String @unique @db.VarChar(50)
-  password String @db.VarChar(50)
+  password String
 
   userPlan   UserPlan? @relation(fields: [userPlanId], references: [id], onDelete: SetNull)
   userPlanId String?   @map("user_plan_id")
@@ -99,7 +99,7 @@ model Artist {
   image    String @db.VarChar(300)
   cpf      String @unique @db.VarChar(14)
   email    String @unique @db.VarChar(50)
-  password String @db.VarChar(50)
+  password String
   about    String @db.VarChar(300)
 
   userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
