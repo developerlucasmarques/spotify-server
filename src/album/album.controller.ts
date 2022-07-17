@@ -25,7 +25,7 @@ import { UpdateAlbumDto } from './dto/update-album.dto';
 export class AlbumController {
   constructor(private readonly albumService: AlbumService) {}
 
-  @Post('/create')
+  @Post('create')
   @ApiOperation({
     summary:
       'Create an album and associate it with the artist who created it - (ARTIST)',
@@ -34,20 +34,12 @@ export class AlbumController {
     return this.albumService.create(artist.id, dto);
   }
 
-  @Get('/find-all')
+  @Get(':albumID')
   @ApiOperation({
-    summary: 'Fetch all albums of the artist who is logged in - (ARTIST)',
+    summary: 'Search for an album by the artist who is logged in - (OPEN)',
   })
-  findAll(@LoggedArtist() artist: Artist) {
-    return this.albumService.findAll(artist.id);
-  }
-
-  @Get('/find-one/:albumID')
-  @ApiOperation({
-    summary: 'Search for an album by the artist who is logged in - (ARTIST)',
-  })
-  findOne(@LoggedArtist() artist: Artist, @Param('albumID') albumId: string) {
-    return this.albumService.findOne(artist.id, albumId);
+  findOne(@Param('albumID') albumId: string) {
+    return this.albumService.findOne(albumId);
   }
 
   @Patch('update/:albumID')
