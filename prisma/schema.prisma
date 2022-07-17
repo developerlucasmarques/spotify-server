@@ -19,8 +19,8 @@ model Admin {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
-  userCategoryName String       @map("user_category_name")
+  userCategory     UserCategory? @relation(fields: [userCategoryName], references: [name], onDelete: SetNull)
+  userCategoryName String?       @map("user_category_name")
 
   @@map("admin")
 }
@@ -35,8 +35,8 @@ model User {
   userPlan   UserPlan? @relation(fields: [userPlanId], references: [id], onDelete: SetNull)
   userPlanId String?   @map("user_plan_id")
 
-  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
-  userCategoryName String       @map("user_category_name")
+  userCategory     UserCategory? @relation(fields: [userCategoryName], references: [name], onDelete: SetNull)
+  userCategoryName String?       @map("user_category_name")
 
   profiles Profile[]
 
@@ -82,7 +82,7 @@ model Profile {
   image       String   @db.VarChar(300)
   userSpotify Boolean? @unique
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
 
   songs             ProfileFavoriteSong[]
@@ -102,11 +102,11 @@ model Artist {
   password String
   about    String @db.VarChar(300)
 
-  userCategory     UserCategory @relation(fields: [userCategoryName], references: [name])
-  userCategoryName String       @map("user_category_name")
+  userCategory     UserCategory? @relation(fields: [userCategoryName], references: [name], onDelete: SetNull)
+  userCategoryName String?       @map("user_category_name")
 
-  countryRelacion Country @relation(fields: [countryId], references: [id])
-  countryId       String
+  countryRelacion Country? @relation(fields: [countryId], references: [id], onDelete: SetNull)
+  countryId       String?
 
   albums Album[]
 
@@ -139,7 +139,7 @@ model Album {
   year  Int
   image String @db.VarChar(300)
 
-  artist   Artist @relation(fields: [artistId], references: [id])
+  artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
   artistId String @map("artist_id")
 
   songs Song[]
@@ -155,10 +155,10 @@ model Song {
   name    String
   songUrl String @map("song_url")
 
-  album   Album  @relation(fields: [albumId], references: [id])
+  album   Album  @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId String @map("album_id")
 
-  artist   Artist @relation(fields: [artistId], references: [id])
+  artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
   artistId String @map("artist_id")
 
   CategorySongs CategorySong[]
@@ -176,10 +176,10 @@ model Song {
 model ProfileFavoriteSong {
   id String @id @default(uuid())
 
-  profile   Profile @relation(fields: [profileId], references: [id])
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  @map("profile_id")
 
-  song   Song   @relation(fields: [songId], references: [id])
+  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
   songId String @map("song_id")
 
   @@unique([profileId, songId])
@@ -201,10 +201,10 @@ model Category {
 model CategorySong {
   id String @id @default(uuid())
 
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String   @map("category_id")
 
-  song   Song   @relation(fields: [songId], references: [id])
+  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
   songId String @map("song_id")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -220,7 +220,7 @@ model Playlist {
   image   String
   private Boolean
 
-  profile   Profile @relation(fields: [profileId], references: [id])
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  @map("profile_id")
 
   songs                    PlaylistSong[]
@@ -235,10 +235,10 @@ model Playlist {
 model PlaylistSong {
   id String @id @default(uuid())
 
-  playlist   Playlist @relation(fields: [playlistId], references: [id])
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
   playlistId String   @map("playlist_id")
 
-  song   Song   @relation(fields: [songId], references: [id])
+  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
   songId String @map("song_id")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -252,10 +252,10 @@ model PlaylistSong {
 model ProfileFavoritePlaylist {
   id String @id @default(uuid())
 
-  profile   Profile @relation(fields: [profileId], references: [id])
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  @map("profile_id")
 
-  playlist   Playlist @relation(fields: [playlistId], references: [id])
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
   playlistId String   @map("playlist_id")
 
   createdAt DateTime @default(now()) @map("created_at")
