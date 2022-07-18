@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider       = "prisma-client-js"
   previewFeature = ["referentialActions"]
 }
 
@@ -152,8 +152,8 @@ model Album {
 
 model Song {
   id      String @id @default(uuid())
-  name    String
-  songUrl String @map("song_url")
+  name    String @db.VarChar(50)
+  songUrl String @map("song_url") @db.VarChar(2000)
 
   album   Album  @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId String @map("album_id")
