@@ -10,6 +10,8 @@ export class SongService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(artistId: string, dto: CreateSongDto) {
+    await this.albumIdExist(dto.albumId);
+    await this.categoryIdExist(dto.categoryId);
     const data: Prisma.SongCreateInput = {
       name: dto.name,
       songUrl: dto.songUrl,
@@ -123,7 +125,7 @@ export class SongService {
   }
 
   async findOne(songId: string) {
-    return await this.prisma.song
+    const song = await this.prisma.song
       .findUnique({
         where: { id: songId },
         select: {
@@ -156,6 +158,14 @@ export class SongService {
         },
       })
       .catch(handleError);
+
+    if (!song) {
+      throw new NotFoundException(`Song with ID '${songId}' not found`);
+    }
+
+    console.log(song);
+
+    return song;
   }
 
   async findOneByArtsit(artistId: string) {
@@ -183,6 +193,7 @@ export class SongService {
 
   async update(artistdId: string, songId: string, dto: UpdateSongDto) {
     await this.findById(artistdId, songId);
+
     return await this.prisma.song
       .update({
         where: { id: songId },
@@ -201,5 +212,27 @@ export class SongService {
     return await this.prisma.song
       .delete({ where: { id: songId } })
       .catch(handleError);
+  }
+
+  async albumIdExist(albumId: string) {
+    const album = await this.prisma.album.findUnique({
+      where: { id: albumId },
+    });
+
+    if (!album) {
+      throw new NotFoundException(`Album with ID '${albumId}' not found`);
+    }
+  }
+
+  async categoryIdExist(categoryIds: string[]) {
+    for (let i of categoryIds) {
+      const category = await this.prisma.category.findUnique({
+        where: { id: i },
+      });
+
+      if (!category) {
+        throw new NotFoundException(`Category with ID '${i} not found'`);
+      }
+    }
   }
 }
