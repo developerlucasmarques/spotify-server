@@ -193,15 +193,36 @@ export class SongService {
 
   async update(artistdId: string, songId: string, dto: UpdateSongDto) {
     await this.findById(artistdId, songId);
+    const data: Prisma.SongUpdateInput = {
+      name: dto.name,
+      songUrl: dto.songUrl,
+      CategorySongs: {
+        createMany: {
+          data: dto.categoryId.map((categoryId) => ({
+            categoryId: categoryId,
+          })),
+        },
+      },
+    };
 
     return await this.prisma.song
       .update({
         where: { id: songId },
-        data: { ...dto },
+        data,
         select: {
           id: true,
           name: true,
           songUrl: true,
+          CategorySongs: {
+            select: {
+              category: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
         },
       })
       .catch(handleError);

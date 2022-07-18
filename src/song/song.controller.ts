@@ -52,24 +52,24 @@ export class SongController {
     return this.songService.findOne(songId);
   }
 
-  @Patch('/update-artist/:songId')
+  @Patch('/update/:songID')
   @ApiOperation({
     summary: 'Edit an song of the artist who is logged in - (ONLY ARTIST)',
   })
   update(
     @LoggedArtist() artist: Artist,
-    @Param('songId') songId: string,
+    @Param('songID') songId: string,
     @Body() dto: UpdateSongDto,
   ) {
     return this.songService.update(artist.id, songId, dto);
   }
 
-  @Delete(':songId')
+  @Delete('/delete/:songID')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Remove a song by Id - (ONLY ARTIST)',
   })
-  delete(@LoggedArtist() artist: Artist, @Param('songId') songId: string) {
+  delete(@LoggedArtist() artist: Artist, @Param('songID') songId: string) {
     return this.songService.delete(artist.id, songId);
   }
 }

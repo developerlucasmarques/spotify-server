@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsUrl, Length, MaxLength } from 'class-validator';
+import { IsString, IsUrl, IsUUID, Length, MaxLength } from 'class-validator';
 
 export class UpdateSongDto {
   @IsString()
@@ -17,4 +17,12 @@ export class UpdateSongDto {
     example: 'https://youtu.be/Zqo7j2yFoFs',
   })
   songUrl: string;
+
+  @IsUUID(undefined, { each: true })
+  @ApiProperty({
+    description: 'Category id to create the relationship with song',
+    example:
+      '["76b73966-928c-407e-8c35-ba327f4d200c", "0eee08d7-8a4b-4751-bdfe-1f0bd61a6987"]',
+  })
+  categoryId: string[];
 }
