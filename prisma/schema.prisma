@@ -188,7 +188,7 @@ model ProfileFavoriteSong {
 
 model Category {
   id   String @id @default(uuid())
-  name String @unique
+  name String @unique @db.VarChar(50)
 
   CategorySongs CategorySong[]
 
