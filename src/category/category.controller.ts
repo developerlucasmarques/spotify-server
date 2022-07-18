@@ -1,21 +1,19 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from 'src/admin/entities/admin.entity';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
-import { LoggedUser } from 'src/auth/logged-user.decorator';
-import { User } from 'src/user/entities/user.entity';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -27,7 +25,7 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Post('create-music-category')
+  @Post('create')
   @ApiOperation({
     summary: 'Create a new Music Category - (ONLY ADMIN)',
   })
@@ -35,7 +33,7 @@ export class CategoryController {
     return this.categoryService.create(dto);
   }
 
-  @Get('find-all-musics-categories')
+  @Get('all')
   @ApiOperation({
     summary: 'List All Music Categories - (OPEN)',
   })
@@ -43,7 +41,7 @@ export class CategoryController {
     return this.categoryService.findAll();
   }
 
-  @Get('find-one-music-category/:categoryID')
+  @Get(':categoryID')
   @ApiOperation({
     summary: 'List a Music Categorie by Id - (ONLY USER)',
   })
@@ -51,7 +49,7 @@ export class CategoryController {
     return this.categoryService.findOne(categoryId);
   }
 
-  @Patch('edit-music-category/:categoryID')
+  @Patch('update/:categoryID')
   @ApiOperation({
     summary: 'Edit a Music Categorie by Id - (ONLY ADMIN)',
   })
@@ -63,7 +61,7 @@ export class CategoryController {
     return this.categoryService.update(categoryId, dto);
   }
 
-  @Delete('remove-music-category/:categoryID')
+  @Delete('delete/:categoryID')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Delete a Music Categorie by Id - (ONLY ADMIN)',
