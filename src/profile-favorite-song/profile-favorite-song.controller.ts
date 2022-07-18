@@ -25,7 +25,7 @@ export class ProfileFavoriteSongController {
 
   @Patch('add/:songID')
   @ApiOperation({
-    summary: 'Add a song to a profile - (ONLY USER)',
+    summary: 'Add a song to profile favorites - (ONLY USER)',
   })
   create(
     @LoggedUser() userProfileId: UserProfileId,
@@ -40,7 +40,7 @@ export class ProfileFavoriteSongController {
 
   @Get('all')
   @ApiOperation({
-    summary: 'Fetch all favorite songs from profile - (ONLY USER)',
+    summary: 'Search all music from profile favorites - (ONLY USER)',
   })
   findAll(@LoggedUser() userProfileId: UserProfileId) {
     return this.favoriteSongService.findAll(
@@ -51,7 +51,7 @@ export class ProfileFavoriteSongController {
 
   @Delete('delete/:songID')
   @ApiOperation({
-    summary: 'Remove a song to a profile - (ONLY USER)',
+    summary: 'Remove a song from profile favorites - (ONLY USER)',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(
