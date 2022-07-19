@@ -136,14 +136,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post(&#x27;create-music-category&#x27;)<br />@ApiOperation({summary: &#x27;Create a new Music Category - (ONLY ADMIN)&#x27;})<br /></code>
+                    <code>@Post(&#x27;create&#x27;)<br />@ApiOperation({summary: &#x27;Create a new Music Category - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">src/category/category.controller.ts:34</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/category/category.controller.ts:32</a></div>
                 </td>
             </tr>
 
@@ -224,14 +224,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;remove-music-category/:categoryID&#x27;)<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiOperation({summary: &#x27;Delete a Music Categorie by Id - (ONLY ADMIN)&#x27;})<br /></code>
+                    <code>@Delete(&#x27;delete/:categoryID&#x27;)<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiOperation({summary: &#x27;Delete a Music Categorie by Id - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">src/category/category.controller.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/category/category.controller.ts:69</a></div>
                 </td>
             </tr>
 
@@ -312,14 +312,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;find-all-musics-categories&#x27;)<br />@ApiOperation({summary: &#x27;List All Music Categories - (OPEN)&#x27;})<br /></code>
+                    <code>@Get(&#x27;all&#x27;)<br />@ApiOperation({summary: &#x27;List All Music Categories - (OPEN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/category/category.controller.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/category/category.controller.ts:40</a></div>
                 </td>
             </tr>
 
@@ -356,14 +356,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;find-one-music-category/:categoryID&#x27;)<br />@ApiOperation({summary: &#x27;List a Music Categorie by Id - (ONLY USER)&#x27;})<br /></code>
+                    <code>@Get(&#x27;:categoryID&#x27;)<br />@ApiOperation({summary: &#x27;List a Music Categorie by Id - (ONLY USER)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">src/category/category.controller.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">src/category/category.controller.ts:48</a></div>
                 </td>
             </tr>
 
@@ -432,14 +432,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;edit-music-category/:categoryID&#x27;)<br />@ApiOperation({summary: &#x27;Edit a Music Categorie by Id - (ONLY ADMIN)&#x27;})<br /></code>
+                    <code>@Patch(&#x27;update/:categoryID&#x27;)<br />@ApiOperation({summary: &#x27;Edit a Music Categorie by Id - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">src/category/category.controller.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">src/category/category.controller.ts:56</a></div>
                 </td>
             </tr>
 
@@ -516,23 +516,21 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from &#x27;@nestjs/common&#x27;;
 import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
 import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { Admin } from &#x27;src/admin/entities/admin.entity&#x27;;
 import { LoggedAdmin } from &#x27;src/auth/logged-admin.decorator&#x27;;
-import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
-import { User } from &#x27;src/user/entities/user.entity&#x27;;
 import { CategoryService } from &#x27;./category.service&#x27;;
 import { CreateCategoryDto } from &#x27;./dto/create-category.dto&#x27;;
 import { UpdateCategoryDto } from &#x27;./dto/update-category.dto&#x27;;
@@ -544,7 +542,7 @@ import { UpdateCategoryDto } from &#x27;./dto/update-category.dto&#x27;;
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Post(&#x27;create-music-category&#x27;)
+  @Post(&#x27;create&#x27;)
   @ApiOperation({
     summary: &#x27;Create a new Music Category - (ONLY ADMIN)&#x27;,
   })
@@ -552,7 +550,7 @@ export class CategoryController {
     return this.categoryService.create(dto);
   }
 
-  @Get(&#x27;find-all-musics-categories&#x27;)
+  @Get(&#x27;all&#x27;)
   @ApiOperation({
     summary: &#x27;List All Music Categories - (OPEN)&#x27;,
   })
@@ -560,7 +558,7 @@ export class CategoryController {
     return this.categoryService.findAll();
   }
 
-  @Get(&#x27;find-one-music-category/:categoryID&#x27;)
+  @Get(&#x27;:categoryID&#x27;)
   @ApiOperation({
     summary: &#x27;List a Music Categorie by Id - (ONLY USER)&#x27;,
   })
@@ -568,7 +566,7 @@ export class CategoryController {
     return this.categoryService.findOne(categoryId);
   }
 
-  @Patch(&#x27;edit-music-category/:categoryID&#x27;)
+  @Patch(&#x27;update/:categoryID&#x27;)
   @ApiOperation({
     summary: &#x27;Edit a Music Categorie by Id - (ONLY ADMIN)&#x27;,
   })
@@ -580,7 +578,7 @@ export class CategoryController {
     return this.categoryService.update(categoryId, dto);
   }
 
-  @Delete(&#x27;remove-music-category/:categoryID&#x27;)
+  @Delete(&#x27;delete/:categoryID&#x27;)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: &#x27;Delete a Music Categorie by Id - (ONLY ADMIN)&#x27;,

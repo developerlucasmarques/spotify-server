@@ -104,6 +104,9 @@
                             <li>
                                 <a href="#updateMyAccount" >updateMyAccount</a>
                             </li>
+                            <li>
+                                <a href="#updateMyPlan" >updateMyPlan</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -224,8 +227,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="87"
-                            class="link-to-prism">src/user/user.controller.ts:87</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="100"
+                            class="link-to-prism">src/user/user.controller.ts:100</a></div>
                 </td>
             </tr>
 
@@ -300,8 +303,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="98"
-                            class="link-to-prism">src/user/user.controller.ts:98</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/user/user.controller.ts:111</a></div>
                 </td>
             </tr>
 
@@ -689,6 +692,94 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateMyPlan"></a>
+                    <span class="name">
+                        <span ><b>updateMyPlan</b></span>
+                        <a href="#updateMyPlan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateMyPlan(userProfileId: <a href="../classes/UserProfileId.html" target="_self">UserProfileId</a>, dto: <a href="../classes/UpdatePlanDto.html" target="_self">UpdatePlanDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Patch(&#x27;update-my-plan&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;Edit user plan logged - (ONLY USER)&#x27;})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/user/user.controller.ts:86</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>userProfileId</td>
+                                    <td>
+                                                <code><a href="../classes/UserProfileId.html" target="_self" >UserProfileId</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/UpdatePlanDto.html" target="_self" >UpdatePlanDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    </div>
 
 
@@ -712,8 +803,8 @@ import { UserProfileId } from &#x27;src/auth/dto/logged-profile-type&#x27;;
 import { LoggedAdmin } from &#x27;src/auth/logged-admin.decorator&#x27;;
 import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
 import { CreateUserDto } from &#x27;./dto/create-user.dto&#x27;;
+import { UpdatePlanDto } from &#x27;./dto/update-plan.dto&#x27;;
 import { UpdateUserDto } from &#x27;./dto/update-user.dto&#x27;;
-import { User } from &#x27;./entities/user.entity&#x27;;
 import { UserService } from &#x27;./user.service&#x27;;
 
 @ApiTags(&#x27;user&#x27;)
@@ -770,6 +861,19 @@ export class UserController {
     @Body() dto: UpdateUserDto,
   ) {
     return this.userService.updateMyAccount(userProfileId.user.id, dto);
+  }
+
+  @Patch(&#x27;update-my-plan&#x27;)
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: &#x27;Edit user plan logged - (ONLY USER)&#x27;,
+  })
+  updateMyPlan(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Body() dto: UpdatePlanDto,
+  ) {
+    return this.userService.updateMyPlan(userProfileId.user.id, dto);
   }
 
   @Delete(&#x27;/delete-my-account&#x27;)

@@ -174,7 +174,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsOptional()<br />@IsEmail()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The email of the user.&#x27;, example: &#x27;admin@admin.com&#x27;})<br />
+                            @IsOptional()<br />@IsEmail()<br />@IsNotEmpty()<br />@Length(5, 50)<br />@ApiProperty({description: &#x27;The email of the user.&#x27;, example: &#x27;admin@admin.com&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -216,7 +216,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/admin/dto/update-managerAdmin.dto.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/admin/dto/update-managerAdmin.dto.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -246,7 +246,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsOptional()<br />@IsString()<br />@MinLength(8)<br />@Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {message: &#x27;Senha muito fraca&#x27;})<br />@ApiProperty({description: &#x27;Senha do Admin&#x27;, example: &#x27;User#5678@!&#x27;})<br />
+                            @IsOptional()<br />@IsString()<br />@Length(8, 50)<br />@Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {message: &#x27;Senha muito fraca&#x27;})<br />@ApiProperty({description: &#x27;Senha do Admin&#x27;, example: &#x27;User#5678@!&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -278,8 +278,7 @@ import {
   IsOptional,
   IsString,
   Length,
-  Matches,
-  MinLength,
+  Matches
 } from &#x27;class-validator&#x27;;
 
 export class UpdateAdminDto {
@@ -295,6 +294,7 @@ export class UpdateAdminDto {
   @IsOptional()
   @IsEmail()
   @IsNotEmpty()
+  @Length(5, 50)
   @ApiProperty({
     description: &#x27;The email of the user.&#x27;,
     example: &#x27;admin@admin.com&#x27;,
@@ -303,7 +303,7 @@ export class UpdateAdminDto {
 
   @IsOptional()
   @IsString()
-  @MinLength(8)
+  @Length(8, 50)
   @Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {
     message: &#x27;Senha muito fraca&#x27;,
   })

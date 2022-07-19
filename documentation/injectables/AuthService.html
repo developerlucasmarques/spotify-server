@@ -117,7 +117,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/auth/auth.service.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/auth/auth.service.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -187,15 +187,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>LoginAdmin(loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+                    <code>LoginAdmin(loginAdminDto: <a href="../classes/LoginAdminDto.html" target="_self">LoginAdminDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">src/auth/auth.service.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/auth/auth.service.ts:72</a></div>
                 </td>
             </tr>
 
@@ -216,9 +216,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>loginDto</td>
+                                    <td>loginAdminDto</td>
                                     <td>
-                                                <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                <code><a href="../classes/LoginAdminDto.html" target="_self" >LoginAdminDto</a></code>
                                     </td>
 
                                     <td>
@@ -258,15 +258,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>LoginArtist(loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+                    <code>LoginArtist(loginArtistDto: <a href="../classes/LoginArtistDto.html" target="_self">LoginArtistDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="108"
-                            class="link-to-prism">src/auth/auth.service.ts:108</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/auth/auth.service.ts:110</a></div>
                 </td>
             </tr>
 
@@ -287,9 +287,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>loginDto</td>
+                                    <td>loginArtistDto</td>
                                     <td>
-                                                <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                <code><a href="../classes/LoginArtistDto.html" target="_self" >LoginArtistDto</a></code>
                                     </td>
 
                                     <td>
@@ -336,8 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="44"
-                            class="link-to-prism">src/auth/auth.service.ts:44</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/auth/auth.service.ts:46</a></div>
                 </td>
             </tr>
 
@@ -412,15 +412,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>LoginUser(loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+                    <code>LoginUser(loginUserDto: <a href="../classes/LoginUserDto.html" target="_self">LoginUserDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="19"
-                            class="link-to-prism">src/auth/auth.service.ts:19</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">src/auth/auth.service.ts:21</a></div>
                 </td>
             </tr>
 
@@ -441,9 +441,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>loginDto</td>
+                                    <td>loginUserDto</td>
                                     <td>
-                                                <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                <code><a href="../classes/LoginUserDto.html" target="_self" >LoginUserDto</a></code>
                                     </td>
 
                                     <td>
@@ -481,9 +481,11 @@ import { PrismaService } from &#x27;src/prisma/prisma.service&#x27;;
 import { User } from &#x27;src/user/entities/user.entity&#x27;;
 import { handleError } from &#x27;src/utils/handle-error.util&#x27;;
 import { UserProfileId } from &#x27;./dto/logged-profile-type&#x27;;
+import { LoginAdminDto } from &#x27;./dto/login-admin.dto&#x27;;
+import { LoginArtistDto } from &#x27;./dto/login-artist.dto&#x27;;
 import { LoginProfileDto } from &#x27;./dto/login-profile.dto&#x27;;
 import { LoginUserResponseDto } from &#x27;./dto/login-user-response.dto&#x27;;
-import { LoginDto } from &#x27;./dto/login.dto&#x27;;
+import { LoginUserDto } from &#x27;./dto/login-user.dto&#x27;;
 
 @Injectable()
 export class AuthService {
@@ -492,8 +494,8 @@ export class AuthService {
     private readonly jwt: JwtService,
   ) {}
 
-  async LoginUser(loginDto: LoginDto): Promise&lt;LoginUserResponseDto&gt; {
-    const { email, password } &#x3D; loginDto;
+  async LoginUser(loginUserDto: LoginUserDto): Promise&lt;LoginUserResponseDto&gt; {
+    const { email, password } &#x3D; loginUserDto;
 
     const user &#x3D; await this.prisma.user
       .findUnique({ where: { email } })
@@ -543,8 +545,8 @@ export class AuthService {
     };
   }
 
-  async LoginAdmin(loginDto: LoginDto) {
-    const { email, password } &#x3D; loginDto;
+  async LoginAdmin(loginAdminDto: LoginAdminDto ) {
+    const { email, password } &#x3D; loginAdminDto;
 
     const admin &#x3D; await this.prisma.admin
       .findUnique({
@@ -581,8 +583,8 @@ export class AuthService {
     };
   }
 
-  async LoginArtist(loginDto: LoginDto) {
-    const { email, password } &#x3D; loginDto;
+  async LoginArtist(loginArtistDto: LoginArtistDto) {
+    const { email, password } &#x3D; loginArtistDto;
 
     const artist &#x3D; await this.prisma.artist
       .findUnique({

@@ -173,13 +173,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@IsNotEmpty()<br />@Length(13, 14)<br />@ApiProperty({description: &#x27;CPF do Admin&#x27;, example: &#x27;123.123.123-12&#x27;})<br />
+                            @IsString()<br />@IsNotEmpty()<br />@Length(11, 14)<br />@ApiProperty({description: &#x27;CPF do Admin&#x27;, example: &#x27;123.123.123-12&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/admin/dto/create-admin.dto.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/admin/dto/create-admin.dto.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -208,7 +208,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsEmail()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The email of the user.&#x27;, example: &#x27;admin@admin.com&#x27;})<br />
+                            @IsEmail()<br />@IsNotEmpty()<br />@Length(5, 50)<br />@ApiProperty({description: &#x27;The email of the user.&#x27;, example: &#x27;admin@admin.com&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -249,7 +249,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/admin/dto/create-admin.dto.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/admin/dto/create-admin.dto.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -278,7 +278,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@MinLength(8)<br />@Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {message: &#x27;Senha muito fraca&#x27;})<br />@ApiProperty({description: &#x27;Senha do Admin&#x27;, example: &#x27;User#5678@!&#x27;})<br />
+                            @IsString()<br />@Length(8, 50)<br />@Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {message: &#x27;Senha muito fraca&#x27;})<br />@ApiProperty({description: &#x27;Senha do Admin&#x27;, example: &#x27;User#5678@!&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -309,8 +309,7 @@ import {
   IsNotEmpty,
   IsString,
   Length,
-  Matches,
-  MinLength,
+  Matches
 } from &#x27;class-validator&#x27;;
 
 export class CreateAdminDto {
@@ -324,7 +323,7 @@ export class CreateAdminDto {
 
   @IsString()
   @IsNotEmpty()
-  @Length(13, 14)
+  @Length(11, 14)
   @ApiProperty({
     description: &#x27;CPF do Admin&#x27;,
     example: &#x27;123.123.123-12&#x27;,
@@ -333,6 +332,7 @@ export class CreateAdminDto {
 
   @IsEmail()
   @IsNotEmpty()
+  @Length(5, 50)
   @ApiProperty({
     description: &#x27;The email of the user.&#x27;,
     example: &#x27;admin@admin.com&#x27;,
@@ -340,7 +340,7 @@ export class CreateAdminDto {
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @Length(8, 50)
   @Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {
     message: &#x27;Senha muito fraca&#x27;,
   })

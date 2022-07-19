@@ -132,13 +132,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />@IsUrl()<br />@ApiProperty({description: &#x27;Image Url of Album&#x27;, example: &#x27;https://image-album.jpg&#x27;})<br />
+                            @IsNotEmpty()<br />@IsUrl()<br />@Length(5, 300)<br />@ApiProperty({description: &#x27;Image Url of Album&#x27;, example: &#x27;https://image-album.jpg&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/album/dto/create-album.dto.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/album/dto/create-album.dto.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -167,13 +167,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />@IsString()<br />@ApiProperty({description: &#x27;Name of Album&#x27;, example: &#x27;Use Yoru Illusion I&#x27;})<br />
+                            @IsNotEmpty()<br />@IsString()<br />@Length(1, 40)<br />@ApiProperty({description: &#x27;Name of Album&#x27;, example: &#x27;Use Yoru Illusion I&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/album/dto/create-album.dto.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/album/dto/create-album.dto.ts:12</a></div>
                         </td>
                     </tr>
 
@@ -208,7 +208,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/album/dto/create-album.dto.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/album/dto/create-album.dto.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -228,11 +228,12 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { IsNotEmpty, IsNumber, IsString, IsUrl } from &#x27;class-validator&#x27;;
+import { IsNotEmpty, IsNumber, IsString, IsUrl, Length } from &#x27;class-validator&#x27;;
 
 export class CreateAlbumDto {
   @IsNotEmpty()
   @IsString()
+  @Length(1, 40)
   @ApiProperty({
     description: &#x27;Name of Album&#x27;,
     example: &#x27;Use Yoru Illusion I&#x27;,
@@ -249,6 +250,7 @@ export class CreateAlbumDto {
 
   @IsNotEmpty()
   @IsUrl()
+  @Length(5, 300)
   @ApiProperty({
     description: &#x27;Image Url of Album&#x27;,
     example: &#x27;https://image-album.jpg&#x27;,

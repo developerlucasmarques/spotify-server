@@ -141,7 +141,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/song/dto/create-song.dto.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/song/dto/create-song.dto.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -176,7 +176,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/song/dto/create-song.dto.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/song/dto/create-song.dto.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -205,7 +205,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The name of the song.&#x27;, example: &#x27;Right Next Door to Hell&#x27;})<br />
+                            @IsString()<br />@Length(1, 50)<br />@ApiProperty({description: &#x27;The name of the song.&#x27;, example: &#x27;Right Next Door to Hell&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -240,13 +240,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsUrl()<br />@ApiProperty({description: &#x27;The url of the song.&#x27;, example: &#x27;https://youtu.be/Zqo7j2yFoFs&#x27;})<br />
+                            @IsUrl()<br />@MaxLength(2000)<br />@ApiProperty({description: &#x27;The url of the song.&#x27;, example: &#x27;https://youtu.be/Zqo7j2yFoFs&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/song/dto/create-song.dto.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/song/dto/create-song.dto.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -265,38 +265,40 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &quot;@nestjs/swagger&quot;
-import { IsNotEmpty, IsString, IsUrl, IsUUID } from &quot;class-validator&quot;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { IsString, IsUrl, IsUUID, Length, MaxLength } from &#x27;class-validator&#x27;;
 
 export class CreateSongDto {
   @IsString()
-  @IsNotEmpty()
+  @Length(1, 50)
   @ApiProperty({
     description: &#x27;The name of the song.&#x27;,
     example: &#x27;Right Next Door to Hell&#x27;,
   })
-  name: string
+  name: string;
 
   @IsUrl()
+  @MaxLength(2000)
   @ApiProperty({
     description: &#x27;The url of the song.&#x27;,
     example: &#x27;https://youtu.be/Zqo7j2yFoFs&#x27;,
   })
-  songUrl: string
+  songUrl: string;
 
   @IsUUID()
   @ApiProperty({
     description: &#x27;The album of the song.&#x27;,
     example: &#x27;0eee08d7-8a4b-4751-bdfe-1f0bd61a6987&#x27;,
   })
-  albumId: string
+  albumId: string;
 
-  @IsUUID(undefined, {each: true})
+  @IsUUID(undefined, { each: true })
   @ApiProperty({
     description: &#x27;Category id to create the relationship with song&#x27;,
-    example: &#x27;[&quot;76b73966-928c-407e-8c35-ba327f4d200c&quot;, &quot;0eee08d7-8a4b-4751-bdfe-1f0bd61a6987&quot;]&#x27;,
+    example:
+      &#x27;[&quot;76b73966-928c-407e-8c35-ba327f4d200c&quot;, &quot;0eee08d7-8a4b-4751-bdfe-1f0bd61a6987&quot;]&#x27;,
   })
-  categoryId: string[]
+  categoryId: string[];
 }
 </code></pre>
     </div>

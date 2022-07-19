@@ -126,7 +126,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />@IsString()<br />@ApiProperty({description: &#x27;Music category name&#x27;, example: &#x27;Rock&#x27;})<br />
+                            @IsString()<br />@Length(50)<br />@ApiProperty({description: &#x27;Music category name&#x27;, example: &#x27;Rock&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -152,11 +152,11 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { IsNotEmpty, IsString } from &#x27;class-validator&#x27;;
+import { IsNotEmpty, IsString, Length } from &#x27;class-validator&#x27;;
 
 export class CreateCategoryDto {
-  @IsNotEmpty()
   @IsString()
+  @Length(50)
   @ApiProperty({
     description: &#x27;Music category name&#x27;,
     example: &#x27;Rock&#x27;,

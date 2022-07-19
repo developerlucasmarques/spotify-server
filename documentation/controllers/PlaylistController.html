@@ -108,6 +108,12 @@
                                 <a href="#findOnePlaylist" >findOnePlaylist</a>
                             </li>
                             <li>
+                                <a href="#spotifyPlaylistCreate" >spotifyPlaylistCreate</a>
+                            </li>
+                            <li>
+                                <a href="#spotifyPlaylistDelete" >spotifyPlaylistDelete</a>
+                            </li>
+                            <li>
                                 <a href="#updatePlayList" >updatePlayList</a>
                             </li>
                         </ul>
@@ -154,8 +160,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="142"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:142</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="144"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:144</a></div>
                 </td>
             </tr>
 
@@ -242,8 +248,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="109"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:109</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:111</a></div>
                 </td>
             </tr>
 
@@ -330,8 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:35</a></div>
                 </td>
             </tr>
 
@@ -418,8 +424,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:96</a></div>
                 </td>
             </tr>
 
@@ -506,8 +512,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="158"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:158</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="160"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:160</a></div>
                 </td>
             </tr>
 
@@ -594,8 +600,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="125"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:125</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:127</a></div>
                 </td>
             </tr>
 
@@ -682,8 +688,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:50</a></div>
                 </td>
             </tr>
 
@@ -758,8 +764,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="60"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:60</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:62</a></div>
                 </td>
             </tr>
 
@@ -823,6 +829,182 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="spotifyPlaylistCreate"></a>
+                    <span class="name">
+                        <span ><b>spotifyPlaylistCreate</b></span>
+                        <a href="#spotifyPlaylistCreate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>spotifyPlaylistCreate(admin: <a href="../classes/Admin.html" target="_self">Admin</a>, dto: <a href="../classes/CreatePlaylistDto.html" target="_self">CreatePlaylistDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;spotify-create&#x27;)<br />@ApiOperation({summary: &#x27;Create a playlist from the platform linked to the Spotify profile - (ONLY ADMIN)&#x27;})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="176"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:176</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>admin</td>
+                                    <td>
+                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/CreatePlaylistDto.html" target="_self" >CreatePlaylistDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="spotifyPlaylistDelete"></a>
+                    <span class="name">
+                        <span ><b>spotifyPlaylistDelete</b></span>
+                        <a href="#spotifyPlaylistDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>spotifyPlaylistDelete(admin: <a href="../classes/Admin.html" target="_self">Admin</a>, playlistId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Delete(&#x27;spotify-delete/:playlistID&#x27;)<br />@ApiOperation({summary: &#x27;Delete a playlist from the platform linked to the Spotify profile - (ONLY ADMIN)&#x27;})<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="190"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:190</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>admin</td>
+                                    <td>
+                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>playlistId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="updatePlayList"></a>
                     <span class="name">
                         <span ><b>updatePlayList</b></span>
@@ -846,8 +1028,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/playlist/playlist.controller.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/playlist/playlist.controller.ts:77</a></div>
                 </td>
             </tr>
 
@@ -937,7 +1119,9 @@
 } from &#x27;@nestjs/common&#x27;;
 import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
 import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { Admin } from &#x27;src/admin/entities/admin.entity&#x27;;
 import { UserProfileId } from &#x27;src/auth/dto/logged-profile-type&#x27;;
+import { LoggedAdmin } from &#x27;src/auth/logged-admin.decorator&#x27;;
 import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
 import { AddSongPlaylistDto } from &#x27;./dto/create-playlist-song.dto&#x27;;
 import { CreatePlaylistDto } from &#x27;./dto/create-playlist.dto&#x27;;
@@ -1089,6 +1273,33 @@ export class PlaylistController {
       userProfileId.profileId,
       playlistId,
     );
+  }
+
+  @Post(&#x27;spotify-create&#x27;)
+  @ApiOperation({
+    summary:
+      &#x27;Create a playlist from the platform linked to the Spotify profile - (ONLY ADMIN)&#x27;,
+  })
+  spotifyPlaylistCreate(
+    @LoggedAdmin() admin: Admin,
+    @Body()
+    dto: CreatePlaylistDto,
+  ) {
+    return this.playlistService.spotifyPlaylistCreate(dto);
+  }
+
+  @Delete(&#x27;spotify-delete/:playlistID&#x27;)
+  @ApiOperation({
+    summary:
+      &#x27;Delete a playlist from the platform linked to the Spotify profile - (ONLY ADMIN)&#x27;,
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  spotifyPlaylistDelete(
+    @LoggedAdmin() admin: Admin,
+    @Param(&#x27;playlistID&#x27;)
+    playlistId: string,
+  ) {
+    return this.playlistService.spotifyPlaylistDelete(playlistId);
   }
 }
 </code></pre>

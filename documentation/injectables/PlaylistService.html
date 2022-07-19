@@ -112,6 +112,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#findByIdPlaylist" >findByIdPlaylist</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#findOnePlaylist" >findOnePlaylist</a>
                             </li>
                             <li>
@@ -129,6 +133,14 @@
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#searchForFavoritePlaylistFromProfile" >searchForFavoritePlaylistFromProfile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#spotifyPlaylistCreate" >spotifyPlaylistCreate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#spotifyPlaylistDelete" >spotifyPlaylistDelete</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -412,8 +424,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="402"
-                            class="link-to-prism">src/playlist/playlist.service.ts:402</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="444"
+                            class="link-to-prism">src/playlist/playlist.service.ts:444</a></div>
                 </td>
             </tr>
 
@@ -928,6 +940,77 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="findByIdPlaylist"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>findByIdPlaylist</b></span>
+                        <a href="#findByIdPlaylist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findByIdPlaylist(playlistId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="474"
+                            class="link-to-prism">src/playlist/playlist.service.ts:474</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>playlistId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="findOnePlaylist"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
@@ -1029,8 +1112,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="363"
-                            class="link-to-prism">src/playlist/playlist.service.ts:363</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="405"
+                            class="link-to-prism">src/playlist/playlist.service.ts:405</a></div>
                 </td>
             </tr>
 
@@ -1112,8 +1195,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="344"
-                            class="link-to-prism">src/playlist/playlist.service.ts:344</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="386"
+                            class="link-to-prism">src/playlist/playlist.service.ts:386</a></div>
                 </td>
             </tr>
 
@@ -1195,8 +1278,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="416"
-                            class="link-to-prism">src/playlist/playlist.service.ts:416</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="458"
+                            class="link-to-prism">src/playlist/playlist.service.ts:458</a></div>
                 </td>
             </tr>
 
@@ -1266,8 +1349,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="382"
-                            class="link-to-prism">src/playlist/playlist.service.ts:382</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="424"
+                            class="link-to-prism">src/playlist/playlist.service.ts:424</a></div>
                 </td>
             </tr>
 
@@ -1289,6 +1372,148 @@
                             <tbody>
                                 <tr>
                                     <td>profileId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="spotifyPlaylistCreate"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>spotifyPlaylistCreate</b></span>
+                        <a href="#spotifyPlaylistCreate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>spotifyPlaylistCreate(dto: <a href="../classes/CreatePlaylistDto.html" target="_self">CreatePlaylistDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="344"
+                            class="link-to-prism">src/playlist/playlist.service.ts:344</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/CreatePlaylistDto.html" target="_self" >CreatePlaylistDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="spotifyPlaylistDelete"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>spotifyPlaylistDelete</b></span>
+                        <a href="#spotifyPlaylistDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>spotifyPlaylistDelete(playlistId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="374"
+                            class="link-to-prism">src/playlist/playlist.service.ts:374</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>playlistId</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -1771,6 +1996,48 @@ export class PlaylistService {
       .catch(handleError);
   }
 
+  async spotifyPlaylistCreate(dto: CreatePlaylistDto) {
+    const data: Prisma.PlaylistCreateInput &#x3D; {
+      name: dto.name,
+      image: dto.image,
+      private: dto.private,
+      profile: {
+        connect: {
+          userSpotify: true,
+        },
+      },
+    };
+
+    return await this.prisma.playlist
+      .create({
+        data,
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          profile: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+  }
+
+  async spotifyPlaylistDelete(playlistId: string) {
+    await this.findByIdPlaylist(playlistId);
+
+    return await this.prisma.playlist
+      .delete({
+        where: {
+          id: playlistId,
+        },
+      })
+      .catch(handleError);
+  }
+
   async findOneProfileInUser(userId: string, profileId: string) {
     const record &#x3D; await this.prisma.user
       .findUnique({
@@ -1857,6 +2124,18 @@ export class PlaylistService {
     }
 
     return song;
+  }
+
+  async findByIdPlaylist(playlistId: string) {
+    const playlist &#x3D; await this.prisma.playlist
+      .findUnique({
+        where: { id: playlistId },
+      })
+      .catch(handleError);
+
+    if (!playlist) {
+      throw new NotFoundException(&#x60;Playlist with id &#x27;${playlistId}&#x27; not found&#x60;);
+    }
   }
 }
 </code></pre>

@@ -40,7 +40,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li >UserPlanService</li>
+  <li >HomePageService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -58,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/user-plan/user-plan.service.ts</code>
+            <code>src/home-page/home-page.service.ts</code>
         </p>
 
 
@@ -80,27 +80,15 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#create" >create</a>
+                                <a href="#findOneProfileInUser" >findOneProfileInUser</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#delete" >delete</a>
+                                <a href="#homePage" >homePage</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#findAll" >findAll</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#findOne" >findOne</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#update" >update</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#verifyUserPlanIdExist" >verifyUserPlanIdExist</a>
+                                <a href="#searchPlaylistSongAlbumArtist" >searchPlaylistSongAlbumArtist</a>
                             </li>
                         </ul>
                     </td>
@@ -125,7 +113,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/user-plan/user-plan.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/home-page/home-page.service.ts:7</a></div>
                             </td>
                         </tr>
 
@@ -172,26 +160,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="create"></a>
+                    <a name="findOneProfileInUser"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
-                        <span ><b>create</b></span>
-                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>findOneProfileInUser</b></span>
+                        <a href="#findOneProfileInUser"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(dto: <a href="../classes/CreateUserPlanDto.html" target="_self">CreateUserPlanDto</a>)</code>
+                    <code>findOneProfileInUser(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, profileId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/user-plan/user-plan.service.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="218"
+                            class="link-to-prism">src/home-page/home-page.service.ts:218</a></div>
                 </td>
             </tr>
 
@@ -212,9 +200,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>dto</td>
+                                    <td>userId</td>
                                     <td>
-                                                <code><a href="../classes/CreateUserPlanDto.html" target="_self" >CreateUserPlanDto</a></code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -223,67 +211,8 @@
 
 
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>unknown</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="delete"></a>
-                    <span class="name">
-                        <span class="modifier">Async</span>
-                        <span ><b>delete</b></span>
-                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>delete(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/user-plan/user-plan.service.ts:61</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
                                 <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>id</td>
+                                    <td>profileId</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -314,65 +243,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findAll"></a>
+                    <a name="homePage"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
-                        <span ><b>findAll</b></span>
-                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>homePage</b></span>
+                        <a href="#homePage"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findAll()</code>
+                    <code>homePage(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, profileId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/user-plan/user-plan.service.ts:20</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>unknown</code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findOne"></a>
-                    <span class="name">
-                        <span class="modifier">Async</span>
-                        <span ><b>findOne</b></span>
-                        <a href="#findOne"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findOne(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">src/user-plan/user-plan.service.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="10"
+                            class="link-to-prism">src/home-page/home-page.service.ts:10</a></div>
                 </td>
             </tr>
 
@@ -393,7 +283,19 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>id</td>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>profileId</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -424,26 +326,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="update"></a>
+                    <a name="searchPlaylistSongAlbumArtist"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
-                        <span ><b>update</b></span>
-                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>searchPlaylistSongAlbumArtist</b></span>
+                        <a href="#searchPlaylistSongAlbumArtist"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>update(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, dto: <a href="../classes/UpdateUserPlanDto.html" target="_self">UpdateUserPlanDto</a>)</code>
+                    <code>searchPlaylistSongAlbumArtist(dto: <a href="../classes/SearchDto.html" target="_self">SearchDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">src/user-plan/user-plan.service.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/home-page/home-page.service.ts:102</a></div>
                 </td>
             </tr>
 
@@ -463,22 +365,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>id</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
                                 <tr>
                                     <td>dto</td>
                                     <td>
-                                                <code><a href="../classes/UpdateUserPlanDto.html" target="_self" >UpdateUserPlanDto</a></code>
+                                                <code><a href="../classes/SearchDto.html" target="_self" >SearchDto</a></code>
                                     </td>
 
                                     <td>
@@ -494,77 +384,6 @@
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>unknown</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="verifyUserPlanIdExist"></a>
-                    <span class="name">
-                        <span class="modifier">Async</span>
-                        <span ><b>verifyUserPlanIdExist</b></span>
-                        <a href="#verifyUserPlanIdExist"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>verifyUserPlanIdExist(userPlanId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="66"
-                            class="link-to-prism">src/user-plan/user-plan.service.ts:66</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>userPlanId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </div>
                     <div class="io-description">
@@ -583,75 +402,236 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { PrismaService } from &#x27;src/prisma/prisma.service&#x27;;
 import { handleError } from &#x27;src/utils/handle-error.util&#x27;;
-import { CreateUserPlanDto } from &#x27;./dto/create-user-plan.dto&#x27;;
-import { UpdateUserPlanDto } from &#x27;./dto/update-user-plan.dto&#x27;;
-import { UserPlan } from &#x27;./entities/user-plan.entity&#x27;;
+import { SearchDto } from &#x27;./dto/search.dto&#x27;;
 
 @Injectable()
-export class UserPlanService {
+export class HomePageService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateUserPlanDto) {
-    const data: CreateUserPlanDto &#x3D; {
-      ...dto,
-    };
+  async homePage(userId: string, profileId: string) {
+    await this.findOneProfileInUser(userId, profileId);
 
-    return await this.prisma.userPlan.create({ data }).catch(handleError);
-  }
-
-  async findAll() {
-    const userPlan &#x3D; await this.prisma.userPlan
-      .findMany({
+    const playlists &#x3D; await this.prisma.profile
+      .findUnique({
+        where: { id: profileId },
         select: {
-          id: true,
-          name: true,
-          price: true,
-          accounts: true,
+          playlists: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+              _count: {
+                select: {
+                  songs: true,
+                },
+              },
+            },
+          },
+          favoritePlaylists: {
+            select: {
+              playlist: {
+                select: {
+                  id: true,
+                  name: true,
+                  image: true,
+                  _count: {
+                    select: {
+                      songs: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          songs: {
+            select: {
+              song: {
+                select: {
+                  id: true,
+                  name: true,
+                  songUrl: true,
+                },
+              },
+            },
+            take: 10,
+            skip: 0,
+          },
         },
       })
       .catch(handleError);
 
-    if (userPlan.length &#x3D;&#x3D;&#x3D; 0) {
-      throw new NotFoundException(&#x27;No user plan not found&#x27;);
+    const playlistsSpotify &#x3D; await this.prisma.profile
+      .findUnique({
+        where: { userSpotify: true },
+        select: {
+          playlists: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    const artists &#x3D; await this.prisma.artist
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+        take: 10,
+        skip: 0,
+      })
+      .catch(handleError);
+
+    const musicCategories &#x3D; await this.prisma.category
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+        take: 10,
+        skip: 0,
+      })
+      .catch(handleError);
+
+    return [playlists, { playlistsSpotify }, { artists }, { musicCategories }];
+  }
+
+  async searchPlaylistSongAlbumArtist(dto: SearchDto) {
+    const songs &#x3D; await this.prisma.song
+      .findMany({
+        orderBy: [
+          {
+            name: &#x27;asc&#x27;,
+          },
+        ],
+        where: {
+          name: {
+            startsWith: &#x60;${dto.search}&#x60;,
+            mode: &#x27;insensitive&#x27;,
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          album: {
+            select: {
+              image: true,
+            },
+          },
+          artist: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    const artists &#x3D; await this.prisma.artist
+      .findMany({
+        orderBy: [
+          {
+            name: &#x27;asc&#x27;,
+          },
+        ],
+        where: {
+          name: {
+            startsWith: &#x60;${dto.search}&#x60;,
+            mode: &#x27;insensitive&#x27;,
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      })
+      .catch(handleError);
+
+    const playlists &#x3D; await this.prisma.playlist
+      .findMany({
+        orderBy: [
+          {
+            name: &#x27;asc&#x27;,
+          },
+        ],
+        where: {
+          name: {
+            startsWith: &#x60;${dto.search}&#x60;,
+            mode: &#x27;insensitive&#x27;,
+          },
+          NOT: {
+            private: true,
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      })
+      .catch(handleError);
+
+    const albums &#x3D; await this.prisma.album
+      .findMany({
+        orderBy: [
+          {
+            name: &#x27;asc&#x27;,
+          },
+        ],
+        where: {
+          name: {
+            startsWith: &#x60;${dto.search}&#x60;,
+            mode: &#x27;insensitive&#x27;,
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          artist: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+
+    if (
+      songs.length &#x3D;&#x3D;&#x3D; 0 &amp;&amp;
+      artists.length &#x3D;&#x3D;&#x3D; 0 &amp;&amp;
+      playlists.length &#x3D;&#x3D;&#x3D; 0 &amp;&amp;
+      albums.length &#x3D;&#x3D;&#x3D; 0
+    ) {
+      throw new NotFoundException(&#x27;Nothing was found&#x27;);
     }
 
-    return userPlan;
+    return [{ songs }, { artists }, { playlists }, { albums }];
   }
 
-  async findOne(id: string) {
-    await this.verifyUserPlanIdExist(id);
-    return await this.prisma.userPlan
+  async findOneProfileInUser(userId: string, profileId: string) {
+    const record &#x3D; await this.prisma.user
       .findUnique({
-        where: { id },
+        where: { id: userId },
+        select: {
+          profiles: {
+            where: {
+              id: profileId,
+            },
+          },
+        },
       })
       .catch(handleError);
-  }
 
-  async update(id: string, dto: UpdateUserPlanDto) {
-    await this.verifyUserPlanIdExist(id);
-
-    const data: Partial&lt;UserPlan&gt; &#x3D; { ...dto };
-
-    return await this.prisma.userPlan
-      .update({
-        where: { id },
-        data,
-      })
-      .catch(handleError);
-  }
-
-  async delete(id: string) {
-    await this.verifyUserPlanIdExist(id);
-    await this.prisma.userPlan.delete({ where: { id } }).catch(handleError);
-  }
-
-  async verifyUserPlanIdExist(userPlanId: string) {
-    const userPlan &#x3D; await this.prisma.userPlan.findUnique({
-      where: { id: userPlanId },
-    });
-
-    if (!userPlan) {
-      throw new NotFoundException(&#x27;User plan not found&#x27;);
+    if (record.profiles.length &#x3D;&#x3D;&#x3D; 0) {
+      throw new NotFoundException(&#x60;Profile with ID &#x27;${profileId}&#x27; not found&#x60;);
     }
   }
 }
@@ -698,7 +678,7 @@ export class UserPlanService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'UserPlanService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomePageService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -14,43 +14,43 @@
 <title>cluster_PlaylistModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-157.8 300,-157.8 300,-32.8 8,-32.8"/>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_PlaylistModule_imports</title>
-<polygon fill="none" stroke="black" points="178,-40.8 178,-92.8 292,-92.8 292,-40.8 178,-40.8"/>
-</g>
 <g id="clust6" class="cluster">
 <title>cluster_PlaylistModule_providers</title>
-<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 170,-92.8 170,-40.8 16,-40.8"/>
+<polygon fill="none" stroke="black" points="138,-40.8 138,-92.8 292,-92.8 292,-40.8 138,-40.8"/>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_PlaylistModule_imports</title>
+<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 130,-92.8 130,-40.8 16,-40.8"/>
 </g>
 <!-- PrismaModule -->
 <g id="node1" class="node">
 <title>PrismaModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="284.44,-84.8 281.44,-88.8 260.44,-88.8 257.44,-84.8 185.56,-84.8 185.56,-48.8 284.44,-48.8 284.44,-84.8"/>
-<text text-anchor="middle" x="235" y="-62.6" font-family="Times,serif" font-size="14.00">PrismaModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="122.44,-84.8 119.44,-88.8 98.44,-88.8 95.44,-84.8 23.56,-84.8 23.56,-48.8 122.44,-48.8 122.44,-84.8"/>
+<text text-anchor="middle" x="73" y="-62.6" font-family="Times,serif" font-size="14.00">PrismaModule</text>
 </g>
 <!-- PlaylistModule -->
 <g id="node2" class="node">
 <title>PlaylistModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="214.56,-149.8 211.56,-153.8 190.56,-153.8 187.56,-149.8 113.44,-149.8 113.44,-113.8 214.56,-113.8 214.56,-149.8"/>
-<text text-anchor="middle" x="164" y="-127.6" font-family="Times,serif" font-size="14.00">PlaylistModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="194.56,-149.8 191.56,-153.8 170.56,-153.8 167.56,-149.8 93.44,-149.8 93.44,-113.8 194.56,-113.8 194.56,-149.8"/>
+<text text-anchor="middle" x="144" y="-127.6" font-family="Times,serif" font-size="14.00">PlaylistModule</text>
 </g>
 <!-- PrismaModule&#45;&gt;PlaylistModule -->
 <g id="edge1" class="edge">
 <title>PrismaModule&#45;&gt;PlaylistModule</title>
-<path fill="none" stroke="black" d="M200.28,-84.91C200.28,-84.91 200.28,-103.79 200.28,-103.79"/>
-<polygon fill="black" stroke="black" points="196.78,-103.79 200.28,-113.79 203.78,-103.79 196.78,-103.79"/>
+<path fill="none" stroke="black" d="M107.72,-84.91C107.72,-84.91 107.72,-103.79 107.72,-103.79"/>
+<polygon fill="black" stroke="black" points="104.22,-103.79 107.72,-113.79 111.22,-103.79 104.22,-103.79"/>
 </g>
 <!-- PlaylistService -->
 <g id="node3" class="node">
 <title>PlaylistService</title>
-<ellipse fill="#fdb462" stroke="black" cx="93" cy="-66.8" rx="68.94" ry="18"/>
-<text text-anchor="middle" x="93" y="-62.6" font-family="Times,serif" font-size="14.00">PlaylistService</text>
+<ellipse fill="#fdb462" stroke="black" cx="215" cy="-66.8" rx="68.94" ry="18"/>
+<text text-anchor="middle" x="215" y="-62.6" font-family="Times,serif" font-size="14.00">PlaylistService</text>
 </g>
 <!-- PlaylistService&#45;&gt;PlaylistModule -->
 <g id="edge2" class="edge">
 <title>PlaylistService&#45;&gt;PlaylistModule</title>
-<path fill="none" stroke="black" d="M137.59,-80.58C137.59,-80.58 137.59,-103.35 137.59,-103.35"/>
-<polygon fill="black" stroke="black" points="134.09,-103.35 137.59,-113.35 141.09,-103.35 134.09,-103.35"/>
+<path fill="none" stroke="black" d="M170.41,-80.58C170.41,-80.58 170.41,-103.35 170.41,-103.35"/>
+<polygon fill="black" stroke="black" points="166.91,-103.35 170.41,-113.35 173.91,-103.35 166.91,-103.35"/>
 </g>
 </g>
 </svg>

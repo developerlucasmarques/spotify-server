@@ -385,8 +385,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="97"
-                            class="link-to-prism">src/admin/admin.service.ts:97</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">src/admin/admin.service.ts:105</a></div>
                 </td>
             </tr>
 
@@ -734,6 +734,14 @@ export class AdminService {
 
   async delete(id: string) {
     await this.findById(id);
+    const manager &#x3D; await this.prisma.admin.findUnique({
+      where: { id },
+    });
+
+    if (manager.userCategoryName &#x3D;&#x3D;&#x3D; &#x27;manager&#x27;) {
+      throw new BadRequestException(&#x27;Manager cannot be deleted&#x27;);
+    }
+    
     await this.prisma.admin.delete({ where: { id } }).catch(handleError);
   }
 

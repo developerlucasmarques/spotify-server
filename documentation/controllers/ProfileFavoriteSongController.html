@@ -130,7 +130,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;add/:songID&#x27;)<br />@ApiOperation({summary: &#x27;Add a song to a profile - (ONLY USER)&#x27;})<br /></code>
+                    <code>@Patch(&#x27;add/:songID&#x27;)<br />@ApiOperation({summary: &#x27;Add a song to profile favorites - (ONLY USER)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -218,7 +218,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;delete/:songID&#x27;)<br />@ApiOperation({summary: &#x27;Remove a song to a profile - (ONLY USER)&#x27;})<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
+                    <code>@Delete(&#x27;delete/:songID&#x27;)<br />@ApiOperation({summary: &#x27;Remove a song from profile favorites - (ONLY USER)&#x27;})<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
                 </td>
             </tr>
 
@@ -306,7 +306,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;all&#x27;)<br />@ApiOperation({summary: &#x27;Fetch all favorite songs from profile - (ONLY USER)&#x27;})<br /></code>
+                    <code>@Get(&#x27;all&#x27;)<br />@ApiOperation({summary: &#x27;Search all music from profile favorites - (ONLY USER)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -392,7 +392,7 @@ export class ProfileFavoriteSongController {
 
   @Patch(&#x27;add/:songID&#x27;)
   @ApiOperation({
-    summary: &#x27;Add a song to a profile - (ONLY USER)&#x27;,
+    summary: &#x27;Add a song to profile favorites - (ONLY USER)&#x27;,
   })
   create(
     @LoggedUser() userProfileId: UserProfileId,
@@ -407,7 +407,7 @@ export class ProfileFavoriteSongController {
 
   @Get(&#x27;all&#x27;)
   @ApiOperation({
-    summary: &#x27;Fetch all favorite songs from profile - (ONLY USER)&#x27;,
+    summary: &#x27;Search all music from profile favorites - (ONLY USER)&#x27;,
   })
   findAll(@LoggedUser() userProfileId: UserProfileId) {
     return this.favoriteSongService.findAll(
@@ -418,7 +418,7 @@ export class ProfileFavoriteSongController {
 
   @Delete(&#x27;delete/:songID&#x27;)
   @ApiOperation({
-    summary: &#x27;Remove a song to a profile - (ONLY USER)&#x27;,
+    summary: &#x27;Remove a song from profile favorites - (ONLY USER)&#x27;,
   })
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(

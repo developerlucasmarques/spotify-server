@@ -90,9 +90,6 @@
                                 <a href="#delete" >delete</a>
                             </li>
                             <li>
-                                <a href="#findAll" >findAll</a>
-                            </li>
-                            <li>
                                 <a href="#findOne" >findOne</a>
                             </li>
                             <li>
@@ -136,7 +133,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post(&#x27;/create&#x27;)<br />@ApiOperation({summary: &#x27;Create an album and associate it with the artist who created it - (ARTIST)&#x27;})<br /></code>
+                    <code>@Post(&#x27;create&#x27;)<br />@ApiOperation({summary: &#x27;Create an album and associate it with the artist who created it - (ARTIST)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -230,8 +227,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">src/album/album.controller.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/album/album.controller.ts:62</a></div>
                 </td>
             </tr>
 
@@ -295,16 +292,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findAll"></a>
+                    <a name="findOne"></a>
                     <span class="name">
-                        <span ><b>findAll</b></span>
-                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>findOne</b></span>
+                        <a href="#findOne"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findAll(artist: <a href="../classes/Artist.html" target="_self">Artist</a>)</code>
+<code>findOne(albumId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -312,7 +309,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;/find-all&#x27;)<br />@ApiOperation({summary: &#x27;Fetch all albums of the artist who is logged in - (ARTIST)&#x27;})<br /></code>
+                    <code>@Get(&#x27;:albumID&#x27;)<br />@ApiOperation({summary: &#x27;Search for an album by the artist who is logged in - (OPEN)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -339,94 +336,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>artist</td>
-                                    <td>
-                                                <code><a href="../classes/Artist.html" target="_self" >Artist</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findOne"></a>
-                    <span class="name">
-                        <span ><b>findOne</b></span>
-                        <a href="#findOne"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>findOne(artist: <a href="../classes/Artist.html" target="_self">Artist</a>, albumId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Get(&#x27;/find-one/:albumID&#x27;)<br />@ApiOperation({summary: &#x27;Search for an album by the artist who is logged in - (ARTIST)&#x27;})<br /></code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">src/album/album.controller.ts:49</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>artist</td>
-                                    <td>
-                                                <code><a href="../classes/Artist.html" target="_self" >Artist</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
                                 <tr>
                                     <td>albumId</td>
                                     <td>
@@ -482,8 +391,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">src/album/album.controller.ts:57</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">src/album/album.controller.ts:49</a></div>
                 </td>
             </tr>
 
@@ -586,7 +495,7 @@ import { UpdateAlbumDto } from &#x27;./dto/update-album.dto&#x27;;
 export class AlbumController {
   constructor(private readonly albumService: AlbumService) {}
 
-  @Post(&#x27;/create&#x27;)
+  @Post(&#x27;create&#x27;)
   @ApiOperation({
     summary:
       &#x27;Create an album and associate it with the artist who created it - (ARTIST)&#x27;,
@@ -595,20 +504,12 @@ export class AlbumController {
     return this.albumService.create(artist.id, dto);
   }
 
-  @Get(&#x27;/find-all&#x27;)
+  @Get(&#x27;:albumID&#x27;)
   @ApiOperation({
-    summary: &#x27;Fetch all albums of the artist who is logged in - (ARTIST)&#x27;,
+    summary: &#x27;Search for an album by the artist who is logged in - (OPEN)&#x27;,
   })
-  findAll(@LoggedArtist() artist: Artist) {
-    return this.albumService.findAll(artist.id);
-  }
-
-  @Get(&#x27;/find-one/:albumID&#x27;)
-  @ApiOperation({
-    summary: &#x27;Search for an album by the artist who is logged in - (ARTIST)&#x27;,
-  })
-  findOne(@LoggedArtist() artist: Artist, @Param(&#x27;albumID&#x27;) albumId: string) {
-    return this.albumService.findOne(artist.id, albumId);
+  findOne(@Param(&#x27;albumID&#x27;) albumId: string) {
+    return this.albumService.findOne(albumId);
   }
 
   @Patch(&#x27;update/:albumID&#x27;)

@@ -224,7 +224,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;:id&#x27;)<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiOperation({summary: &#x27;Remove a song by Id - (ONLY ARTIST)&#x27;})<br /></code>
+                    <code>@Delete(&#x27;/delete/:songID&#x27;)<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiOperation({summary: &#x27;Remove a song by Id - (ONLY ARTIST)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -476,7 +476,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;/update-artist/:id&#x27;)<br />@ApiOperation({summary: &#x27;Edit an song of the artist who is logged in - (ONLY ARTIST)&#x27;})<br /></code>
+                    <code>@Patch(&#x27;/update/:songID&#x27;)<br />@ApiOperation({summary: &#x27;Edit an song of the artist who is logged in - (ONLY ARTIST)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -560,26 +560,26 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from &#x27;@nestjs/common&#x27;;
-import { SongService } from &#x27;./song.service&#x27;;
+import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
+import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { Artist } from &#x27;src/artist/entities/artist.entity&#x27;;
+import { LoggedArtist } from &#x27;src/auth/logged-artist.decorator&#x27;;
+import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
+import { User } from &#x27;src/user/entities/user.entity&#x27;;
 import { CreateSongDto } from &#x27;./dto/create-song.dto&#x27;;
 import { UpdateSongDto } from &#x27;./dto/update-song.dto&#x27;;
-import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
-import { LoggedArtist } from &#x27;src/auth/logged-artist.decorator&#x27;;
-import { Artist } from &#x27;src/artist/entities/artist.entity&#x27;;
-import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
-import { User } from &#x27;src/user/entities/user.entity&#x27;;
-import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
+import { SongService } from &#x27;./song.service&#x27;;
 
 @ApiTags(&#x27;song&#x27;)
 @UseGuards(AuthGuard())
@@ -609,28 +609,28 @@ export class SongController {
   @ApiOperation({
     summary: &#x27;View a song by Id - (ONLY USER)&#x27;,
   })
-  findOne(@LoggedUser() user: User, @Param(&#x27;id&#x27;) songId: string) {
+  findOne(@LoggedUser() user: User, @Param(&#x27;songID&#x27;) songId: string) {
     return this.songService.findOne(songId);
   }
 
-  @Patch(&#x27;/update-artist/:id&#x27;)
+  @Patch(&#x27;/update/:songID&#x27;)
   @ApiOperation({
     summary: &#x27;Edit an song of the artist who is logged in - (ONLY ARTIST)&#x27;,
   })
   update(
     @LoggedArtist() artist: Artist,
-    @Param(&#x27;id&#x27;) songId: string,
+    @Param(&#x27;songID&#x27;) songId: string,
     @Body() dto: UpdateSongDto,
   ) {
     return this.songService.update(artist.id, songId, dto);
   }
 
-  @Delete(&#x27;:id&#x27;)
+  @Delete(&#x27;/delete/:songID&#x27;)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: &#x27;Remove a song by Id - (ONLY ARTIST)&#x27;,
   })
-  delete(@LoggedArtist() artist: Artist, @Param(&#x27;id&#x27;) songId: string) {
+  delete(@LoggedArtist() artist: Artist, @Param(&#x27;songID&#x27;) songId: string) {
     return this.songService.delete(artist.id, songId);
   }
 }

@@ -148,8 +148,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="86"
-                            class="link-to-prism">src/auth/auth.controller.ts:86</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="88"
+                            class="link-to-prism">src/auth/auth.controller.ts:88</a></div>
                 </td>
             </tr>
 
@@ -224,8 +224,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="96"
-                            class="link-to-prism">src/auth/auth.controller.ts:96</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">src/auth/auth.controller.ts:98</a></div>
                 </td>
             </tr>
 
@@ -286,7 +286,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>LoginAdmin(loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+<code>LoginAdmin(loginAdminDto: <a href="../classes/LoginAdminDto.html" target="_self">LoginAdminDto</a>)</code>
                 </td>
             </tr>
 
@@ -300,8 +300,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">src/auth/auth.controller.ts:57</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/auth/auth.controller.ts:59</a></div>
                 </td>
             </tr>
 
@@ -322,9 +322,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>loginDto</td>
+                                    <td>loginAdminDto</td>
                                     <td>
-                                                <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                <code><a href="../classes/LoginAdminDto.html" target="_self" >LoginAdminDto</a></code>
                                     </td>
 
                                     <td>
@@ -362,7 +362,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>LoginArtist(loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+<code>LoginArtist(loginArtistDto: <a href="../classes/LoginArtistDto.html" target="_self">LoginArtistDto</a>)</code>
                 </td>
             </tr>
 
@@ -376,8 +376,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="66"
-                            class="link-to-prism">src/auth/auth.controller.ts:66</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/auth/auth.controller.ts:68</a></div>
                 </td>
             </tr>
 
@@ -398,9 +398,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>loginDto</td>
+                                    <td>loginArtistDto</td>
                                     <td>
-                                                <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                <code><a href="../classes/LoginArtistDto.html" target="_self" >LoginArtistDto</a></code>
                                     </td>
 
                                     <td>
@@ -452,8 +452,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">src/auth/auth.controller.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">src/auth/auth.controller.ts:47</a></div>
                 </td>
             </tr>
 
@@ -526,7 +526,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>LoginUser(loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+<code>LoginUser(loginUserDto: <a href="../classes/LoginUserDto.html" target="_self">LoginUserDto</a>)</code>
                 </td>
             </tr>
 
@@ -540,8 +540,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">src/auth/auth.controller.ts:34</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/auth/auth.controller.ts:36</a></div>
                 </td>
             </tr>
 
@@ -562,9 +562,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>loginDto</td>
+                                    <td>loginUserDto</td>
                                     <td>
-                                                <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                <code><a href="../classes/LoginUserDto.html" target="_self" >LoginUserDto</a></code>
                                     </td>
 
                                     <td>
@@ -616,8 +616,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">src/auth/auth.controller.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">src/auth/auth.controller.ts:78</a></div>
                 </td>
             </tr>
 
@@ -685,9 +685,11 @@ import { Artist } from &#x27;src/artist/entities/artist.entity&#x27;;
 import { User } from &#x27;src/user/entities/user.entity&#x27;;
 import { AuthService } from &#x27;./auth.service&#x27;;
 import { UserProfileId } from &#x27;./dto/logged-profile-type&#x27;;
+import { LoginAdminDto } from &#x27;./dto/login-admin.dto&#x27;;
+import { LoginArtistDto } from &#x27;./dto/login-artist.dto&#x27;;
 import { LoginProfileDto } from &#x27;./dto/login-profile.dto&#x27;;
 import { LoginUserResponseDto } from &#x27;./dto/login-user-response.dto&#x27;;
-import { LoginDto } from &#x27;./dto/login.dto&#x27;;
+import { LoginUserDto } from &#x27;./dto/login-user.dto&#x27;;
 import { LoggedAdmin } from &#x27;./logged-admin.decorator&#x27;;
 import { LoggedArtist } from &#x27;./logged-artist.decorator&#x27;;
 import { LoggedUser } from &#x27;./logged-user.decorator&#x27;;
@@ -702,8 +704,8 @@ export class AuthController {
   @ApiOperation({
     summary: &#x27;Log in, receiving a validation token - (FOR USER)&#x27;,
   })
-  LoginUser(@Body() loginDto: LoginDto): Promise&lt;LoginUserResponseDto&gt; {
-    return this.authService.LoginUser(loginDto);
+  LoginUser(@Body() loginUserDto: LoginUserDto): Promise&lt;LoginUserResponseDto&gt; {
+    return this.authService.LoginUser(loginUserDto);
   }
 
   @Post(&#x27;/sign-in-profile&#x27;)
@@ -725,8 +727,8 @@ export class AuthController {
   @ApiOperation({
     summary: &#x27;Log in, receiving a validation token - (FOR ADMIN)&#x27;,
   })
-  LoginAdmin(@Body() loginDto: LoginDto) {
-    return this.authService.LoginAdmin(loginDto);
+  LoginAdmin(@Body() loginAdminDto: LoginAdminDto) {
+    return this.authService.LoginAdmin(loginAdminDto);
   }
 
   @Post(&#x27;/sign-in-artist&#x27;)
@@ -734,8 +736,8 @@ export class AuthController {
   @ApiOperation({
     summary: &#x27;Log in, receiving a validation token - (FOR ARTIST)&#x27;,
   })
-  LoginArtist(@Body() loginDto: LoginDto) {
-    return this.authService.LoginArtist(loginDto);
+  LoginArtist(@Body() loginArtistDto: LoginArtistDto) {
+    return this.authService.LoginArtist(loginArtistDto);
   }
 
   @Get(&#x27;/user&#x27;)

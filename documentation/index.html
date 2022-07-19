@@ -31,8 +31,58 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<h1 id="spotify-server">spotify-server</h1>
-<p>Projeto desenvolvido no módulo cinco do curso de back-end da Blue EdTech, onde o propósito é desenvolver algumas funcionalidades do Spotify.</p>
+<h1 id="spotify-server-">Spotify Server <img src="https://user-images.githubusercontent.com/95504029/151560441-2e792d97-fd65-462c-8fd7-70f581de5674.gif" width="100"></h1>
+<p>Este projeto foi desenvolvido no quinto módulo do curso de back-end da Blue EdTech com foco em aprimorar nossas habilidades em criar uma API que utilize TypeScript, NestJs, Prisma ORM e PostgreSQL. A presente API tem como objetivo que um usuário utilize de funcionalidades parecidas com as do Spotify e também possa criar perfis, dependendo do plano em que ele &quot;assina&quot;. Artistas também tem suas próprias funcionalidades. Além disso também é possível que administradores possam gerir a plataforma.</p>
+<h2 id="pré-requisitos">Pré-requisitos</h2>
+<p>É imprescindível que você tenha instalado em seu computador o NodeJs e o PostgreSQL para que possa executar e testar este projeto.</p>
+<ul>
+<li><strong>Node</strong> - <a href="https://nodejs.org/pt-br/download/">https://nodejs.org/en/download/</a></li>
+<li><strong>PostgreS</strong> - <a href="https://www.npmjs.com/package/download">https://www.postgresql.org/download/</a></li>
+</ul>
+<h2 id="instalação">Instalação</h2>
+<p> Exemplo:</p>
+<p> Clone esse projeto em seu computador com o comando:</p>
+<div><pre class="line-numbers"><code class="language-none">    git clone [https://github.com/mlucasdev/spotify-server]</code></pre></div><p> Acesse a pasta do projeto seu terminal:</p>
+<div><pre class="line-numbers"><code class="language-none">    cd [spotfy-server]</code></pre></div><p> Já pasta da aplicação em seu terminal, digite o seguinte comando:</p>
+<div><pre class="line-numbers"><code class="language-none">    npm install</code></pre></div><p> Crie um arquivo &#39;.env&#39; e preencha com as variáveis do arquivo &#39;.env.example&#39;</p>
+<div><pre class="line-numbers"><code class="language-none">DATABASE_URL=&quot;postgresql://[nome do usuário no postgres]:[senha do usuário]&#64;localhost:[porta em que seu banco de dados está rodando, ex: &#39;5432&#39;]/spotify-server&quot;</code></pre></div><div><pre class="line-numbers"><code class="language-none">JWT_SECRET=&quot;klsA92n9LWS9bfjs128$%&quot;</code></pre></div><h2 id="execução">Execução</h2>
+<p>Esse é talvez o tópico mais importante, faça com atenção.</p>
+<p>Através das informações especificadas nele, outras pessoas poderam visualizar e testar o funcionamento da sua aplicação.</p>
+<p>Após ter configurado o projeto e ter aguardado a instalação das dependencias de desenvolvimento, execute o comando:</p>
+<div><pre class="line-numbers"><code class="language-none">     npm run start</code></pre></div><p> Caso queira que o projeto rode automaticamente após fazer alguma alteração no código execute o comando:</p>
+<div><pre class="line-numbers"><code class="language-none">    npm run start:dev</code></pre></div><p> Para criar as tabelas no banco de dados execute o comando:</p>
+<div><pre class="line-numbers"><code class="language-none">    npx prisma db push</code></pre></div><p> A aplicação estará disponível para visualização em seu navegador, caso isso não aconteça automaticamente abre o navegador no seguinte endereço: <em>localhost:3006/api</em></p>
+<h2 id="funcionalidades">Funcionalidades</h2>
+<ul>
+<li><p>Como usuário, você tera acesso as músicas e aos álbuns criadas pelos artistas e também poderá criar playlists, favoritar músicas e playlists de outros usuários.</p>
+</li>
+<li><p>Um admin só pode ser criado por um manager e ele poderá gerir a plataforma.</p>
+</li>
+<li><p>Como artista, você poderá publicar suas músicas e criar álbuns.</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/TvYGO0W.png" width="520"> <br><br></p>
+<!-- ## Links
+
+Mesmo que as informações possam estar sendo apresentadas no seu código, pode ocorrer de algumas pessoas não terem total entendimento sobre o que foi proposto ou determinados termos técnicos, você pode incluir um resumo dos links mais úteis para leitura dessas termos, por exemplo.
+
+- [Guia de Markdown](https://docs.pipz.com/central-de-ajuda/learning-center/guia-basico-de-markdown#open)
+- [Como formatar o Readme?](https://medium.com/@raullesteves/github-como-fazer-um-readme-md-bonit%C3%A3o-c85c8f154f8#:~:text=md%20%C3%A9%20um%20arquivo%20markdown,tags%20tamb%C3%A9m%20funcionam%2C%20veremos%20adiante.&text=Basta%20copiar%20o%20que%20o,e%20colar%20no%20README.md.) -->
+
+
+<h2 id="contribuições">Contribuições</h2>
+<p>Para contribuir com os autores desse projeto, você pode nos indicar para uma vaga na empresa que você trabalha. #contrataagente</p>
+<h2 id="autores">Autores</h2>
+<ul>
+<li><p><strong>Gustavo Martins</strong> - Desenvolvedor e Idealizador do Projeto - <a href="https://github.com/gumartins77">Github</a> | <a href="https://www.linkedin.com/in/gustavo-martins-681921229/">Linkedin</a></p>
+</li>
+<li><p><strong>Lucas Marques</strong> - Desenvolvedor e Idealizador do Projeto - <a href="https://github.com/mlucasdev">Github</a> | <a href="https://www.linkedin.com/in/mlucasdev/">Linkedin</a></p>
+</li>
+</ul>
+<h2 id="licença">Licença</h2>
+<p>General Public License <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU</a>.</p>
+<h2 id="agradecimentos">Agradecimentos</h2>
+<p>Agradecemos a <a href="https://www.linkedin.com/school/blue-edtech/mycompany/">Blue EdTech</a> pelo ensinamento e oportunidade de podermos colocar em prática tudo que aprendemos nos módulos passados. Agradecemos também aos professores <a href="https://www.linkedin.com/in/leonardoorabona/">Leo Ruiz</a>, <a href="https://www.linkedin.com/in/marcusvinysilva/">Marcus Silva</a> e <a href="https://www.linkedin.com/in/salvatorepaulo/">Paulo Salvatore</a></p>
 
 
 

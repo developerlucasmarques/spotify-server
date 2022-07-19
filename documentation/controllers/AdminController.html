@@ -128,7 +128,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>create(dto: <a href="../classes/CreateAdminDto.html" target="_self">CreateAdminDto</a>)</code>
+<code>create(admin: <a href="../classes/Admin.html" target="_self">Admin</a>, dto: <a href="../classes/CreateAdminDto.html" target="_self">CreateAdminDto</a>)</code>
                 </td>
             </tr>
 
@@ -163,6 +163,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>admin</td>
+                                    <td>
+                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>dto</td>
                                     <td>
@@ -464,7 +476,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;/update&#x27;)<br />@ApiOperation({summary: &#x27;Edit an admin logged - (ADMIN)&#x27;})<br /></code>
+                    <code>@Patch(&#x27;/update&#x27;)<br />@ApiOperation({summary: &#x27;Edit an admin logged - (ADMIN - MANAGER)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -558,8 +570,8 @@ import { Admin } from &#x27;./entities/admin.entity&#x27;;
 
 @Controller(&#x27;admin&#x27;)
 @ApiTags(&#x27;manager-admin&#x27;)
-// @UseGuards(AuthGuard())
-// @ApiBearerAuth()
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
@@ -567,7 +579,7 @@ export class AdminController {
   @ApiOperation({
     summary: &#x27;Create a new Admin - (MANAGER)&#x27;,
   })
-  create(/*@LoggedManager() admin: Admin, */ @Body() dto: CreateAdminDto) {
+  create(@LoggedManager() admin: Admin, @Body() dto: CreateAdminDto) {
     return this.adminService.create(dto);
   }
 
@@ -589,7 +601,7 @@ export class AdminController {
 
   @Patch(&#x27;/update&#x27;)
   @ApiOperation({
-    summary: &#x27;Edit an admin logged - (ADMIN)&#x27;,
+    summary: &#x27;Edit an admin logged - (ADMIN - MANAGER)&#x27;,
   })
   update(@LoggedAdmin() admin: Admin, @Body() dto: UpdateAdminDto) {
     return this.adminService.update(admin.id, dto);

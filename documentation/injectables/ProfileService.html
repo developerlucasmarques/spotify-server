@@ -121,7 +121,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/profile/profile.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/profile/profile.service.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -186,8 +186,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/profile/profile.service.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/profile/profile.service.ts:18</a></div>
                 </td>
             </tr>
 
@@ -269,8 +269,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="109"
-                            class="link-to-prism">src/profile/profile.service.ts:109</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/profile/profile.service.ts:111</a></div>
                 </td>
             </tr>
 
@@ -352,8 +352,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/profile/profile.service.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">src/profile/profile.service.ts:70</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="116"
-                            class="link-to-prism">src/profile/profile.service.ts:116</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">src/profile/profile.service.ts:119</a></div>
                 </td>
             </tr>
 
@@ -506,8 +506,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="91"
-                            class="link-to-prism">src/profile/profile.service.ts:91</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/profile/profile.service.ts:92</a></div>
                 </td>
             </tr>
 
@@ -593,6 +593,7 @@
 import { Prisma } from &#x27;@prisma/client&#x27;;
 import { PrismaService } from &#x27;src/prisma/prisma.service&#x27;;
 import { handleError } from &#x27;src/utils/handle-error.util&#x27;;
+import { verifyProfileIdInToken } from &#x27;src/utils/verifyProfileIdInToken&#x27;;
 import { CreateProfileDto } from &#x27;./dto/create-profile.dto&#x27;;
 import { UpdateProfileDto } from &#x27;./dto/update-profile.dto&#x27;;
 import { Profile } from &#x27;./entities/profile.entity&#x27;;
@@ -676,6 +677,7 @@ export class ProfileService {
   }
 
   async update(userId: string, profileId: string, dto: UpdateProfileDto) {
+    verifyProfileIdInToken(profileId);
     this.findOneProfileInUser(userId, profileId);
 
     const data: Partial&lt;Profile&gt; &#x3D; { ...dto };
@@ -694,6 +696,7 @@ export class ProfileService {
   }
 
   async delete(userId: string, profileId: string) {
+    verifyProfileIdInToken(profileId);
     await this.findOneProfileInUser(userId, profileId);
     await this.prisma.profile
       .delete({ where: { id: profileId } })

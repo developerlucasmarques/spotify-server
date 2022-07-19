@@ -261,8 +261,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="82"
-                            class="link-to-prism">src/category/category.service.ts:82</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">src/category/category.service.ts:105</a></div>
                 </td>
             </tr>
 
@@ -657,6 +657,29 @@ export class CategoryService {
       select: {
         id: true,
         name: true,
+        CategorySongs: {
+          select: {
+            song: {
+              select: {
+                id: true,
+                name: true,
+                songUrl: true,
+                artist: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+                album: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }

@@ -37,7 +37,7 @@
 
 <ol class="breadcrumb">
   <li>Controllers</li>
-  <li >AppController</li>
+  <li >HomePageController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -55,14 +55,14 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app.controller.ts</code>
+            <code>src/home-page/home-page.controller.ts</code>
         </p>
 
             <p class="comment">
                 <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <code>/status</code>
+                <code>/</code>
             </p>
 
 
@@ -84,7 +84,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getAppStatus" >getAppStatus</a>
+                                <a href="#homePage" >homePage</a>
+                            </li>
+                            <li>
+                                <a href="#searchPlaylistSongAlbumArtist" >searchPlaylistSongAlbumArtist</a>
                             </li>
                         </ul>
                     </td>
@@ -107,16 +110,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getAppStatus"></a>
+                    <a name="homePage"></a>
                     <span class="name">
-                        <span ><b>getAppStatus</b></span>
-                        <a href="#getAppStatus"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>homePage</b></span>
+                        <a href="#homePage"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getAppStatus(req: Request)</code>
+<code>homePage(userProfile: <a href="../classes/UserProfileId.html" target="_self">UserProfileId</a>)</code>
                 </td>
             </tr>
 
@@ -124,14 +127,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;View aplication status&#x27;})<br /></code>
+                    <code>@Get()<br />@ApiOperation({summary: Returns the user&#x27;s profile home page, with its playlists and platform playlists, in addition to the music categories})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app.controller.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/home-page/home-page.controller.ts:28</a></div>
                 </td>
             </tr>
 
@@ -152,9 +155,85 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>req</td>
+                                    <td>userProfile</td>
                                     <td>
-                                            <code>Request</code>
+                                                <code><a href="../classes/UserProfileId.html" target="_self" >UserProfileId</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchPlaylistSongAlbumArtist"></a>
+                    <span class="name">
+                        <span ><b>searchPlaylistSongAlbumArtist</b></span>
+                        <a href="#searchPlaylistSongAlbumArtist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>searchPlaylistSongAlbumArtist(dto: <a href="../classes/SearchDto.html" target="_self">SearchDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/search&#x27;)<br />@ApiOperation({summary: Search playlists, albums, songs and artists whose name starts with what you&#x27;re looking for})<br />@HttpCode(HttpStatus.OK)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/home-page/home-page.controller.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/SearchDto.html" target="_self" >SearchDto</a></code>
                                     </td>
 
                                     <td>
@@ -183,23 +262,47 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Req } from &#x27;@nestjs/common&#x27;;
-import { ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
-import { Request } from &#x27;express&#x27;;
-import { AppService } from &#x27;./app.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from &#x27;@nestjs/common&#x27;;
+import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
+import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { UserProfileId } from &#x27;src/auth/dto/logged-profile-type&#x27;;
+import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
+import { SearchDto } from &#x27;./dto/search.dto&#x27;;
+import { HomePageService } from &#x27;./home-page.service&#x27;;
 
-@ApiTags(&#x27;status&#x27;)
-@Controller(&#x27;/status&#x27;)
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+@ApiTags(&#x27;home-page&#x27;)
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
+@Controller(&#x27;/&#x27;)
+export class HomePageController {
+  constructor(private readonly homePageService: HomePageService) {}
 
   @Get()
   @ApiOperation({
-    summary: &#x27;View aplication status&#x27;,
+    summary: &#x60;Returns the user&#x27;s profile home page, with its playlists and platform playlists, in addition to the music categories&#x60;,
   })
-  getAppStatus(@Req() req: Request) {
-    const baseUrl &#x3D; req.protocol + &#x27;://&#x27; + req.get(&#x27;host&#x27;);
-    return this.appService.getAppStatus(baseUrl);
+  homePage(@LoggedUser() userProfile: UserProfileId) {
+    return this.homePageService.homePage(
+      userProfile.user.id,
+      userProfile.profileId,
+    );
+  }
+
+  @Post(&#x27;/search&#x27;)
+  @ApiOperation({
+    summary: &#x60;Search playlists, albums, songs and artists whose name starts with what you&#x27;re looking for&#x60;,
+  })
+  @HttpCode(HttpStatus.OK)
+  searchPlaylistSongAlbumArtist(@Body() dto: SearchDto) {
+    return this.homePageService.searchPlaylistSongAlbumArtist(dto);
   }
 }
 </code></pre>
@@ -247,7 +350,7 @@ export class AppController {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppController.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomePageController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

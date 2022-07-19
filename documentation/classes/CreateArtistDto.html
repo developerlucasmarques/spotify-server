@@ -147,13 +147,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The about of the artist.&#x27;, example: &#x27;Guns N&#x27; Roses is an American hard rock band formed in Los Angeles, California in 1985. The band has released six studio albums, three EPs and one live album to date. The band sold over 100 million copies worldwide, with around 43 million in the United States alone.&#x27;})<br />
+                            @IsString()<br />@Length(10, 300)<br />@ApiProperty({description: &#x27;The about of the artist.&#x27;, example: &#x27;Guns N&#x27; Roses is an American hard rock band formed in Los Angeles, California in 1985. The band has released six studio albums, three EPs and one live album to date. The band sold over 100 million copies worldwide, with around 43 million in the United States alone.&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/artist/dto/create-artist.dto.ts:72</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/artist/dto/create-artist.dto.ts:71</a></div>
                         </td>
                     </tr>
 
@@ -188,7 +188,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/artist/dto/create-artist.dto.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/artist/dto/create-artist.dto.ts:62</a></div>
                         </td>
                     </tr>
 
@@ -217,13 +217,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The country of the artist.&#x27;, example: &#x27;ab065335-b6e9-495e-9eee-8becfdc625f2&#x27;})<br />
+                            @IsUUID()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The country of the artist.&#x27;, example: &#x27;ac06f36e-4b61-4fe8-8fd6-6ad807ac6282&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/artist/dto/create-artist.dto.ts:80</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/artist/dto/create-artist.dto.ts:79</a></div>
                         </td>
                     </tr>
 
@@ -252,13 +252,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@IsNotEmpty()<br />@MinLength(11)<br />@MaxLength(14)<br />@ApiProperty({description: &#x27;The cpf of the artist.&#x27;, example: &#x27;321.654.987-01&#x27;})<br />
+                            @IsString()<br />@Length(11, 14)<br />@ApiProperty({description: &#x27;The cpf of the artist.&#x27;, example: &#x27;321.654.987-01&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/artist/dto/create-artist.dto.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/artist/dto/create-artist.dto.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -287,13 +287,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsEmail()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The email of the artist.&#x27;, example: &#x27;artist@gmail.com&#x27;})<br />
+                            @IsEmail()<br />@Length(5, 50)<br />@ApiProperty({description: &#x27;The email of the artist.&#x27;, example: &#x27;artist@artist.com&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/artist/dto/create-artist.dto.ts:44</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/artist/dto/create-artist.dto.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -322,13 +322,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsUrl()<br />@ApiProperty({description: &#x27;The image of the artist.&#x27;, example: &#x27;https://i.scdn.co/image/ab6761610000e5eb50defaf9fc059a1efc541f4c&#x27;})<br />
+                            @IsUrl()<br />@Length(1, 300)<br />@ApiProperty({description: &#x27;The image of the artist.&#x27;, example: &#x27;https://i.scdn.co/image/ab6761610000e5eb50defaf9fc059a1efc541f4c&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/artist/dto/create-artist.dto.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/artist/dto/create-artist.dto.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -357,7 +357,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@IsNotEmpty()<br />@ApiProperty({description: &#x27;The name of the artist.&#x27;, example: &#x27;Guns N&#x27; Roses&#x27;})<br />
+                            @IsString()<br />@Length(1, 50)<br />@ApiProperty({description: &#x27;The name of the artist.&#x27;, example: &#x27;Guns N&#x27; Roses&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -392,13 +392,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@MinLength(8)<br />@Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {message: &#x27;Password too weak&#x27;})<br />@ApiProperty({description: &#x27;The password of the artist.&#x27;, example: &#x27;User#5678@!&#x27;})<br />
+                            @IsString()<br />@Length(8, 50)<br />@Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {message: &#x27;Password too weak&#x27;})<br />@ApiProperty({description: &#x27;The password of the artist.&#x27;, example: &#x27;User#5678@!&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/artist/dto/create-artist.dto.ts:55</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/artist/dto/create-artist.dto.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -423,14 +423,14 @@ import {
   IsNotEmpty,
   IsString,
   IsUrl,
+  IsUUID,
+  Length,
   Matches,
-  MaxLength,
-  MinLength,
 } from &#x27;class-validator&#x27;;
 
 export class CreateArtistDto {
   @IsString()
-  @IsNotEmpty()
+  @Length(1, 50)
   @ApiProperty({
     description: &#x27;The name of the artist.&#x27;,
     example: &quot;Guns N&#x27; Roses&quot;,
@@ -438,6 +438,7 @@ export class CreateArtistDto {
   name: string;
 
   @IsUrl()
+  @Length(1, 300)
   @ApiProperty({
     description: &#x27;The image of the artist.&#x27;,
     example: &#x27;https://i.scdn.co/image/ab6761610000e5eb50defaf9fc059a1efc541f4c&#x27;,
@@ -445,9 +446,7 @@ export class CreateArtistDto {
   image: string;
 
   @IsString()
-  @IsNotEmpty()
-  @MinLength(11)
-  @MaxLength(14)
+  @Length(11, 14)
   @ApiProperty({
     description: &#x27;The cpf of the artist.&#x27;,
     example: &#x27;321.654.987-01&#x27;,
@@ -455,15 +454,15 @@ export class CreateArtistDto {
   cpf: string;
 
   @IsEmail()
-  @IsNotEmpty()
+  @Length(5, 50)
   @ApiProperty({
     description: &#x27;The email of the artist.&#x27;,
-    example: &#x27;artist@gmail.com&#x27;,
+    example: &#x27;artist@artist.com&#x27;,
   })
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @Length(8, 50)
   @Matches(/((?&#x3D;.*\d)|(?&#x3D;.*\W+))(?![.\n])(?&#x3D;.*[A-Z])(?&#x3D;.*[a-z]).*$/, {
     message: &#x27;Password too weak&#x27;,
   })
@@ -482,7 +481,7 @@ export class CreateArtistDto {
   confirmPassword: string;
 
   @IsString()
-  @IsNotEmpty()
+  @Length(10, 300)
   @ApiProperty({
     description: &#x27;The about of the artist.&#x27;,
     example:
@@ -490,11 +489,11 @@ export class CreateArtistDto {
   })
   about: string;
 
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   @ApiProperty({
     description: &#x27;The country of the artist.&#x27;,
-    example: &#x27;ab065335-b6e9-495e-9eee-8becfdc625f2&#x27;,
+    example: &#x27;ac06f36e-4b61-4fe8-8fd6-6ad807ac6282&#x27;,
   })
   countryId: string;
 }

@@ -151,8 +151,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">src/artist/artist.controller.ts:34</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/artist/artist.controller.ts:32</a></div>
                 </td>
             </tr>
 
@@ -227,8 +227,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">src/artist/artist.controller.ts:95</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="93"
+                            class="link-to-prism">src/artist/artist.controller.ts:93</a></div>
                 </td>
             </tr>
 
@@ -303,8 +303,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="106"
-                            class="link-to-prism">src/artist/artist.controller.ts:106</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">src/artist/artist.controller.ts:104</a></div>
                 </td>
             </tr>
 
@@ -391,8 +391,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/artist/artist.controller.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">src/artist/artist.controller.ts:52</a></div>
                 </td>
             </tr>
 
@@ -435,8 +435,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">src/artist/artist.controller.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/artist/artist.controller.ts:62</a></div>
                 </td>
             </tr>
 
@@ -505,14 +505,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;/:artistID/discography&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;View all songs by an artist - (ONLY USER)&#x27;})<br /></code>
+                    <code>@Get(&#x27;/:artistID/discography&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;View all songs by an artist - (OPEN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">src/artist/artist.controller.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/artist/artist.controller.ts:72</a></div>
                 </td>
             </tr>
 
@@ -587,8 +587,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="44"
-                            class="link-to-prism">src/artist/artist.controller.ts:44</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">src/artist/artist.controller.ts:42</a></div>
                 </td>
             </tr>
 
@@ -663,8 +663,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="84"
-                            class="link-to-prism">src/artist/artist.controller.ts:84</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="82"
+                            class="link-to-prism">src/artist/artist.controller.ts:82</a></div>
                 </td>
             </tr>
 
@@ -729,24 +729,22 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from &#x27;@nestjs/common&#x27;;
 import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
 import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { Admin } from &#x27;src/admin/entities/admin.entity&#x27;;
 import { LoggedAdmin } from &#x27;src/auth/logged-admin.decorator&#x27;;
 import { LoggedArtist } from &#x27;src/auth/logged-artist.decorator&#x27;;
-import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
-import { User } from &#x27;src/user/entities/user.entity&#x27;;
 import { ArtistService } from &#x27;./artist.service&#x27;;
 import { CreateArtistDto } from &#x27;./dto/create-artist.dto&#x27;;
 import { UpdateArtistDto } from &#x27;./dto/update-artist.dto&#x27;;
@@ -799,7 +797,7 @@ export class ArtistController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: &#x27;View all songs by an artist - (ONLY USER)&#x27;,
+    summary: &#x27;View all songs by an artist - (OPEN)&#x27;,
   })
   findOneByArtist(@Param(&#x27;artistID&#x27;) artistId: string) {
     return this.artistService.findOneByArtist(artistId);

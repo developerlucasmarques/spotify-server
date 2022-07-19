@@ -136,7 +136,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiOperation({summary: &#x27;Create a new User Plan&#x27;})<br /></code>
+                    <code>@Post()<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;Create a new User Plan - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -224,14 +224,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;:id&#x27;)<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiOperation({summary: &#x27;Remove a User Plan by Id&#x27;})<br /></code>
+                    <code>@Delete(&#x27;:id&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiOperation({summary: &#x27;Remove a User Plan by Id - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="65"
-                            class="link-to-prism">src/user-plan/user-plan.controller.ts:65</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/user-plan/user-plan.controller.ts:73</a></div>
                 </td>
             </tr>
 
@@ -304,7 +304,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findAll(admin: <a href="../classes/Admin.html" target="_self">Admin</a>)</code>
+<code>findAll()</code>
                 </td>
             </tr>
 
@@ -312,7 +312,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;List all Users Plans&#x27;})<br /></code>
+                    <code>@Get()<br />@ApiOperation({summary: &#x27;List all Users Plans - (OPEN)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -328,40 +328,8 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>admin</td>
-                                    <td>
-                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
-                    </div>
-                    <div class="io-description">
-                        
                     </div>
                 </td>
             </tr>
@@ -380,7 +348,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findOne(admin: <a href="../classes/Admin.html" target="_self">Admin</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>findOne(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -388,7 +356,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;View User Plan by Id&#x27;})<br /></code>
+                    <code>@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;View User Plan by Id - (OPEN)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -415,18 +383,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>admin</td>
-                                    <td>
-                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
                                 <tr>
                                     <td>id</td>
                                     <td>
@@ -476,14 +432,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Edit a User Plan by Id&#x27;})<br /></code>
+                    <code>@Patch(&#x27;:id&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;Edit a User Plan by Id - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="56"
-                            class="link-to-prism">src/user-plan/user-plan.controller.ts:56</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/user-plan/user-plan.controller.ts:58</a></div>
                 </td>
             </tr>
 
@@ -560,35 +516,35 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from &#x27;@nestjs/common&#x27;;
-import { UserPlanService } from &#x27;./user-plan.service&#x27;;
+import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
+import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { Admin } from &#x27;src/admin/entities/admin.entity&#x27;;
+import { LoggedAdmin } from &#x27;src/auth/logged-admin.decorator&#x27;;
 import { CreateUserPlanDto } from &#x27;./dto/create-user-plan.dto&#x27;;
 import { UpdateUserPlanDto } from &#x27;./dto/update-user-plan.dto&#x27;;
-import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
-import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
-import { LoggedAdmin } from &#x27;src/auth/logged-admin.decorator&#x27;;
-import { Admin } from &#x27;src/admin/entities/admin.entity&#x27;;
+import { UserPlanService } from &#x27;./user-plan.service&#x27;;
 
 @ApiTags(&#x27;user-plan&#x27;)
-@UseGuards(AuthGuard())
-@ApiBearerAuth()
 @Controller(&#x27;user-plan&#x27;)
 export class UserPlanController {
   constructor(private readonly userPlanService: UserPlanService) {}
 
   @Post()
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: &#x27;Create a new User Plan&#x27;,
+    summary: &#x27;Create a new User Plan - (ONLY ADMIN)&#x27;,
   })
   create(@LoggedAdmin() admin: Admin, @Body() dto: CreateUserPlanDto) {
     return this.userPlanService.create(dto);
@@ -596,32 +552,40 @@ export class UserPlanController {
 
   @Get()
   @ApiOperation({
-    summary: &#x27;List all Users Plans&#x27;,
+    summary: &#x27;List all Users Plans - (OPEN)&#x27;,
   })
-  findAll(@LoggedAdmin() admin: Admin) {
+  findAll() {
     return this.userPlanService.findAll();
   }
 
   @Get(&#x27;:id&#x27;)
   @ApiOperation({
-    summary: &#x27;View User Plan by Id&#x27;,
+    summary: &#x27;View User Plan by Id - (OPEN)&#x27;,
   })
-  findOne(@LoggedAdmin() admin: Admin, @Param(&#x27;id&#x27;) id: string) {
+  findOne(@Param(&#x27;id&#x27;) id: string) {
     return this.userPlanService.findOne(id);
   }
 
   @Patch(&#x27;:id&#x27;)
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: &#x27;Edit a User Plan by Id&#x27;,
+    summary: &#x27;Edit a User Plan by Id - (ONLY ADMIN)&#x27;,
   })
-  update(@LoggedAdmin() admin: Admin, @Param(&#x27;id&#x27;) id: string, @Body() dto: UpdateUserPlanDto) {
+  update(
+    @LoggedAdmin() admin: Admin,
+    @Param(&#x27;id&#x27;) id: string,
+    @Body() dto: UpdateUserPlanDto,
+  ) {
     return this.userPlanService.update(id, dto);
   }
 
   @Delete(&#x27;:id&#x27;)
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: &#x27;Remove a User Plan by Id&#x27;,
+    summary: &#x27;Remove a User Plan by Id - (ONLY ADMIN)&#x27;,
   })
   delete(@LoggedAdmin() admin: Admin, @Param(&#x27;id&#x27;) id: string) {
     return this.userPlanService.delete(id);

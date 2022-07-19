@@ -213,7 +213,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>delete(userProfileId: <a href="../classes/UserProfileId.html" target="_self">UserProfileId</a>, profileId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>delete(userProfileId: <a href="../classes/UserProfileId.html" target="_self">UserProfileId</a>)</code>
                 </td>
             </tr>
 
@@ -221,14 +221,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;delete/:profileID&#x27;)<br />@ApiOperation({summary: &#x27;Delete a profile by id - (ONLY USER)&#x27;})<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
+                    <code>@Delete(&#x27;delete&#x27;)<br />@ApiOperation({summary: &#x27;Delete a profile by id - (ONLY USER)&#x27;})<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="65"
-                            class="link-to-prism">src/profile/profile.controller.ts:65</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/profile/profile.controller.ts:68</a></div>
                 </td>
             </tr>
 
@@ -252,18 +252,6 @@
                                     <td>userProfileId</td>
                                     <td>
                                                 <code><a href="../classes/UserProfileId.html" target="_self" >UserProfileId</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>profileId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -309,7 +297,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;/all&#x27;)<br />@ApiOperation({summary: &#x27;Fetch all profiles of the logged in user - (ONLY USER)&#x27;})<br /></code>
+                    <code>@Get(&#x27;all&#x27;)<br />@ApiOperation({summary: &#x27;Fetch all profiles of the logged in user - (ONLY USER)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -377,7 +365,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>update(userProfileId: <a href="../classes/UserProfileId.html" target="_self">UserProfileId</a>, profileId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, dto: <a href="../classes/UpdateProfileDto.html" target="_self">UpdateProfileDto</a>)</code>
+<code>update(userProfileId: <a href="../classes/UserProfileId.html" target="_self">UserProfileId</a>, dto: <a href="../classes/UpdateProfileDto.html" target="_self">UpdateProfileDto</a>)</code>
                 </td>
             </tr>
 
@@ -385,7 +373,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;update/:profileID&#x27;)<br />@ApiOperation({summary: &#x27;Edit a profile by id - (ONLY USER)&#x27;})<br /></code>
+                    <code>@Patch(&#x27;update&#x27;)<br />@ApiOperation({summary: &#x27;Edit a profile by id - (ONLY USER)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -416,18 +404,6 @@
                                     <td>userProfileId</td>
                                     <td>
                                                 <code><a href="../classes/UserProfileId.html" target="_self" >UserProfileId</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>profileId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -507,7 +483,7 @@ export class ProfileController {
     return this.profileService.create(userProfileId.user.id, dto);
   }
 
-  @Get(&#x27;/all&#x27;)
+  @Get(&#x27;all&#x27;)
   @ApiOperation({
     summary: &#x27;Fetch all profiles of the logged in user - (ONLY USER)&#x27;,
   })
@@ -515,28 +491,31 @@ export class ProfileController {
     return this.profileService.findAll(userProfileId.user.id);
   }
 
-  @Patch(&#x27;update/:profileID&#x27;)
+  @Patch(&#x27;update&#x27;)
   @ApiOperation({
     summary: &#x27;Edit a profile by id - (ONLY USER)&#x27;,
   })
   update(
     @LoggedUser() userProfileId: UserProfileId,
-    @Param(&#x27;profileID&#x27;) profileId: string,
     @Body() dto: UpdateProfileDto,
   ) {
-    return this.profileService.update(userProfileId.user.id, profileId, dto);
+    return this.profileService.update(
+      userProfileId.user.id,
+      userProfileId.profileId,
+      dto,
+    );
   }
 
-  @Delete(&#x27;delete/:profileID&#x27;)
+  @Delete(&#x27;delete&#x27;)
   @ApiOperation({
     summary: &#x27;Delete a profile by id - (ONLY USER)&#x27;,
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(
-    @LoggedUser() userProfileId: UserProfileId,
-    @Param(&#x27;profileID&#x27;) profileId: string,
-  ) {
-    return this.profileService.delete(userProfileId.user.id, profileId);
+  delete(@LoggedUser() userProfileId: UserProfileId) {
+    return this.profileService.delete(
+      userProfileId.user.id,
+      userProfileId.profileId,
+    );
   }
 }
 </code></pre>

@@ -69,6 +69,21 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#albumSelect" >albumSelect</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -88,10 +103,6 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#findAll" >findAll</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
                                 <a href="#findOne" >findOne</a>
                             </li>
                             <li>
@@ -101,6 +112,9 @@
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#update" >update</a>
+                            </li>
+                            <li>
+                                <a href="#verifyYearAlbum" >verifyYearAlbum</a>
                             </li>
                         </ul>
                     </td>
@@ -125,7 +139,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/album/album.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/album/album.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -190,8 +204,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/album/album.service.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/album/album.service.ts:36</a></div>
                 </td>
             </tr>
 
@@ -273,8 +287,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="83"
-                            class="link-to-prism">src/album/album.service.ts:83</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/album/album.service.ts:81</a></div>
                 </td>
             </tr>
 
@@ -338,77 +352,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findAll"></a>
-                    <span class="name">
-                        <span class="modifier">Async</span>
-                        <span ><b>findAll</b></span>
-                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findAll(artistId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/album/album.service.ts:40</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>artistId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>unknown</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="findOne"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
@@ -420,15 +363,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findOne(artistId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, albumId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>findOne(albumId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">src/album/album.service.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">src/album/album.service.ts:55</a></div>
                 </td>
             </tr>
 
@@ -448,18 +391,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>artistId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
                                 <tr>
                                     <td>albumId</td>
                                     <td>
@@ -510,8 +441,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="90"
-                            class="link-to-prism">src/album/album.service.ts:90</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="88"
+                            class="link-to-prism">src/album/album.service.ts:88</a></div>
                 </td>
             </tr>
 
@@ -561,7 +492,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>unknown</code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </div>
                     <div class="io-description">
@@ -593,8 +524,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="68"
-                            class="link-to-prism">src/album/album.service.ts:68</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/album/album.service.ts:69</a></div>
                 </td>
             </tr>
 
@@ -666,24 +597,174 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyYearAlbum"></a>
+                    <span class="name">
+                        <span ><b>verifyYearAlbum</b></span>
+                        <a href="#verifyYearAlbum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>verifyYearAlbum(year: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank">Number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/album/album.service.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>year</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" >Number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="albumSelect"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>albumSelect</b></span>
+                        <a href="#albumSelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: true,
+    name: true,
+    image: true,
+    year: true,
+    artist: {
+      select: {
+        id: true,
+        name: true,
+      },
+    },
+    songs: {
+      select: {
+        id: true,
+        name: true,
+        songUrl: true,
+      },
+    },
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/album/album.service.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
 </section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from &#x27;@nestjs/common&#x27;;
 import { Prisma } from &#x27;@prisma/client&#x27;;
 import { PrismaService } from &#x27;src/prisma/prisma.service&#x27;;
 import { handleError } from &#x27;src/utils/handle-error.util&#x27;;
 import { CreateAlbumDto } from &#x27;./dto/create-album.dto&#x27;;
 import { UpdateAlbumDto } from &#x27;./dto/update-album.dto&#x27;;
-import { Album } from &#x27;./entities/album.entity&#x27;;
 
 @Injectable()
 export class AlbumService {
   constructor(private readonly prisma: PrismaService) {}
+
+  private albumSelect &#x3D; {
+    id: true,
+    name: true,
+    image: true,
+    year: true,
+    artist: {
+      select: {
+        id: true,
+        name: true,
+      },
+    },
+    songs: {
+      select: {
+        id: true,
+        name: true,
+        songUrl: true,
+      },
+    },
+  };
+
   async create(artistId: string, dto: CreateAlbumDto) {
+    this.verifyYearAlbum(dto.year);
     const data: Prisma.AlbumCreateInput &#x3D; {
       ...dto,
       artist: {
@@ -696,60 +777,33 @@ export class AlbumService {
     return await this.prisma.album
       .create({
         data,
-        select: {
-          id: true,
-          name: true,
-          image: true,
-          artist: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
+        select: this.albumSelect,
       })
       .catch(handleError);
   }
 
-  async findAll(artistId: string) {
-    const albums &#x3D; await this.prisma.artist
-      .findMany({
-        where: { id: artistId },
-        select: {
-          name: true,
-          albums: {
-            select: {
-              id: true,
-              name: true,
-              image: true,
-            },
-          },
-        },
+  async findOne(albumId: string) {
+    const record &#x3D; await this.prisma.album
+      .findUnique({
+        where: { id: albumId },
+        select: this.albumSelect,
       })
       .catch(handleError);
 
-    if (albums[0].albums.length &#x3D;&#x3D;&#x3D; 0) {
-      throw new NotFoundException(&#x27;No album found&#x27;);
+    if (!record) {
+      throw new NotFoundException(&#x60;Album with ID &#x27;${albumId}&#x27; not found&#x60;);
     }
-
-    return albums;
-  }
-
-  async findOne(artistId: string, albumId: string) {
-    return await this.findOneAlbumInArtist(artistId, albumId);
+    return record;
   }
 
   async update(artistId: string, albumId: string, dto: UpdateAlbumDto) {
     await this.findOneAlbumInArtist(artistId, albumId);
+    this.verifyYearAlbum(dto.year);
     return await this.prisma.album
       .update({
         where: { id: albumId },
         data: { ...dto },
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
+        select: this.albumSelect,
       })
       .catch(handleError);
   }
@@ -762,7 +816,7 @@ export class AlbumService {
   }
 
   async findOneAlbumInArtist(artistId: string, albumId: string) {
-    const record &#x3D; await this.prisma.artist
+    const albumInArtist &#x3D; await this.prisma.artist
       .findUnique({
         where: { id: artistId },
         select: {
@@ -770,20 +824,22 @@ export class AlbumService {
             where: {
               id: albumId,
             },
-            select: {
-              id: true,
-              name: true,
-              image: true,
-            },
           },
         },
       })
       .catch(handleError);
 
-    if (record.albums.length &#x3D;&#x3D;&#x3D; 0) {
+    if (albumInArtist.albums.length &#x3D;&#x3D;&#x3D; 0) {
       throw new NotFoundException(&#x60;Album with ID &#x27;${albumId}&#x27; not found&#x60;);
     }
-    return record;
+  }
+
+  verifyYearAlbum(year: Number) {
+    if (year &lt; 1900 || year &gt; 2022) {
+      throw new BadRequestException(
+        &#x27;The cannot be less than 1900 or greater than 2022&#x27;,
+      );
+    }
   }
 }
 </code></pre>

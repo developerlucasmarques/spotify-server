@@ -136,7 +136,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post(&#x27;/create&#x27;)<br />@ApiOperation({summary: &#x27;Create a new country - (ONLY ADMIN)&#x27;})<br /></code>
+                    <code>@Post(&#x27;/create&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;Create a new country - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -224,14 +224,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;/delete/:countryID&#x27;)<br />@ApiOperation({summary: &#x27;Delete a country by id - (ONLY ADMIN)&#x27;})<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
+                    <code>@Delete(&#x27;/delete/:countryID&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;Delete a country by id - (ONLY ADMIN)&#x27;})<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/country/country,controller.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/country/country,controller.ts:73</a></div>
                 </td>
             </tr>
 
@@ -304,7 +304,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findAll(admin: <a href="../classes/Admin.html" target="_self">Admin</a>)</code>
+<code>findAll()</code>
                 </td>
             </tr>
 
@@ -312,7 +312,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;/find-all&#x27;)<br />@ApiOperation({summary: &#x27;Search all countries - (ONLY ADMIN)&#x27;})<br /></code>
+                    <code>@Get(&#x27;/all&#x27;)<br />@ApiOperation({summary: &#x27;Search all countries - (OPEN)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -328,40 +328,8 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>admin</td>
-                                    <td>
-                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
-                    </div>
-                    <div class="io-description">
-                        
                     </div>
                 </td>
             </tr>
@@ -380,7 +348,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findOne(admin: <a href="../classes/Admin.html" target="_self">Admin</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>findOne(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -388,7 +356,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;/find-one/:countryID&#x27;)<br />@ApiOperation({summary: &#x27;Search for a country by id - (ONLY ADMIN)&#x27;})<br /></code>
+                    <code>@Get(&#x27;/:countryID&#x27;)<br />@ApiOperation({summary: &#x27;Search for a country by id - (OPEN)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -415,18 +383,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>admin</td>
-                                    <td>
-                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
                                 <tr>
                                     <td>id</td>
                                     <td>
@@ -476,14 +432,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;/update/:countryID&#x27;)<br />@ApiOperation({summary: &#x27;Edit a country by id - (ONLY ADMIN)&#x27;})<br /></code>
+                    <code>@Patch(&#x27;/update/:countryID&#x27;)<br />@UseGuards(undefined)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;Edit a country by id - (ONLY ADMIN)&#x27;})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="56"
-                            class="link-to-prism">src/country/country,controller.ts:56</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/country/country,controller.ts:58</a></div>
                 </td>
             </tr>
 
@@ -581,12 +537,12 @@ import { UpdateCountryDto } from &#x27;./dto/update-country.dto&#x27;;
 
 @ApiTags(&#x27;country&#x27;)
 @Controller(&#x27;country&#x27;)
-@UseGuards(AuthGuard())
-@ApiBearerAuth()
 export class CountryController {
   constructor(private readonly countryService: CountryService) {}
 
   @Post(&#x27;/create&#x27;)
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: &#x27;Create a new country - (ONLY ADMIN)&#x27;,
   })
@@ -594,23 +550,25 @@ export class CountryController {
     return this.countryService.create(dto);
   }
 
-  @Get(&#x27;/find-all&#x27;)
+  @Get(&#x27;/all&#x27;)
   @ApiOperation({
-    summary: &#x27;Search all countries - (ONLY ADMIN)&#x27;,
+    summary: &#x27;Search all countries - (OPEN)&#x27;,
   })
-  findAll(@LoggedAdmin() admin: Admin) {
+  findAll() {
     return this.countryService.findAll();
   }
 
-  @Get(&#x27;/find-one/:countryID&#x27;)
+  @Get(&#x27;/:countryID&#x27;)
   @ApiOperation({
-    summary: &#x27;Search for a country by id - (ONLY ADMIN)&#x27;,
+    summary: &#x27;Search for a country by id - (OPEN)&#x27;,
   })
-  findOne(@LoggedAdmin() admin: Admin, @Param(&#x27;countryID&#x27;) id: string) {
+  findOne(@Param(&#x27;countryID&#x27;) id: string) {
     return this.countryService.findOne(id);
   }
 
   @Patch(&#x27;/update/:countryID&#x27;)
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: &#x27;Edit a country by id - (ONLY ADMIN)&#x27;,
   })
@@ -623,6 +581,8 @@ export class CountryController {
   }
 
   @Delete(&#x27;/delete/:countryID&#x27;)
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: &#x27;Delete a country by id - (ONLY ADMIN)&#x27;,
   })
