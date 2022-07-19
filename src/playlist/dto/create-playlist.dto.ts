@@ -5,19 +5,20 @@ import {
   IsString,
   IsUrl,
   IsUUID,
+  Length,
 } from 'class-validator';
 
 export class CreatePlaylistDto {
-  @IsNotEmpty()
   @IsString()
+  @Length(1, 50)
   @ApiProperty({
     description: 'Playlist Name',
     example: 'Party',
   })
   name: string;
 
-  @IsNotEmpty()
   @IsUrl()
+  @Length(1, 50)
   @ApiProperty({
     description: 'Playlist picture URL',
     example: 'https://playlistimage.jpg',
