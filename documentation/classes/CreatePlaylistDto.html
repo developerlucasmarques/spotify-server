@@ -132,13 +132,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />@IsUrl()<br />@ApiProperty({description: &#x27;Playlist picture URL&#x27;, example: &#x27;https://playlistimage.jpg&#x27;})<br />
+                            @IsUrl()<br />@Length(1, 50)<br />@ApiProperty({description: &#x27;Playlist picture URL&#x27;, example: &#x27;https://playlistimage.jpg&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/playlist/dto/create-playlist.dto.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/playlist/dto/create-playlist.dto.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -167,13 +167,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />@IsString()<br />@ApiProperty({description: &#x27;Playlist Name&#x27;, example: &#x27;Party&#x27;})<br />
+                            @IsString()<br />@Length(1, 50)<br />@ApiProperty({description: &#x27;Playlist Name&#x27;, example: &#x27;Party&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/playlist/dto/create-playlist.dto.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/playlist/dto/create-playlist.dto.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -208,7 +208,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/playlist/dto/create-playlist.dto.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/playlist/dto/create-playlist.dto.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -228,25 +228,19 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import {
-  IsBoolean,
-  IsNotEmpty,
-  IsString,
-  IsUrl,
-  IsUUID,
-} from &#x27;class-validator&#x27;;
+import { IsBoolean, IsString, IsUrl, Length } from &#x27;class-validator&#x27;;
 
 export class CreatePlaylistDto {
-  @IsNotEmpty()
   @IsString()
+  @Length(1, 50)
   @ApiProperty({
     description: &#x27;Playlist Name&#x27;,
     example: &#x27;Party&#x27;,
   })
   name: string;
 
-  @IsNotEmpty()
   @IsUrl()
+  @Length(1, 50)
   @ApiProperty({
     description: &#x27;Playlist picture URL&#x27;,
     example: &#x27;https://playlistimage.jpg&#x27;,

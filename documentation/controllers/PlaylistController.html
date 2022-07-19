@@ -758,7 +758,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;/:playlistID&#x27;)<br />@ApiOperation({summary: &#x27;Search for a playlist by id in the logged-in users profile - (ONLY USER)&#x27;})<br /></code>
+                    <code>@Get(&#x27;/:playlistID&#x27;)<br />@ApiOperation({summary: &#x27;Search a playlist by id, (private playlists are only displayed for the creator profile) - (ONLY USER)&#x27;})<br /></code>
                 </td>
             </tr>
 
@@ -1164,7 +1164,7 @@ export class PlaylistController {
   @Get(&#x27;/:playlistID&#x27;)
   @ApiOperation({
     summary:
-      &#x27;Search for a playlist by id in the logged-in users profile - (ONLY USER)&#x27;,
+      &#x27;Search a playlist by id, (private playlists are only displayed for the creator profile) - (ONLY USER)&#x27;,
   })
   findOnePlaylist(
     @LoggedUser() userProfileId: UserProfileId,
