@@ -6,6 +6,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
+import { verifyProfileIdInToken } from 'src/utils/verifyProfileIdInToken';
 import { AddSongPlaylistDto } from './dto/create-playlist-song.dto';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
@@ -15,6 +16,7 @@ export class PlaylistService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(userId: string, profileId: string, dto: CreatePlaylistDto) {
+    verifyProfileIdInToken(profileId);
     await this.findOneProfileInUser(userId, profileId);
     const data: Prisma.PlaylistCreateInput = {
       name: dto.name,
@@ -46,6 +48,7 @@ export class PlaylistService {
   }
 
   async findAllPlaylistProfile(userId: string, profileId: string) {
+    verifyProfileIdInToken(profileId);
     await this.findOneProfileInUser(userId, profileId);
     const profilePlaylists = await this.prisma.profile
       .findUnique({
@@ -70,6 +73,8 @@ export class PlaylistService {
   }
 
   async findOnePlaylist(profileId: string, playlistId: string) {
+    verifyProfileIdInToken(profileId);
+    await this.findByIdPlaylist(playlistId);
     const playlist = await this.prisma.playlist
       .findUnique({
         where: { id: playlistId },
@@ -113,6 +118,7 @@ export class PlaylistService {
     playlistId: string,
     dto: UpdatePlaylistDto,
   ) {
+    verifyProfileIdInToken(profileId);
     await this.findOneProfileInUser(userId, profileId);
     await this.findOnePlayListInProfile(profileId, playlistId);
 
@@ -133,6 +139,7 @@ export class PlaylistService {
   }
 
   async delete(userId: string, profileId: string, playlistId: string) {
+    verifyProfileIdInToken(profileId);
     await this.findOneProfileInUser(userId, profileId);
     await this.findOnePlayListInProfile(profileId, playlistId);
 
@@ -146,6 +153,7 @@ export class PlaylistService {
     profileId: string,
     playlistSong: AddSongPlaylistDto,
   ) {
+    verifyProfileIdInToken(profileId);
     await this.findOneProfileInUser(userId, profileId);
     await this.findOnePlayListInProfile(profileId, playlistSong.playlistId);
     await this.findOneSong(playlistSong.songId);
@@ -210,6 +218,8 @@ export class PlaylistService {
     profileId: string,
     playlistSong: AddSongPlaylistDto,
   ) {
+    verifyProfileIdInToken(profileId);
+
     await this.findOneProfileInUser(userId, profileId);
     await this.findOnePlayListInProfile(profileId, playlistSong.playlistId);
     await this.findOneSong(playlistSong.songId);
@@ -251,6 +261,8 @@ export class PlaylistService {
     profileId: string,
     playlistId: string,
   ) {
+    verifyProfileIdInToken(profileId);
+    await this.findByIdPlaylist(playlistId);
     await this.findOneProfileInUser(userId, profileId);
 
     const playlist = await this.prisma.profile
@@ -313,7 +325,11 @@ export class PlaylistService {
     profileId: string,
     playlistId: string,
   ) {
+    verifyProfileIdInToken(profileId);
+
     await this.findOneProfileInUser(userId, profileId);
+    await this.findByIdPlaylist(playlistId);
+
     const favoritePlaylist = await this.prisma.profileFavoritePlaylist
       .findUnique({
         where: {
@@ -384,6 +400,8 @@ export class PlaylistService {
   }
 
   async findOneProfileInUser(userId: string, profileId: string) {
+    verifyProfileIdInToken(profileId);
+
     const record = await this.prisma.user
       .findUnique({
         where: { id: userId },
@@ -403,6 +421,9 @@ export class PlaylistService {
   }
 
   async findOnePlayListInProfile(profileId: string, playlistId: string) {
+    verifyProfileIdInToken(profileId);
+    await this.findByIdPlaylist(playlistId);
+
     const playlist = await this.prisma.profile
       .findUnique({
         where: { id: profileId },
@@ -422,6 +443,8 @@ export class PlaylistService {
   }
 
   async searchForFavoritePlaylistFromProfile(profileId: string) {
+    verifyProfileIdInToken(profileId);
+
     const favoritePlaylists =
       await this.prisma.profileFavoritePlaylist.findMany({
         where: {

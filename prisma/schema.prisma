@@ -217,8 +217,8 @@ model CategorySong {
 model Playlist {
   id String @id @default(uuid())
 
-  name    String
-  image   String
+  name    String  @db.VarChar(50)
+  image   String  @db.VarChar(500)
   private Boolean
 
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)

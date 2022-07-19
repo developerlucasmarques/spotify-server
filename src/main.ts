@@ -21,7 +21,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Spotify-Server')
-    .setDescription("Application for Spotify's online platform")
+    .setDescription(
+      'Este projeto foi desenvolvido no quinto módulo do curso de back-end da Blue EdTech com foco em aprimorar nossas habilidades em criar uma API que utilize TypeScript, NestJs, Prisma ORM e PostgreSQL. A presente API tem como objetivo que um usuário utilize de funcionalidades parecidas com as do Spotify e também possa criar perfis, dependendo do plano em que ele "assina". Artistas também tem suas próprias funcionalidades. Além disso também é possível que administradores possam gerir a plataforma. Para ter mais informações de como usar a API e acessar as rotas que necessitam de um Profile, acesse essa página https://mlucasdev.github.io/spotify-server-documentation-client/',
+    )
     .setVersion('1.0.0')
     .addTag('status')
     .addTag('auth')

@@ -1,23 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsBoolean,
-  IsNotEmpty,
-  IsString,
-  IsUrl,
-  IsUUID,
-} from 'class-validator';
+import { IsBoolean, IsString, IsUrl, Length } from 'class-validator';
 
 export class CreatePlaylistDto {
-  @IsNotEmpty()
   @IsString()
+  @Length(1, 50)
   @ApiProperty({
     description: 'Playlist Name',
     example: 'Party',
   })
   name: string;
 
-  @IsNotEmpty()
   @IsUrl()
+  @Length(1, 50)
   @ApiProperty({
     description: 'Playlist picture URL',
     example: 'https://playlistimage.jpg',
