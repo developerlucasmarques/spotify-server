@@ -1,12 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsBoolean,
-  IsNotEmpty,
-  IsString,
-  IsUrl,
-  IsUUID,
-  Length,
-} from 'class-validator';
+import { IsBoolean, IsString, IsUrl, Length } from 'class-validator';
 
 export class CreatePlaylistDto {
   @IsString()

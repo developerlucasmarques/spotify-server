@@ -57,7 +57,7 @@ export class PlaylistController {
   @Get('/:playlistID')
   @ApiOperation({
     summary:
-      'Search for a playlist by id in the logged-in users profile - (ONLY USER)',
+      'Search a playlist by id, (private playlists are only displayed for the creator profile) - (ONLY USER)',
   })
   findOnePlaylist(
     @LoggedUser() userProfileId: UserProfileId,
