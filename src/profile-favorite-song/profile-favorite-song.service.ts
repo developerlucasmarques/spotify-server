@@ -2,12 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
+import { verifyProfileIdInToken } from 'src/utils/verifyProfileIdInToken';
 
 @Injectable()
 export class ProfileFavoriteSongService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(userId: string, profileId: string, songIdD: string) {
+  async create(userId: string, profileId: string, songID: string) {
+    verifyProfileIdInToken(profileId);
+    await this.verifySongExist(songID);
     await this.findByIdProfileUser(userId, profileId);
 
     const data: Prisma.ProfileFavoriteSongCreateInput = {
@@ -18,7 +21,7 @@ export class ProfileFavoriteSongService {
       },
       song: {
         connect: {
-          id: songIdD,
+          id: songID,
         },
       },
     };
@@ -58,6 +61,7 @@ export class ProfileFavoriteSongService {
   }
 
   async findAll(userId: string, profileId: string) {
+    verifyProfileIdInToken(profileId);
     await this.findByIdProfileUser(userId, profileId);
 
     const allFavorites = await this.prisma.profile
@@ -100,6 +104,7 @@ export class ProfileFavoriteSongService {
   }
 
   async delete(userId: string, profileId: string, songId: string) {
+    verifyProfileIdInToken(profileId);
     await this.findByIdProfileUser(userId, profileId);
     await this.findByIdSongInProfile(profileId, songId);
     return await this.prisma.profileFavoriteSong
@@ -152,6 +157,16 @@ export class ProfileFavoriteSongService {
 
     if (songProfile.songs.length === 0) {
       throw new NotFoundException('No favorite songs found in the profile ');
+    }
+  }
+
+  async verifySongExist(songId: string) {
+    const song = await this.prisma.song.findUnique({
+      where: { id: songId },
+    });
+
+    if (!song) {
+      throw new NotFoundException(`Song with ID '${songId} not found'`);
     }
   }
 }

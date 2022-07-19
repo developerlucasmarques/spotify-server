@@ -5,8 +5,7 @@ import {
   IsOptional,
   IsString,
   Length,
-  Matches,
-  MinLength,
+  Matches
 } from 'class-validator';
 
 export class UpdateAdminDto {
@@ -22,6 +21,7 @@ export class UpdateAdminDto {
   @IsOptional()
   @IsEmail()
   @IsNotEmpty()
+  @Length(5, 50)
   @ApiProperty({
     description: 'The email of the user.',
     example: 'admin@admin.com',
@@ -30,7 +30,7 @@ export class UpdateAdminDto {
 
   @IsOptional()
   @IsString()
-  @MinLength(8)
+  @Length(8, 50)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Senha muito fraca',
   })

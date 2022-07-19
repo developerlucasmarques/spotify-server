@@ -1,22 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from 'src/admin/entities/admin.entity';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedArtist } from 'src/auth/logged-artist.decorator';
-import { LoggedUser } from 'src/auth/logged-user.decorator';
-import { User } from 'src/user/entities/user.entity';
 import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
@@ -69,7 +67,7 @@ export class ArtistController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'View all songs by an artist - (ONLY USER)',
+    summary: 'View all songs by an artist - (OPEN)',
   })
   findOneByArtist(@Param('artistID') artistId: string) {
     return this.artistService.findOneByArtist(artistId);

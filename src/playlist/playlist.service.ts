@@ -341,6 +341,48 @@ export class PlaylistService {
       .catch(handleError);
   }
 
+  async spotifyPlaylistCreate(dto: CreatePlaylistDto) {
+    const data: Prisma.PlaylistCreateInput = {
+      name: dto.name,
+      image: dto.image,
+      private: dto.private,
+      profile: {
+        connect: {
+          userSpotify: true,
+        },
+      },
+    };
+
+    return await this.prisma.playlist
+      .create({
+        data,
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          profile: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+  }
+
+  async spotifyPlaylistDelete(playlistId: string) {
+    await this.findByIdPlaylist(playlistId);
+
+    return await this.prisma.playlist
+      .delete({
+        where: {
+          id: playlistId,
+        },
+      })
+      .catch(handleError);
+  }
+
   async findOneProfileInUser(userId: string, profileId: string) {
     const record = await this.prisma.user
       .findUnique({
@@ -427,5 +469,17 @@ export class PlaylistService {
     }
 
     return song;
+  }
+
+  async findByIdPlaylist(playlistId: string) {
+    const playlist = await this.prisma.playlist
+      .findUnique({
+        where: { id: playlistId },
+      })
+      .catch(handleError);
+
+    if (!playlist) {
+      throw new NotFoundException(`Playlist with id '${playlistId}' not found`);
+    }
   }
 }

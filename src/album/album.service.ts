@@ -1,15 +1,40 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
-import { Album } from './entities/album.entity';
 
 @Injectable()
 export class AlbumService {
   constructor(private readonly prisma: PrismaService) {}
+
+  private albumSelect = {
+    id: true,
+    name: true,
+    image: true,
+    year: true,
+    artist: {
+      select: {
+        id: true,
+        name: true,
+      },
+    },
+    songs: {
+      select: {
+        id: true,
+        name: true,
+        songUrl: true,
+      },
+    },
+  };
+
   async create(artistId: string, dto: CreateAlbumDto) {
+    this.verifyYearAlbum(dto.year);
     const data: Prisma.AlbumCreateInput = {
       ...dto,
       artist: {
@@ -22,60 +47,33 @@ export class AlbumService {
     return await this.prisma.album
       .create({
         data,
-        select: {
-          id: true,
-          name: true,
-          image: true,
-          artist: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
+        select: this.albumSelect,
       })
       .catch(handleError);
   }
 
-  async findAll(artistId: string) {
-    const albums = await this.prisma.artist
-      .findMany({
-        where: { id: artistId },
-        select: {
-          name: true,
-          albums: {
-            select: {
-              id: true,
-              name: true,
-              image: true,
-            },
-          },
-        },
+  async findOne(albumId: string) {
+    const record = await this.prisma.album
+      .findUnique({
+        where: { id: albumId },
+        select: this.albumSelect,
       })
       .catch(handleError);
 
-    if (albums[0].albums.length === 0) {
-      throw new NotFoundException('No album found');
+    if (!record) {
+      throw new NotFoundException(`Album with ID '${albumId}' not found`);
     }
-
-    return albums;
-  }
-
-  async findOne(artistId: string, albumId: string) {
-    return await this.findOneAlbumInArtist(artistId, albumId);
+    return record;
   }
 
   async update(artistId: string, albumId: string, dto: UpdateAlbumDto) {
     await this.findOneAlbumInArtist(artistId, albumId);
+    this.verifyYearAlbum(dto.year);
     return await this.prisma.album
       .update({
         where: { id: albumId },
         data: { ...dto },
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
+        select: this.albumSelect,
       })
       .catch(handleError);
   }
@@ -88,7 +86,7 @@ export class AlbumService {
   }
 
   async findOneAlbumInArtist(artistId: string, albumId: string) {
-    const record = await this.prisma.artist
+    const albumInArtist = await this.prisma.artist
       .findUnique({
         where: { id: artistId },
         select: {
@@ -96,19 +94,21 @@ export class AlbumService {
             where: {
               id: albumId,
             },
-            select: {
-              id: true,
-              name: true,
-              image: true,
-            },
           },
         },
       })
       .catch(handleError);
 
-    if (record.albums.length === 0) {
+    if (albumInArtist.albums.length === 0) {
       throw new NotFoundException(`Album with ID '${albumId}' not found`);
     }
-    return record;
+  }
+
+  verifyYearAlbum(year: Number) {
+    if (year < 1900 || year > 2022) {
+      throw new BadRequestException(
+        'The cannot be less than 1900 or greater than 2022',
+      );
+    }
   }
 }

@@ -17,8 +17,8 @@ import { UserProfileId } from 'src/auth/dto/logged-profile-type';
 import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdatePlanDto } from './dto/update-plan.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('user')
@@ -75,6 +75,19 @@ export class UserController {
     @Body() dto: UpdateUserDto,
   ) {
     return this.userService.updateMyAccount(userProfileId.user.id, dto);
+  }
+
+  @Patch('update-my-plan')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Edit user plan logged - (ONLY USER)',
+  })
+  updateMyPlan(
+    @LoggedUser() userProfileId: UserProfileId,
+    @Body() dto: UpdatePlanDto,
+  ) {
+    return this.userService.updateMyPlan(userProfileId.user.id, dto);
   }
 
   @Delete('/delete-my-account')

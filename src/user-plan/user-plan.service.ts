@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateUserPlanDto } from './dto/create-user-plan.dto';
@@ -18,7 +18,7 @@ export class UserPlanService {
   }
 
   async findAll() {
-    return await this.prisma.userPlan
+    const userPlan = await this.prisma.userPlan
       .findMany({
         select: {
           id: true,
@@ -28,9 +28,16 @@ export class UserPlanService {
         },
       })
       .catch(handleError);
+
+    if (userPlan.length === 0) {
+      throw new NotFoundException('No user plan not found');
+    }
+
+    return userPlan;
   }
 
   async findOne(id: string) {
+    await this.verifyUserPlanIdExist(id);
     return await this.prisma.userPlan
       .findUnique({
         where: { id },
@@ -39,6 +46,8 @@ export class UserPlanService {
   }
 
   async update(id: string, dto: UpdateUserPlanDto) {
+    await this.verifyUserPlanIdExist(id);
+
     const data: Partial<UserPlan> = { ...dto };
 
     return await this.prisma.userPlan
@@ -50,6 +59,17 @@ export class UserPlanService {
   }
 
   async delete(id: string) {
+    await this.verifyUserPlanIdExist(id);
     await this.prisma.userPlan.delete({ where: { id } }).catch(handleError);
+  }
+
+  async verifyUserPlanIdExist(userPlanId: string) {
+    const userPlan = await this.prisma.userPlan.findUnique({
+      where: { id: userPlanId },
+    });
+
+    if (!userPlan) {
+      throw new NotFoundException('User plan not found');
+    }
   }
 }

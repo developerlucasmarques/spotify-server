@@ -91,6 +91,14 @@ export class AdminService {
 
   async delete(id: string) {
     await this.findById(id);
+    const manager = await this.prisma.admin.findUnique({
+      where: { id },
+    });
+
+    if (manager.userCategoryName === 'manager') {
+      throw new BadRequestException('Manager cannot be deleted');
+    }
+    
     await this.prisma.admin.delete({ where: { id } }).catch(handleError);
   }
 

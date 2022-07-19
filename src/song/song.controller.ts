@@ -1,24 +1,24 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
-import { SongService } from './song.service';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Artist } from 'src/artist/entities/artist.entity';
+import { LoggedArtist } from 'src/auth/logged-artist.decorator';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 import { CreateSongDto } from './dto/create-song.dto';
 import { UpdateSongDto } from './dto/update-song.dto';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { LoggedArtist } from 'src/auth/logged-artist.decorator';
-import { Artist } from 'src/artist/entities/artist.entity';
-import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/user/entities/user.entity';
-import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { SongService } from './song.service';
 
 @ApiTags('song')
 @UseGuards(AuthGuard())
@@ -48,28 +48,28 @@ export class SongController {
   @ApiOperation({
     summary: 'View a song by Id - (ONLY USER)',
   })
-  findOne(@LoggedUser() user: User, @Param('id') songId: string) {
+  findOne(@LoggedUser() user: User, @Param('songID') songId: string) {
     return this.songService.findOne(songId);
   }
 
-  @Patch('/update-artist/:id')
+  @Patch('/update/:songID')
   @ApiOperation({
     summary: 'Edit an song of the artist who is logged in - (ONLY ARTIST)',
   })
   update(
     @LoggedArtist() artist: Artist,
-    @Param('id') songId: string,
+    @Param('songID') songId: string,
     @Body() dto: UpdateSongDto,
   ) {
     return this.songService.update(artist.id, songId, dto);
   }
 
-  @Delete(':id')
+  @Delete('/delete/:songID')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Remove a song by Id - (ONLY ARTIST)',
   })
-  delete(@LoggedArtist() artist: Artist, @Param('id') songId: string) {
+  delete(@LoggedArtist() artist: Artist, @Param('songID') songId: string) {
     return this.songService.delete(artist.id, songId);
   }
 }

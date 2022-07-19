@@ -12,7 +12,9 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Admin } from 'src/admin/entities/admin.entity';
 import { UserProfileId } from 'src/auth/dto/logged-profile-type';
+import { LoggedAdmin } from 'src/auth/logged-admin.decorator';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { AddSongPlaylistDto } from './dto/create-playlist-song.dto';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
@@ -164,5 +166,32 @@ export class PlaylistController {
       userProfileId.profileId,
       playlistId,
     );
+  }
+
+  @Post('spotify-create')
+  @ApiOperation({
+    summary:
+      'Create a playlist from the platform linked to the Spotify profile - (ONLY ADMIN)',
+  })
+  spotifyPlaylistCreate(
+    @LoggedAdmin() admin: Admin,
+    @Body()
+    dto: CreatePlaylistDto,
+  ) {
+    return this.playlistService.spotifyPlaylistCreate(dto);
+  }
+
+  @Delete('spotify-delete/:playlistID')
+  @ApiOperation({
+    summary:
+      'Delete a playlist from the platform linked to the Spotify profile - (ONLY ADMIN)',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  spotifyPlaylistDelete(
+    @LoggedAdmin() admin: Admin,
+    @Param('playlistID')
+    playlistId: string,
+  ) {
+    return this.playlistService.spotifyPlaylistDelete(playlistId);
   }
 }

@@ -52,7 +52,7 @@ export class AdminController {
 
   @Patch('/update')
   @ApiOperation({
-    summary: 'Edit an admin logged - (ADMIN)',
+    summary: 'Edit an admin logged - (ADMIN - MANAGER)',
   })
   update(@LoggedAdmin() admin: Admin, @Body() dto: UpdateAdminDto) {
     return this.adminService.update(admin.id, dto);

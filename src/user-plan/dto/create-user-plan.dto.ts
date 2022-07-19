@@ -1,16 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, Length, Min } from 'class-validator';
 
 export class CreateUserPlanDto {
   @IsString()
-  @IsNotEmpty()
+  @Length(2, 30)
   @ApiProperty({
     description: 'The name of the User Plan.',
     example: 'Free',
   })
   name: string;
 
-  @IsNumber()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
   @IsNotEmpty()
   @ApiProperty({
     description: 'The price of the User Plan.',
@@ -19,15 +20,16 @@ export class CreateUserPlanDto {
   price: number;
 
   @IsNumber()
+  @Min(1)
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The number accounts of the User Plan.',
+    description: 'Number of profiles the user can have.',
     example: 1,
   })
   accounts: number;
 
   @IsString()
-  @IsNotEmpty()
+  @Length(10, 500)
   @ApiProperty({
     description: 'The description of the User Plan.',
     example:

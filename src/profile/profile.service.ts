@@ -6,6 +6,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
+import { verifyProfileIdInToken } from 'src/utils/verifyProfileIdInToken';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { Profile } from './entities/profile.entity';
@@ -89,6 +90,7 @@ export class ProfileService {
   }
 
   async update(userId: string, profileId: string, dto: UpdateProfileDto) {
+    verifyProfileIdInToken(profileId);
     this.findOneProfileInUser(userId, profileId);
 
     const data: Partial<Profile> = { ...dto };
@@ -107,6 +109,7 @@ export class ProfileService {
   }
 
   async delete(userId: string, profileId: string) {
+    verifyProfileIdInToken(profileId);
     await this.findOneProfileInUser(userId, profileId);
     await this.prisma.profile
       .delete({ where: { id: profileId } })

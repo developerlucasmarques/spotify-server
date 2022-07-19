@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUrl, Length } from 'class-validator';
 
 export class CreateAlbumDto {
   @IsNotEmpty()
   @IsString()
+  @Length(1, 40)
   @ApiProperty({
     description: 'Name of Album',
     example: 'Use Yoru Illusion I',
@@ -20,6 +21,7 @@ export class CreateAlbumDto {
 
   @IsNotEmpty()
   @IsUrl()
+  @Length(5, 300)
   @ApiProperty({
     description: 'Image Url of Album',
     example: 'https://image-album.jpg',

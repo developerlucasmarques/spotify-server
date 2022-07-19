@@ -8,13 +8,23 @@ export const LoggedUser = createParamDecorator((_, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest();
   const userObject = request.user;
 
-  if (userObject.user.userCategoryName !== 'user') {
+  if (
+    userObject.userCategoryName === 'artist' ||
+    userObject.userCategoryName === 'admin' ||
+    userObject.userCategoryName === 'manager'
+  ) {
     throw new UnauthorizedException(
       'User does not have permission to access this route',
     );
   }
 
-  delete userObject.user.password;
+  if (userObject.user.userCategoryName === 'user') {
+    delete userObject.user.password;
 
-  return userObject;
+    return userObject;
+  } else {
+    throw new UnauthorizedException(
+      'User does not have permission to access this route',
+    );
+  }
 });

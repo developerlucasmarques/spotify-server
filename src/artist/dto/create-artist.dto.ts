@@ -4,14 +4,14 @@ import {
   IsNotEmpty,
   IsString,
   IsUrl,
+  IsUUID,
+  Length,
   Matches,
-  MaxLength,
-  MinLength,
 } from 'class-validator';
 
 export class CreateArtistDto {
   @IsString()
-  @IsNotEmpty()
+  @Length(1, 50)
   @ApiProperty({
     description: 'The name of the artist.',
     example: "Guns N' Roses",
@@ -19,6 +19,7 @@ export class CreateArtistDto {
   name: string;
 
   @IsUrl()
+  @Length(1, 300)
   @ApiProperty({
     description: 'The image of the artist.',
     example: 'https://i.scdn.co/image/ab6761610000e5eb50defaf9fc059a1efc541f4c',
@@ -26,9 +27,7 @@ export class CreateArtistDto {
   image: string;
 
   @IsString()
-  @IsNotEmpty()
-  @MinLength(11)
-  @MaxLength(14)
+  @Length(11, 14)
   @ApiProperty({
     description: 'The cpf of the artist.',
     example: '321.654.987-01',
@@ -36,7 +35,7 @@ export class CreateArtistDto {
   cpf: string;
 
   @IsEmail()
-  @IsNotEmpty()
+  @Length(5, 50)
   @ApiProperty({
     description: 'The email of the artist.',
     example: 'artist@artist.com',
@@ -44,7 +43,7 @@ export class CreateArtistDto {
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @Length(8, 50)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Password too weak',
   })
@@ -63,7 +62,7 @@ export class CreateArtistDto {
   confirmPassword: string;
 
   @IsString()
-  @IsNotEmpty()
+  @Length(10, 300)
   @ApiProperty({
     description: 'The about of the artist.',
     example:
@@ -71,7 +70,7 @@ export class CreateArtistDto {
   })
   about: string;
 
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   @ApiProperty({
     description: 'The country of the artist.',
