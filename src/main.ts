@@ -22,7 +22,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Spotify-Server')
     .setDescription(
-      'Este projeto foi desenvolvido no quinto módulo do curso de back-end da Blue EdTech com foco em aprimorar nossas habilidades em criar uma API que utilize TypeScript, NestJs, Prisma ORM e PostgreSQL. Para ter mais informações de como usar a API e acessar as rotas que necessitam de um Profile, acesse essa página 🚀🚀🚀 https://mlucasdev.github.io/spotify-server-documentation-client/ 🚀🚀🚀',
+      'Este projeto foi desenvolvido no quinto módulo do curso de back-end da Blue EdTech com foco em aprimorar nossas habilidades em criar uma API que utilize TypeScript, NestJs, Prisma ORM e PostgreSQL. Caso queira criar um novo admim, irá necessitar logar como Manager, email: manager@manager.com - senha: padrão. Para ter mais informações de como usar a API e acessar as rotas que necessitam de um Profile, acesse essa página    . . . 🚀🚀🚀 https://mlucasdev.github.io/spotify-server-documentation-client/ 🚀🚀🚀 . . .   ',
     )
     .setVersion('1.0.0')
     .addTag('status')
