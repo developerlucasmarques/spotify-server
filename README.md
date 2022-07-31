@@ -43,10 +43,6 @@ Este projeto foi desenvolvido no quinto módulo do curso de back-end da Blue EdT
 
 ## Execução
 
-Esse é talvez o tópico mais importante, faça com atenção.
-
-Através das informações especificadas nele, outras pessoas poderam visualizar e testar o funcionamento da sua aplicação.
-
 Após ter configurado o projeto e ter aguardado a instalação das dependencias de desenvolvimento, execute o comando:
 
 ```
@@ -77,12 +73,13 @@ Após ter configurado o projeto e ter aguardado a instalação das dependencias 
 
 <img src="https://i.imgur.com/TvYGO0W.png" width="520"> <br><br>
 
-<!-- ## Links
+## Links
+- **API** - [https://spotify-server-blue.herokuapp.com/api/](https://spotify-server-blue.herokuapp.com/api/)
+- **DOCUMENTACIO** - [https://mlucasdev.github.io/spotify-server-documentation-client/](https://mlucasdev.github.io/spotify-server-documentation-client/)
 
-Mesmo que as informações possam estar sendo apresentadas no seu código, pode ocorrer de algumas pessoas não terem total entendimento sobre o que foi proposto ou determinados termos técnicos, você pode incluir um resumo dos links mais úteis para leitura dessas termos, por exemplo.
+## Stacks Utilizadas
 
-- [Guia de Markdown](https://docs.pipz.com/central-de-ajuda/learning-center/guia-basico-de-markdown#open)
-- [Como formatar o Readme?](https://medium.com/@raullesteves/github-como-fazer-um-readme-md-bonit%C3%A3o-c85c8f154f8#:~:text=md%20%C3%A9%20um%20arquivo%20markdown,tags%20tamb%C3%A9m%20funcionam%2C%20veremos%20adiante.&text=Basta%20copiar%20o%20que%20o,e%20colar%20no%20README.md.) -->
+- NestJs, TypeScript, JavaScript, Express, Swagger, Bcrypt, JWT
 
 
 ## Contribuições
