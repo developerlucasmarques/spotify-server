@@ -75,7 +75,7 @@ Após ter configurado o projeto e ter aguardado a instalação das dependencias 
 
 ## Links
 - **API** - [https://spotify-server-blue.herokuapp.com/api/](https://spotify-server-blue.herokuapp.com/api/)
-- **DOCUMENTACIO** - [https://mlucasdev.github.io/spotify-server-documentation-client/](https://mlucasdev.github.io/spotify-server-documentation-client/)
+- **DOCUMENTAÇÃO** - [https://mlucasdev.github.io/spotify-server-documentation-client/](https://mlucasdev.github.io/spotify-server-documentation-client/)
 
 ## Stacks Utilizadas
 
