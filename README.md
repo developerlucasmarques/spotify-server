@@ -99,3 +99,4 @@ General Public License [GNU](https://www.gnu.org/licenses/gpl-3.0.html).
 ## Agradecimentos
 
 Agradecemos a [Blue EdTech](https://www.linkedin.com/school/blue-edtech/mycompany/) pelo ensinamento e oportunidade de podermos colocar em prática tudo que aprendemos nos módulos passados. Agradecemos também aos professores [Leo Ruiz](https://www.linkedin.com/in/leonardoorabona/), [Marcus Silva](https://www.linkedin.com/in/marcusvinysilva/) e [Paulo Salvatore](https://www.linkedin.com/in/salvatorepaulo/)
+ 
